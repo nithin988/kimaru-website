@@ -1,0 +1,96 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter";
+
+/* Kimaru design tokens (Figma set, shadcn variable names) plus website brand additions. */
+:root {
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --primary: #0f172a;
+  --primary-foreground: #f8fafc;
+  --secondary: #f1f5f9;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --border: #e2e8f0;
+  --destructive: #dc2626;
+  --ring: #94a3b8;
+
+  --chart-1: #0369a1;
+  --chart-4: #6d28d9;
+  --chart-5: #047857;
+
+  --kimaru-active: #008080;
+  --kimaru-agent: #5215a3;
+  --kimaru-panel: #f8fafc;
+  --kimaru-highlight: #fefce8;
+  --kimaru-agent-gradient: linear-gradient(90deg, #0284c7 0%, #5eead4 24%, #6d28d9 62%, #4f46e5 100%);
+
+  /* Logo colors, taken from the kimaru.ai logo */
+  --brand: #253b7f;
+  --brand-soft: #eef2fb;
+  --logo-blue: #518de0;
+  --logo-purple: #6f33bf;
+  --logo-teal: #5aaeb0;
+
+  --font-sans: 'Inter Variable', 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-ring: var(--ring);
+  --color-active: var(--kimaru-active);
+  --color-agent: var(--kimaru-agent);
+  --color-panel: var(--kimaru-panel);
+  --color-brand: var(--brand);
+  --color-brand-soft: var(--brand-soft);
+  --color-logo-blue: var(--logo-blue);
+  --color-logo-purple: var(--logo-purple);
+  --color-logo-teal: var(--logo-teal);
+  --font-sans: var(--font-sans);
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { text-wrap: balance; letter-spacing: -0.025em; }
+:focus-visible { outline: 2px solid var(--kimaru-active); outline-offset: 2px; }
+
+.grad-text {
+  background: var(--kimaru-agent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Timeline bars grow once when scrolled into view. Without .play they are fully drawn. */
+.lane.play .bar { animation: grow 0.9s cubic-bezier(.2,.7,.2,1) both; transform-origin: left center; }
+.lane.play .bar:nth-child(2) { animation-delay: .12s; }
+.lane.play .bar:nth-child(3) { animation-delay: .24s; }
+.lane.play .bar:nth-child(4) { animation-delay: .36s; }
+.lane.play .bar:nth-child(5) { animation-delay: .48s; }
+@keyframes grow { from { transform: scaleX(0); opacity: .4; } to { transform: scaleX(1); opacity: 1; } }
+
+@keyframes fade-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.fade-in { animation: fade-in .3s ease both; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .lane.play .bar, .fade-in { animation: none; }
+}

@@ -1,0 +1,78 @@
+import { ChevronDown } from 'lucide-react';
+import { BOOK_URL, Button, Container, Section, SectionHead, asset } from './ui';
+
+const faqs = [
+  { q: 'Does Kimaru replace human judgment?', a: 'No. Kimaru compares the options and recommends one. The person with the authority accepts, adjusts, defers or escalates, and the reasoning is kept on record.' },
+  { q: 'Do we have to replace or rewire our ERP?', a: 'No. Kimaru works next to your ERP, supply chain tools, spreadsheets, databases and APIs. A first pilot can run from controlled files or read-only access, with no write-back.' },
+  { q: 'How is this different from Copilot or Claude?', a: 'An assistant answers a request. Kimaru keeps the options, the rules, the approval and the result together for a recurring decision. Assistants can still be used to carry out what has been approved.' },
+  { q: 'What do we need to get started?', a: 'One recurring decision, the person who owns it, and a sample of the data they use today. Files are fine. We scope the rest in the walkthrough.' },
+  { q: 'Where does our data live?', a: 'In your AWS account, in a private Kimaru-managed tenant, or in an agreed on-premises or private-cloud design. Your learning stays with your company.' },
+];
+
+export function Faq() {
+  return (
+    <Section id="faq" tone="alt">
+      <SectionHead eyebrow="Common questions" title="Things buyers ask first." />
+      <div className="max-w-3xl divide-y divide-border rounded-xl border border-border bg-card">
+        {faqs.map((f) => (
+          <details key={f.q} className="group px-5 py-4">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold text-primary">
+              {f.q}
+              <ChevronDown size={18} className="shrink-0 text-muted-foreground transition-transform group-open:rotate-180" />
+            </summary>
+            <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+export function Closing() {
+  return (
+    <section id="book" className="py-16">
+      <Container>
+        <div className="relative overflow-hidden rounded-[20px] bg-brand px-6 py-16 text-center text-white sm:px-10">
+          <div className="absolute inset-x-0 top-0 h-1" style={{ background: 'var(--kimaru-agent-gradient)' }} />
+          <h2 className="mx-auto max-w-[14em] text-[clamp(32px,5vw,54px)] font-extrabold leading-[1.05] text-white">Show us one hard decision.</h2>
+          <p className="mx-auto mb-7 mt-4 max-w-[34em] text-lg text-white/85">Thirty minutes. Bring a decision your team keeps making the hard way and we will show you the route.</p>
+          <Button href={BOOK_URL} variant="light" size="lg">
+            Book a Decision Walkthrough
+          </Button>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+export function Footer() {
+  const col = (title: string, items: Array<[string, string]>) => (
+    <div>
+      <h4 className="mb-2.5 text-xs font-semibold uppercase tracking-[0.08em] text-foreground">{title}</h4>
+      {items.map(([l, h]) => (
+        <a key={l} href={h} className="block py-1 text-sm text-muted-foreground no-underline hover:text-foreground">
+          {l}
+        </a>
+      ))}
+    </div>
+  );
+  return (
+    <footer className="pb-10 pt-6">
+      <Container>
+        <div className="grid grid-cols-2 gap-8 md:grid-cols-[1.4fr_repeat(3,1fr)]">
+          <div className="col-span-2 md:col-span-1">
+            <img src={asset('logo.png')} alt="kimaru.ai" className="h-7 w-auto" />
+            <p className="mt-3 max-w-[24em] text-sm text-muted-foreground">The Enterprise Decision Operating System for manufacturing and supply chains. Backed by Alchemist Accelerator.</p>
+          </div>
+          {col('Product', [['What it is', '#edos'], ['How it works', '#how'], ['Trust and security', '#trust']])}
+          {col('Solutions', [['Production readiness', '#start'], ['Supplier and cost', '#start'], ['Inventory and allocation', '#start']])}
+          {col('Company', [['About', 'https://kimaru.ai/about-us/'], ['Blog', 'https://kimaru.ai/blog/'], ['Contact', 'https://kimaru.ai/contact-us/']])}
+        </div>
+        <div className="mt-9 flex flex-wrap justify-between gap-3 border-t border-border pt-5 text-[13px] text-muted-foreground">
+          <span>© Kimaru AI, Inc.</span>
+          <span>Product screens are synthetic demo data. Design preview, not the live site.</span>
+        </div>
+      </Container>
+    </footer>
+  );
+}
