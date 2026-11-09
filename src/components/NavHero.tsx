@@ -84,7 +84,7 @@ export function Hero() {
           {/* Left supporting screen, turned in toward the centre */}
           <Parallax factor={3} className="relative z-0 hidden lg:block lg:-mr-10">
             <div className="tilt-l floaty">
-              <BrowserFrame src="screens/production-hub.png" alt="Kimaru Work Hub listing open material shortage decisions" title="Work Hub" aspect="4 / 5" imgClassName="object-left-top scale-[1.05] origin-top-left" className="shadow-2xl" />
+              <BrowserFrame src="screens/uc-hub.png" alt="Kimaru Work Hub listing a typhoon alert and the components it affects" title="Work Hub" aspect="4 / 5" imgClassName="object-left-top" fade compact className="shadow-2xl" />
             </div>
           </Parallax>
 
@@ -92,18 +92,18 @@ export function Hero() {
           <div className="relative z-10">
             <Depth>
               <BrowserFrame
-                src="screens/production-recs.png"
-                alt="Kimaru recommendations screen for a typhoon alert, listing at-risk components, their order fulfillment risk and the recommended action with its predicted outcome"
+                src="screens/uc-compare.png"
+                alt="Kimaru recommendations page for a typhoon alert, listing every component at risk with its stock, backlog, order fulfillment risk and confidence"
                 title="Decide on recommendations"
-                aspect="2000 / 940"
+                aspect="1440 / 745"
                 mobileAspect="1 / 1"
-                imgClassName="max-md:object-[50%_100%] max-md:scale-[1.45] max-md:origin-[50%_100%]"
+                imgClassName="max-md:object-[56%_100%] max-md:scale-[1.3] max-md:origin-[56%_100%]"
               >
-                <span className="ping-soft absolute left-[38%] top-[74%] hidden items-center gap-1.5 rounded-full bg-brand px-3 py-1.5 text-xs font-semibold text-white shadow-lg md:flex">
-                  <Check size={12} /> Predicted outcome
+                <span className="ping-soft absolute left-[47%] top-[22%] hidden items-center gap-1.5 rounded-full bg-brand px-3 py-1.5 text-xs font-semibold text-white shadow-lg md:flex">
+                  <Check size={12} /> Risk for every component
                 </span>
-                <span className="absolute right-[2%] top-[74%] hidden items-center gap-1.5 rounded-full bg-agent px-3 py-1.5 text-xs font-semibold text-white shadow-lg md:flex">
-                  <PlugZap size={12} /> Accept, ask the agent, defer
+                <span className="absolute right-[3%] top-[22%] hidden items-center gap-1.5 rounded-full bg-agent px-3 py-1.5 text-xs font-semibold text-white shadow-lg md:flex">
+                  <PlugZap size={12} /> Ask the agent, or defer
                 </span>
               </BrowserFrame>
             </Depth>
@@ -112,7 +112,7 @@ export function Hero() {
           {/* Right supporting screen */}
           <Parallax factor={5} className="relative z-0 hidden lg:block lg:-ml-10">
             <div className="tilt-r floaty-b">
-              <BrowserFrame src="screens/production-tracker.png" alt="Kimaru Decision Tracker showing on-time delivery rate by product line" title="Decision Tracker" aspect="4 / 5" imgClassName="object-right-bottom" className="shadow-2xl">
+              <BrowserFrame src="screens/uc-learn.png" alt="Kimaru Decision Tracker showing on-time delivery rate by product line" title="Decision Tracker" aspect="4 / 5" imgClassName="object-right-top" fade compact className="shadow-2xl">
                 <span className="absolute left-2 top-2 flex items-center gap-1 rounded-full bg-active px-2.5 py-1 text-[11px] font-semibold text-white">
                   <TrendingUp size={11} /> Expected vs actual
                 </span>

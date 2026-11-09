@@ -178,3 +178,8 @@ h1, h2, h3 { text-wrap: balance; letter-spacing: -0.025em; }
 @media (prefers-reduced-motion: reduce) {
   .beam::after, .flow-line { animation: none; }
 }
+
+/* Lenis smooth scroll */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }

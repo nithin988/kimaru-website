@@ -69,6 +69,8 @@ export function BrowserFrame({
   imgClassName,
   aspect = '2000 / 1250',
   mobileAspect,
+  fade,
+  compact,
   children,
 }: {
   src: string;
@@ -78,6 +80,10 @@ export function BrowserFrame({
   imgClassName?: string;
   aspect?: string;
   mobileAspect?: string;
+  /** Softly fades the bottom of the screenshot, for decorative crops that stop mid-screen. */
+  fade?: boolean;
+  /** Narrow decorative frames: no right-hand label, titles stay on one line. */
+  compact?: boolean;
   children?: ReactNode;
 }) {
   return (
@@ -86,11 +92,17 @@ export function BrowserFrame({
         <span className="size-2.5 rounded-full bg-border" />
         <span className="size-2.5 rounded-full bg-border" />
         <span className="size-2.5 rounded-full bg-border" />
-        <span className="ml-2 font-semibold text-foreground">{title}</span>
-        <span className="ml-auto hidden text-[11px] sm:inline">Synthetic demo data</span>
+        <span className="ml-2 whitespace-nowrap font-semibold text-foreground">{title}</span>
+        {!compact && <span className="ml-auto hidden text-[11px] sm:inline">Synthetic demo data</span>}
       </div>
       <div className="relative w-full overflow-hidden [aspect-ratio:var(--arm,var(--ar))] md:[aspect-ratio:var(--ar)]" style={{ ['--ar' as string]: aspect, ['--arm' as string]: mobileAspect }}>
-        <img src={asset(src)} alt={alt} loading="lazy" className={cn('absolute inset-0 h-full w-full object-cover', !imgClassName?.includes('object-') && 'object-top', imgClassName)} />
+        <img
+          src={asset(src)}
+          alt={alt}
+          loading="lazy"
+          className={cn('absolute inset-0 h-full w-full object-cover', !imgClassName?.includes('object-') && 'object-top', imgClassName)}
+          style={fade ? { WebkitMaskImage: 'linear-gradient(to bottom, #000 62%, transparent 100%)', maskImage: 'linear-gradient(to bottom, #000 62%, transparent 100%)' } : undefined}
+        />
         {children}
       </div>
     </div>

@@ -132,7 +132,7 @@ export function Results() {
           <h3 className="text-2xl font-bold text-primary">Every decision is tracked against what was expected.</h3>
           <p className="mt-2 text-base leading-relaxed text-muted-foreground">The Decision Tracker shows each outcome over time, so you can see which decisions paid off and which missed.</p>
         </div>
-        <BrowserFrame src="screens/production-tracker.png" alt="Kimaru Decision Tracker showing on-time delivery rate by product line over six months" title="Decision Tracker" aspect="2000 / 860" imgClassName="object-bottom" />
+        <BrowserFrame src="screens/uc-learn.png" alt="Kimaru Decision Tracker showing on-time delivery rate by product line over six months" title="Decision Tracker" aspect="1440 / 662" />
       </Reveal>
     </Section>
   );

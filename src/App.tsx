@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import Lenis from 'lenis';
 import { Nav, Hero } from './components/NavHero';
 import { Glance, WhyNow, Team } from './components/Facts';
 import { Problem } from './components/Problem';
@@ -20,6 +21,32 @@ export default function App() {
     };
     document.addEventListener('pointermove', move, { passive: true });
     return () => document.removeEventListener('pointermove', move);
+  }, []);
+  // Smooth, inertial scrolling (Lenis, MIT). Skipped when the visitor prefers reduced motion.
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const lenis = new Lenis({ duration: 1.05, easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+    let raf = 0;
+    const loop = (time: number) => {
+      lenis.raf(time);
+      raf = requestAnimationFrame(loop);
+    };
+    raf = requestAnimationFrame(loop);
+    const onClick = (ev: MouseEvent) => {
+      const link = (ev.target as HTMLElement | null)?.closest?.('a[href^="#"]') as HTMLAnchorElement | null;
+      const id = link?.getAttribute('href')?.slice(1);
+      const target = id ? document.getElementById(id) : null;
+      if (target) {
+        ev.preventDefault();
+        lenis.scrollTo(target, { offset: -72 });
+      }
+    };
+    document.addEventListener('click', onClick);
+    return () => {
+      document.removeEventListener('click', onClick);
+      cancelAnimationFrame(raf);
+      lenis.destroy();
+    };
   }, []);
   return (
     <>

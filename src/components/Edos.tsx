@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Bot, Brain, Cable, Database, GitBranch, History, LayoutGrid, MonitorSmartphone, ShieldCheck, Sparkles } from 'lucide-react';
+import { Bot, Brain, Cable, Database, GitBranch, History, LayoutGrid, MonitorSmartphone, ScrollText, ShieldCheck, Sparkles } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { BrowserFrame, Section, SectionHead, cn, useInView } from './ui';
 import { Reveal } from './motion';
@@ -18,7 +18,7 @@ type Layer = {
   short: string;
   body: string;
   replaces: string;
-  img?: { src: string; title: string; pos?: string };
+  img?: { src: string; title: string; aspect: string };
   chips?: string[];
 };
 
@@ -33,13 +33,13 @@ const layers: Layer[] = [
     id: 'causal', tier: 'Core services', icon: Brain, title: 'Causal models and simulation', short: 'What drives the outcome',
     body: 'Levers, outside factors and outcomes are mapped, so each option can be tested before anyone commits to it.',
     replaces: 'Gut feel about what will happen',
-    img: { src: 'screens/production-causal.png', title: 'Causal AI Modeler', pos: 'object-top' },
+    img: { src: 'screens/uc-model.png', title: 'Causal AI Modeler', aspect: '1440 / 760' },
   },
   {
     id: 'gov', tier: 'Core services', icon: ShieldCheck, title: 'Governance', short: 'Who has the authority',
     body: 'Accept, adjust or defer each recommendation. Approval rules decide who can commit, and every choice is recorded with its reason.',
     replaces: 'Approvals buried in email',
-    img: { src: 'screens/production-review.png', title: 'Review recommendations', pos: 'object-top' },
+    img: { src: 'screens/uc-act.png', title: 'Review recommendations', aspect: '1440 / 775' },
   },
   {
     id: 'agents', tier: 'Core services', icon: Bot, title: 'Agent orchestration', short: 'AI tools act within limits',
@@ -51,7 +51,7 @@ const layers: Layer[] = [
     id: 'memory', tier: 'Core services', icon: History, title: 'Decision memory', short: 'Results and lessons kept',
     body: 'Expected versus actual, per decision and per outcome. The next person starts with what the company already learned.',
     replaces: 'Knowledge that walks out with one expert',
-    img: { src: 'screens/production-tracker.png', title: 'Decision Tracker', pos: 'scale-[1.2] origin-bottom-right' },
+    img: { src: 'screens/uc-learn.png', title: 'Decision Tracker', aspect: '1440 / 662' },
   },
   {
     id: 'connect', tier: 'Connectors', icon: Cable, title: 'Connectors', short: 'Whatever you already run',
@@ -101,7 +101,7 @@ function Stack() {
   };
   const tiers: Layer['tier'][] = ['Decision apps', 'Core services', 'Connectors'];
   return (
-    <div ref={ref} className="mt-14 grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.3fr)]">
+    <div ref={ref} className="grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.3fr)]">
       <div className="rounded-xl border border-brand bg-brand p-4 sm:p-5">
         <p className="mb-3 text-xs font-semibold uppercase tracking-[0.08em] text-white/75">Kimaru Enterprise Decision Operating System</p>
         <div className="grid gap-3">
@@ -150,7 +150,7 @@ function Stack() {
           Replaces: <b className="ml-1 font-semibold text-foreground">{cur.replaces}</b>
         </p>
         {cur.img && (
-          <BrowserFrame className="mt-5" src={cur.img.src} alt={`${cur.img.title} screen in Kimaru`} title={cur.img.title} aspect="2000 / 1050" imgClassName={cur.img.pos} />
+          <BrowserFrame className="mt-5" src={cur.img.src} alt={`${cur.img.title} screen in Kimaru`} title={cur.img.title} aspect={cur.img.aspect} />
         )}
         {cur.chips && (
           <div className="mt-5 flex flex-wrap gap-2">
@@ -166,6 +166,80 @@ function Stack() {
   );
 }
 
+const shared = [
+  { icon: Database, t: 'Your data', b: 'Connected once, used by every decision.' },
+  { icon: ScrollText, t: 'Your rules', b: 'Constraints and policies written once.' },
+  { icon: ShieldCheck, t: 'Your approvals', b: 'Authority limits decide who can commit.' },
+  { icon: History, t: 'One memory', b: 'What happened and what worked, kept.' },
+];
+const apps = ['Production readiness', 'Supplier and cost', 'Inventory and allocation'];
+
+/** Why "operating system": an explainer on the left and a small diagram of apps sharing one foundation on the right. */
+function WhyOs() {
+  return (
+    <div className="mt-8 grid items-stretch gap-5 lg:grid-cols-2">
+      <Reveal className="lift flex flex-col justify-center rounded-2xl border border-border bg-card p-6 sm:p-8">
+        <div className="flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[0.09em] text-muted-foreground">
+          <span className="grid size-8 place-items-center rounded-lg bg-brand-soft text-brand">
+            <MonitorSmartphone size={17} />
+          </span>
+          Why "operating system"?
+        </div>
+        <h3 className="mt-4 text-[clamp(24px,3vw,32px)] font-extrabold leading-[1.12] text-primary">Many decision apps. One shared foundation.</h3>
+        <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+          An operating system lets many apps share the same resources safely. Kimaru does that for decisions: production, supplier and inventory decisions share your data, your rules, your approvals and one memory of what worked.
+        </p>
+        <p className="mt-4 rounded-xl bg-secondary px-4 py-3 text-sm leading-relaxed text-foreground">
+          <b>Without it,</b> every decision is its own spreadsheet, its own thread and its own approval. <b>With it,</b> the second decision starts where the first one finished.
+        </p>
+      </Reveal>
+
+      <Reveal delay={120} className="rounded-2xl border border-border bg-panel p-5 sm:p-7">
+        <p className="text-center text-[11px] font-semibold uppercase tracking-[0.1em] text-muted-foreground">Decision apps</p>
+        <div className="mt-3 grid grid-cols-3 gap-2.5">
+          {apps.map((a, n) => (
+            <div key={a} className={cn('rounded-xl border px-2.5 py-3 text-center text-[12px] font-semibold leading-tight sm:text-[13px]', n === 1 ? 'border-brand bg-brand text-white' : 'border-border bg-card text-primary')}>
+              {a}
+            </div>
+          ))}
+        </div>
+
+        <div className="relative mx-auto my-1 h-12 w-full" aria-hidden="true">
+          <svg viewBox="0 0 300 48" preserveAspectRatio="none" className="absolute inset-0 h-full w-full">
+            {[50, 150, 250].map((x, n) => (
+              <g key={x}>
+                <path d={`M ${x} 0 C ${x} 24, 150 24, 150 48`} fill="none" stroke="#cbd5e1" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
+                <path d={`M ${x} 0 C ${x} 24, 150 24, 150 48`} fill="none" stroke="url(#os-g)" strokeWidth="2.5" strokeLinecap="round" vectorEffect="non-scaling-stroke" className="flow-line" style={{ animationDelay: `${n * 0.2}s` }} />
+              </g>
+            ))}
+            <defs>
+              <linearGradient id="os-g" x1="0" x2="1">
+                <stop offset="0%" stopColor="#518de0" />
+                <stop offset="100%" stopColor="#6f33bf" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <p className="text-center text-[11px] font-semibold uppercase tracking-[0.1em] text-muted-foreground">Shared by every app</p>
+        <div className="mt-3 grid grid-cols-2 gap-2.5">
+          {shared.map(({ icon: I, t, b }) => (
+            <div key={t} className="flex items-start gap-3 rounded-xl border border-border bg-card p-3.5">
+              <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-brand-soft text-brand">
+                <I size={18} />
+              </span>
+              <div className="min-w-0">
+                <p className="text-sm font-bold leading-tight text-primary">{t}</p>
+                <p className="mt-0.5 text-xs leading-snug text-muted-foreground">{b}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Reveal>
+    </div>
+  );
+}
+
 export function Edos() {
   return (
     <Section id="edos" tone="alt">
@@ -175,12 +249,12 @@ export function Edos() {
         body="You already have tools for the first two. Nothing in your stack owns the decision itself."
       />
       <Jobs />
-      <div className="mt-8 flex max-w-3xl items-start gap-4 rounded-xl border border-dashed border-border bg-card px-5 py-4">
-        <MonitorSmartphone size={22} className="mt-0.5 shrink-0 text-brand" />
-        <p className="text-base leading-relaxed">
-          <b className="text-primary">Why "operating system"?</b> An operating system lets many apps share the same resources safely. Kimaru does that for decisions: production, supplier and inventory decisions share your data, your rules, your approvals and one memory of what worked.
-        </p>
-      </div>
+      <WhyOs />
+      <Reveal className="mb-6 mt-16 flex items-center gap-4">
+        <span className="h-px flex-1 bg-border" />
+        <p className="text-center text-xs font-semibold uppercase tracking-[0.1em] text-muted-foreground">Inside Kimaru. Pick a layer.</p>
+        <span className="h-px flex-1 bg-border" />
+      </Reveal>
       <Stack />
     </Section>
   );
