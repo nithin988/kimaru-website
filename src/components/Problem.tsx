@@ -98,7 +98,7 @@ export function Problem() {
           ))}
         </div>
         <Reveal delay={150}>
-          <BrowserFrame src="screens/work-hub.png" alt="Kimaru Work Hub listing every open decision with its owner and recommendations" title="Work Hub: every open decision in one place" aspect="2000 / 1130" />
+          <BrowserFrame src="screens/production-hub.png" alt="Kimaru Work Hub listing every open decision with its owner and recommendations" title="Work Hub: every open decision in one place" aspect="2000 / 1130" />
           <p className="mt-3 text-sm text-muted-foreground">
             <b className="text-foreground">The fix starts with one place</b> where every open decision, its facts and its owner are visible.
           </p>

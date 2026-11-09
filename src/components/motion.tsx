@@ -53,8 +53,13 @@ export function Reveal({
   const style: CSSProperties | undefined = done
     ? undefined
     : state === 'hidden'
-      ? { opacity: 0, transform: `translateY(${y}px)` }
-      : { opacity: 1, transform: 'none', transition: `opacity .7s ease ${delay}ms, transform .7s cubic-bezier(.2,.7,.2,1) ${delay}ms` };
+      ? { opacity: 0, transform: `translateY(${y}px) scale(.985)`, filter: 'blur(6px)' }
+      : {
+          opacity: 1,
+          transform: 'none',
+          filter: 'none',
+          transition: `opacity .9s ease ${delay}ms, transform 1s cubic-bezier(.22,1,.36,1) ${delay}ms, filter .9s ease ${delay}ms`,
+        };
   return (
     <Tag ref={ref} className={className} style={style}>
       {children}
@@ -142,4 +147,56 @@ export function ScrollProgress() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
   return <div ref={ref} aria-hidden="true" className="absolute inset-x-0 bottom-[-1px] h-[2px] origin-left" style={{ background: 'var(--kimaru-agent-gradient)', transform: 'scaleX(0)' }} />;
+}
+
+/**
+ * Depth for a hero screen: it eases down in scale as you scroll past and tilts toward the pointer,
+ * the way product pages on Apple devices behave. Both effects are off when motion is reduced.
+ */
+export function Depth({ children, className }: { children: ReactNode; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || reduced()) return;
+    let raf = 0;
+    let rx = 0;
+    let ry = 0;
+    const apply = () => {
+      raf = 0;
+      const p = Math.min(1, window.scrollY / 700);
+      el.style.transform = `perspective(1600px) rotateX(${rx}deg) rotateY(${ry}deg) scale(${1 - 0.06 * p})`;
+      el.style.borderRadius = `${12 + 14 * p}px`;
+    };
+    const queue = () => {
+      if (!raf) raf = requestAnimationFrame(apply);
+    };
+    const move = (e: PointerEvent) => {
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      ry = x * 5;
+      rx = -y * 4;
+      queue();
+    };
+    const leave = () => {
+      rx = 0;
+      ry = 0;
+      queue();
+    };
+    window.addEventListener('scroll', queue, { passive: true });
+    el.addEventListener('pointermove', move);
+    el.addEventListener('pointerleave', leave);
+    apply();
+    return () => {
+      window.removeEventListener('scroll', queue);
+      el.removeEventListener('pointermove', move);
+      el.removeEventListener('pointerleave', leave);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+  return (
+    <div ref={ref} className={className} style={{ transition: 'transform .35s cubic-bezier(.22,1,.36,1)', transformOrigin: '50% 30%', willChange: 'transform' }}>
+      {children}
+    </div>
+  );
 }

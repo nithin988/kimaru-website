@@ -1,6 +1,6 @@
 import { ArrowRight, Check, PlugZap, TrendingUp } from 'lucide-react';
 import { BOOK_URL, BrowserFrame, Button, Container, Eyebrow, asset } from './ui';
-import { Parallax, ScrollProgress } from './motion';
+import { Depth, Parallax, ScrollProgress } from './motion';
 import { Marquee } from './Marquee';
 
 const links = [
@@ -14,7 +14,7 @@ const links = [
 
 export function Nav() {
   return (
-    <header className="sticky top-0 z-30 border-b border-border bg-white/90 backdrop-blur">
+    <header className="sticky top-0 z-30 border-b border-border/70 bg-white/70 backdrop-blur-xl backdrop-saturate-150">
       <Container className="flex h-[68px] items-center gap-6">
         <a href="#top" aria-label="kimaru.ai home" className="flex shrink-0 items-center">
           <img src={asset('logo.png')} alt="kimaru.ai" className="h-7 w-auto sm:h-8" />
@@ -81,29 +81,31 @@ export function Hero() {
 
       <Container className="rise rise-6 relative mt-12 pb-28">
         <div className="relative">
+          <Depth>
           <BrowserFrame
-            src="screens/recommendation-detail.png"
-            alt="Kimaru recommendations screen showing a recommendation, its predicted outcome and the Accept, Agent and Defer actions"
+            src="screens/production-recs.png"
+            alt="Kimaru recommendations screen for a typhoon alert, listing at-risk components, their order fulfillment risk and the recommended action with its predicted outcome"
             title="Decide on recommendations"
             aspect="2000 / 940"
           >
-            <span className="ping-soft absolute left-[41%] top-[74%] hidden items-center gap-1.5 rounded-full bg-brand px-3 py-1.5 text-xs font-semibold text-white shadow-lg md:flex">
+            <span className="ping-soft absolute left-[47%] top-[74%] hidden items-center gap-1.5 rounded-full bg-brand px-3 py-1.5 text-xs font-semibold text-white shadow-lg md:flex">
               <Check size={12} /> Predicted outcome for every recommendation
             </span>
             <span className="absolute right-[2%] top-[74%] hidden items-center gap-1.5 rounded-full bg-agent px-3 py-1.5 text-xs font-semibold text-white shadow-lg md:flex">
               <PlugZap size={12} /> Accept, ask the agent, or defer
             </span>
           </BrowserFrame>
+          </Depth>
 
           {/* Two supporting screens float over the corners and drift at different speeds */}
           <Parallax factor={4} className="pointer-events-none absolute -left-4 -bottom-24 hidden w-[28%] lg:block xl:-left-12">
             <div className="floaty">
-              <BrowserFrame src="screens/work-hub.png" alt="Kimaru Work Hub listing open decisions" title="Work Hub" aspect="2000 / 1150" className="shadow-2xl" />
+              <BrowserFrame src="screens/production-hub.png" alt="Kimaru Work Hub listing open decisions" title="Work Hub" aspect="2000 / 1150" className="shadow-2xl" />
             </div>
           </Parallax>
           <Parallax factor={9} className="pointer-events-none absolute -bottom-28 -right-4 hidden w-[26%] lg:block xl:-right-12">
             <div className="floaty-b">
-              <BrowserFrame src="screens/decision-tracker.png" alt="Kimaru Decision Tracker with expected and actual outcomes" title="Decision Tracker" aspect="2000 / 1150" className="shadow-2xl">
+              <BrowserFrame src="screens/production-tracker.png" alt="Kimaru Decision Tracker with expected and actual outcomes" title="Decision Tracker" aspect="2000 / 1150" className="shadow-2xl" imgClassName="scale-[1.2] origin-bottom-right">
                 <span className="absolute right-2 top-2 flex items-center gap-1 rounded-full bg-active px-2.5 py-1 text-[11px] font-semibold text-white">
                   <TrendingUp size={11} /> Expected vs actual
                 </span>

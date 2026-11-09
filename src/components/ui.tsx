@@ -29,7 +29,7 @@ export function Button({ variant = 'brand', size = 'md', className, ...rest }: B
     <a
       {...rest}
       className={cn(
-        'inline-flex items-center justify-center gap-2 rounded-lg border font-semibold no-underline transition-colors',
+        'inline-flex items-center justify-center gap-2 rounded-xl border font-semibold no-underline transition-[background-color,transform,box-shadow] duration-300 ease-[cubic-bezier(.22,1,.36,1)] hover:-translate-y-px hover:shadow-md active:translate-y-0 active:scale-[0.97]',
         size === 'lg' ? 'h-12 px-6 text-[15px]' : 'h-10 px-4 text-sm',
         v,
         className,
@@ -88,7 +88,7 @@ export function BrowserFrame({
         <span className="ml-auto hidden text-[11px] sm:inline">Synthetic demo data</span>
       </div>
       <div className="relative w-full overflow-hidden" style={{ aspectRatio: aspect }}>
-        <img src={asset(src)} alt={alt} loading="lazy" className={cn('absolute inset-0 h-full w-full object-cover object-top', imgClassName)} />
+        <img src={asset(src)} alt={alt} loading="lazy" className={cn('absolute inset-0 h-full w-full object-cover', !imgClassName?.includes('object-') && 'object-top', imgClassName)} />
         {children}
       </div>
     </div>

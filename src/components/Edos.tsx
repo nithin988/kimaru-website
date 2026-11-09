@@ -33,13 +33,13 @@ const layers: Layer[] = [
     id: 'causal', tier: 'Core services', icon: Brain, title: 'Causal models and simulation', short: 'What drives the outcome',
     body: 'Levers, outside factors and outcomes are mapped, so each option can be tested before anyone commits to it.',
     replaces: 'Gut feel about what will happen',
-    img: { src: 'screens/causal-diagram.png', title: 'Causal AI Modeler', pos: 'object-top' },
+    img: { src: 'screens/production-causal.png', title: 'Causal AI Modeler', pos: 'object-top' },
   },
   {
     id: 'gov', tier: 'Core services', icon: ShieldCheck, title: 'Governance', short: 'Who has the authority',
     body: 'Accept, adjust or defer each recommendation. Approval rules decide who can commit, and every choice is recorded with its reason.',
     replaces: 'Approvals buried in email',
-    img: { src: 'screens/review-step.png', title: 'Review recommendations', pos: 'object-top' },
+    img: { src: 'screens/production-review.png', title: 'Review recommendations', pos: 'object-top' },
   },
   {
     id: 'agents', tier: 'Core services', icon: Bot, title: 'Agent orchestration', short: 'AI tools act within limits',
@@ -51,7 +51,7 @@ const layers: Layer[] = [
     id: 'memory', tier: 'Core services', icon: History, title: 'Decision memory', short: 'Results and lessons kept',
     body: 'Expected versus actual, per decision and per outcome. The next person starts with what the company already learned.',
     replaces: 'Knowledge that walks out with one expert',
-    img: { src: 'screens/decision-tracker.png', title: 'Decision Tracker', pos: 'object-top' },
+    img: { src: 'screens/production-tracker.png', title: 'Decision Tracker', pos: 'scale-[1.2] origin-bottom-right' },
   },
   {
     id: 'connect', tier: 'Connectors', icon: Cable, title: 'Connectors', short: 'Whatever you already run',

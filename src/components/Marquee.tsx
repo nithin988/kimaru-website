@@ -38,7 +38,7 @@ function Logo({ item }: { item: Item }) {
   const l = brandLogos[item.key];
   const h = l.w / l.h > 2.2 ? 20 : 28; // wordmarks sit a little shorter than square marks
   return (
-    <li className="group flex shrink-0 items-center gap-2.5 rounded-xl border border-border bg-card px-4 py-2.5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md">
+    <li className="group flex shrink-0 items-center gap-2.5 rounded-xl border border-border bg-card px-4 py-2.5 shadow-sm">
       <svg
         role="img"
         aria-label={item.name}
@@ -54,8 +54,8 @@ function Logo({ item }: { item: Item }) {
 
 function Row({ items, reverse, speed }: { items: Item[]; reverse?: boolean; speed: number }) {
   return (
-    <div className={cn('marquee overflow-hidden', reverse && 'rev')} style={{ ['--speed' as string]: `${speed}s` }}>
-      <ul className="marquee-track m-0 flex w-max list-none gap-3 p-0">
+    <div className={cn('marquee -my-3 overflow-hidden py-3', reverse && 'rev')} style={{ ['--speed' as string]: `${speed}s` }}>
+      <ul className="marquee-track dock m-0 flex w-max list-none gap-3 p-0">
         {[...items, ...items].map((it, i) => (
           <Logo key={`${it.key}-${i}`} item={it} />
         ))}

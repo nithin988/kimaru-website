@@ -10,9 +10,9 @@ const decisions = [
     q: 'Which plan do we authorize when material, labor and due dates do not line up?',
     who: 'Plant managers, production planners, operations VPs',
     verbs: ['Resequence', 'Split', 'Expedite', 'Defer'],
-    shot: 'screens/work-hub.png',
-    f: [0.36, 0.3, 1.8] as const,
-    cap: 'Work Hub',
+    shot: 'screens/production-recs.png',
+    f: [0.45, 0.56, 1.7] as const,
+    cap: 'Component risk by order',
   },
   {
     icon: PackageSearch,
@@ -20,9 +20,9 @@ const decisions = [
     q: 'Do we buy now, wait, substitute or renegotiate when a price or lead time moves?',
     who: 'Procurement, sourcing and finance leaders',
     verbs: ['Buy', 'Wait', 'Substitute', 'Renegotiate'],
-    shot: 'screens/recommendation-detail.png',
-    f: [0.55, 0.57, 1.9] as const,
-    cap: 'Recommendations',
+    shot: 'screens/supplier-hub.png',
+    f: [0.4, 0.28, 1.7] as const,
+    cap: 'Tariff and BOM exposure',
   },
   {
     icon: Boxes,
@@ -30,9 +30,9 @@ const decisions = [
     q: 'Who gets the stock we have when demand is higher than supply?',
     who: 'Supply chain, logistics and customer commitments teams',
     verbs: ['Allocate', 'Hold', 'Transfer', 'Rebalance'],
-    shot: 'screens/decision-tracker.png',
-    f: [0.3, 0.3, 1.6] as const,
-    cap: 'Decision Tracker',
+    shot: 'screens/work-hub.png',
+    f: [0.36, 0.3, 1.8] as const,
+    cap: 'Stock and truck loading',
   },
 ];
 
@@ -119,16 +119,16 @@ export function Results() {
           <h3 className="text-2xl font-bold text-primary">Every decision is tracked against what was expected.</h3>
           <p className="mt-2 text-base leading-relaxed text-muted-foreground">The Decision Tracker shows each outcome over time, so you can see which decisions paid off and which missed.</p>
         </div>
-        <BrowserFrame src="screens/decision-tracker.png" alt="Kimaru Decision Tracker with outcome cards and a trend chart by region" title="Decision Tracker" aspect="2000 / 860" />
+        <BrowserFrame src="screens/production-tracker.png" alt="Kimaru Decision Tracker showing on-time delivery rate by product line over six months" title="Decision Tracker" aspect="2000 / 860" imgClassName="object-bottom" />
       </Reveal>
     </Section>
   );
 }
 
 const pilot = [
-  { t: 'Define', b: 'Pick one recurring decision. We map who decides, what data they use and how it is made today.', shot: 'screens/causal-diagram.png', f: [0.45, 0.3, 1.7] as const, cap: 'The decision, mapped' },
-  { t: 'Shadow mode', b: 'Kimaru recommends alongside your team and changes nothing in your systems. Your people still decide.', shot: 'screens/review-step.png', f: [0.35, 0.3, 1.8] as const, cap: 'Your people still decide' },
-  { t: 'Measure', b: 'Compare each recommendation with what happened. Expand only if the numbers justify it.', shot: 'screens/decision-tracker.png', f: [0.5, 0.45, 1.5] as const, cap: 'Expected vs actual' },
+  { t: 'Define', b: 'Pick one recurring decision. We map who decides, what data they use and how it is made today.', shot: 'screens/production-causal.png', f: [0.45, 0.3, 1.7] as const, cap: 'The decision, mapped' },
+  { t: 'Shadow mode', b: 'Kimaru recommends alongside your team and changes nothing in your systems. Your people still decide.', shot: 'screens/production-review.png', f: [0.35, 0.3, 1.8] as const, cap: 'Your people still decide' },
+  { t: 'Measure', b: 'Compare each recommendation with what happened. Expand only if the numbers justify it.', shot: 'screens/production-tracker.png', f: [0.5, 0.55, 1.5] as const, cap: 'Expected vs actual' },
 ];
 
 export function Pilot() {
