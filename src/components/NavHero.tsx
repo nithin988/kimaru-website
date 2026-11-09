@@ -96,6 +96,8 @@ export function Hero() {
                 alt="Kimaru recommendations screen for a typhoon alert, listing at-risk components, their order fulfillment risk and the recommended action with its predicted outcome"
                 title="Decide on recommendations"
                 aspect="2000 / 940"
+                mobileAspect="1 / 1"
+                imgClassName="max-md:object-[50%_100%] max-md:scale-[1.45] max-md:origin-[50%_100%]"
               >
                 <span className="ping-soft absolute left-[38%] top-[74%] hidden items-center gap-1.5 rounded-full bg-brand px-3 py-1.5 text-xs font-semibold text-white shadow-lg md:flex">
                   <Check size={12} /> Predicted outcome

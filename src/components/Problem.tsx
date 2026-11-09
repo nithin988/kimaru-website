@@ -37,20 +37,19 @@ function Lane({ title, badge, steps, good, legend }: { title: string; badge: str
             style={{ left: `${(s.start / 4) * 100}%`, width: `calc(${(s.len / 4) * 100}% - 3px)` }}
             title={s.label}
           >
-            {!legend && <span className="line-clamp-3">{s.label}</span>}
+            {!legend && <span className="line-clamp-3 hidden sm:inline">{s.label}</span>}
           </div>
         ))}
       </div>
-      {legend && (
-        <ol className="m-0 mt-3 flex list-none flex-wrap gap-x-5 gap-y-1 p-0 text-[13px] font-medium text-foreground">
-          {steps.map((s, n) => (
-            <li key={s.label} className="flex items-center gap-2">
-              <span className="grid size-5 place-items-center rounded-full bg-active text-[11px] font-bold text-white">{n + 1}</span>
-              {s.label}
-            </li>
-          ))}
-        </ol>
-      )}
+      {/* Numbered legend: always for the Kimaru lane, and on phones for the Today lane where the bars are too narrow for labels */}
+      <ol className={cn('m-0 mt-3 flex list-none flex-wrap gap-x-5 gap-y-1 p-0 text-[13px] font-medium text-foreground', !legend && 'sm:hidden')}>
+        {steps.map((s, n) => (
+          <li key={s.label} className="flex items-center gap-2">
+            <span className={cn('grid size-5 place-items-center rounded-full text-[11px] font-bold text-white', good ? 'bg-active' : 'bg-slate-500')}>{n + 1}</span>
+            {s.label}
+          </li>
+        ))}
+      </ol>
       <div className="mt-2 grid grid-cols-4 border-t border-dashed border-border pt-1.5 text-[11px] font-medium text-muted-foreground">
         {['Day 1', 'Day 2', 'Day 3', 'Day 4'].map((d) => (
           <span key={d}>{d}</span>

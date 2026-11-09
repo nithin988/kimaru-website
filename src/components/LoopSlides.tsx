@@ -98,10 +98,10 @@ export function LoopSlides() {
 
   const body = (
     <div className="grid gap-8 lg:grid-cols-[minmax(0,0.62fr)_minmax(0,1.38fr)]">
-      <div>
-        <ol className="m-0 grid list-none gap-2 p-0" role="tablist" aria-label="Decision loop steps">
+      <div className="min-w-0">
+        <ol className="m-0 -mx-1 flex list-none gap-2 overflow-x-auto p-1 pb-2 lg:mx-0 lg:grid lg:overflow-visible lg:p-0" role="tablist" aria-label="Decision loop steps">
           {slides.map((sl, n) => (
-            <li key={sl.step}>
+            <li key={sl.step} className="shrink-0 max-lg:min-w-[150px]">
               <button
                 role="tab"
                 aria-selected={n === i}

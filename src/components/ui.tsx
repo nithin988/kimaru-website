@@ -68,6 +68,7 @@ export function BrowserFrame({
   className,
   imgClassName,
   aspect = '2000 / 1250',
+  mobileAspect,
   children,
 }: {
   src: string;
@@ -76,6 +77,7 @@ export function BrowserFrame({
   className?: string;
   imgClassName?: string;
   aspect?: string;
+  mobileAspect?: string;
   children?: ReactNode;
 }) {
   return (
@@ -87,7 +89,7 @@ export function BrowserFrame({
         <span className="ml-2 font-semibold text-foreground">{title}</span>
         <span className="ml-auto hidden text-[11px] sm:inline">Synthetic demo data</span>
       </div>
-      <div className="relative w-full overflow-hidden" style={{ aspectRatio: aspect }}>
+      <div className="relative w-full overflow-hidden [aspect-ratio:var(--arm,var(--ar))] md:[aspect-ratio:var(--ar)]" style={{ ['--ar' as string]: aspect, ['--arm' as string]: mobileAspect }}>
         <img src={asset(src)} alt={alt} loading="lazy" className={cn('absolute inset-0 h-full w-full object-cover', !imgClassName?.includes('object-') && 'object-top', imgClassName)} />
         {children}
       </div>

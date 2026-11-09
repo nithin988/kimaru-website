@@ -34,9 +34,9 @@ export function Closing() {
       <Container>
         <div className="relative overflow-hidden rounded-[20px] bg-brand px-6 py-16 text-center text-white sm:px-10">
           <div className="shimmer absolute inset-x-0 top-0 h-1" style={{ background: 'linear-gradient(90deg, #0284c7, #5eead4, #6d28d9, #4f46e5, #0284c7, #5eead4)' }} />
-          <span className="floaty pointer-events-none absolute left-[7%] top-[22%] size-7 rotate-45 rounded-lg bg-logo-blue/70" />
-          <span className="floaty-b pointer-events-none absolute bottom-[18%] right-[8%] size-9 rotate-45 rounded-xl bg-logo-purple/70" />
-          <span className="floaty pointer-events-none absolute bottom-[14%] left-[16%] size-5 rotate-45 rounded-md bg-logo-teal/80" />
+          <span className="floaty pointer-events-none absolute max-sm:hidden left-[7%] top-[22%] size-7 rotate-45 rounded-lg bg-logo-blue/70" />
+          <span className="floaty-b pointer-events-none absolute max-sm:hidden bottom-[18%] right-[8%] size-9 rotate-45 rounded-xl bg-logo-purple/70" />
+          <span className="floaty pointer-events-none absolute max-sm:hidden bottom-[14%] left-[16%] size-5 rotate-45 rounded-md bg-logo-teal/80" />
           <h2 className="mx-auto max-w-[14em] text-[clamp(32px,5vw,54px)] font-extrabold leading-[1.05] text-white">Show us one hard decision.</h2>
           <p className="mx-auto mb-7 mt-4 max-w-[34em] text-lg text-white/85">Thirty minutes. Bring a decision your team keeps making the hard way and we will show you the route. Investors and partners are welcome too.</p>
           <div className="flex flex-wrap justify-center gap-3">
@@ -44,7 +44,7 @@ export function Closing() {
               Book a Decision Walkthrough
             </Button>
             <Button href={BOOK_URL} size="lg" className="border-white/40 bg-white/10 text-white hover:bg-white/20">
-              Investors and partners: talk to the founders
+              <span className="sm:hidden">Investors and partners</span><span className="max-sm:hidden">Investors and partners: talk to the founders</span>
             </Button>
           </div>
         </div>
