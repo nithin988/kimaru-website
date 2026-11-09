@@ -1,5 +1,6 @@
 import { AlertTriangle, FileSpreadsheet, FileX, UserX } from 'lucide-react';
-import { Section, SectionHead, cn, useInView } from './ui';
+import { BrowserFrame, Section, SectionHead, cn, useInView } from './ui';
+import { Reveal } from './motion';
 
 type Step = { label: string; start: number; len: number; lost?: string; tone: 'slate' | 'red' | 'teal' };
 
@@ -80,16 +81,28 @@ export function Problem() {
       <p className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
         <AlertTriangle size={12} /> Illustrative walk-through of one material-shortage decision. Timings vary by company.
       </p>
-      <div className="mt-10 grid gap-4 md:grid-cols-3">
-        {lost.map(({ icon: I, title, body }) => (
-          <div key={title} className="rounded-xl border border-border bg-card p-6">
-            <div className="mb-4 grid size-10 place-items-center rounded-[10px] bg-red-50 text-destructive">
-              <I size={20} />
-            </div>
-            <h3 className="text-lg font-bold text-primary">{title}</h3>
-            <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{body}</p>
-          </div>
-        ))}
+      <div className="mt-12 grid items-center gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+        <div className="grid gap-4">
+          {lost.map(({ icon: I, title, body }, n) => (
+            <Reveal key={title} delay={n * 110}>
+              <div className="lift flex gap-4 rounded-xl border border-border bg-card p-5">
+                <div className="grid size-11 shrink-0 place-items-center rounded-[10px] bg-red-50 text-destructive">
+                  <I size={22} />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-primary">{title}</h3>
+                  <p className="mt-1.5 text-[15px] leading-relaxed text-muted-foreground">{body}</p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal delay={150}>
+          <BrowserFrame src="screens/work-hub.png" alt="Kimaru Work Hub listing every open decision with its owner and recommendations" title="Work Hub: every open decision in one place" aspect="2000 / 1130" />
+          <p className="mt-3 text-sm text-muted-foreground">
+            <b className="text-foreground">The fix starts with one place</b> where every open decision, its facts and its owner are visible.
+          </p>
+        </Reveal>
       </div>
     </Section>
   );

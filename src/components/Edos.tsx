@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Bot, Brain, Cable, Database, GitBranch, History, LayoutGrid, MonitorSmartphone, ShieldCheck, Sparkles } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import { BrowserFrame, Section, SectionHead, cn } from './ui';
+import { BrowserFrame, Section, SectionHead, cn, useInView } from './ui';
+import { Reveal } from './motion';
 
 const jobs = [
   { who: 'Systems of record', title: 'Record what happened', body: 'Orders, inventory, shipments and costs, stored accurately.', eg: 'ERP, WMS, TMS, spreadsheets', icon: Database },
@@ -63,8 +64,8 @@ const layers: Layer[] = [
 function Jobs() {
   return (
     <div className="grid gap-4 md:grid-cols-3">
-      {jobs.map(({ who, title, body, eg, icon: I, us }) => (
-        <div key={who} className={cn('flex min-w-0 flex-col gap-3 rounded-xl border p-6', us ? 'border-brand bg-brand text-white' : 'border-border bg-card')}>
+      {jobs.map(({ who, title, body, eg, icon: I, us }, n) => (
+        <Reveal key={who} delay={n * 120} className={cn('lift flex min-w-0 flex-col gap-3 rounded-xl border p-6', us ? 'border-brand bg-brand text-white' : 'border-border bg-card')}>
           <div className="flex items-center gap-2.5">
             <span className={cn('grid size-9 place-items-center rounded-lg', us ? 'bg-white/15' : 'bg-secondary text-muted-foreground')}>
               <I size={18} />
@@ -74,18 +75,33 @@ function Jobs() {
           <h3 className={cn('text-[22px] font-bold leading-tight', us ? 'text-white' : 'text-primary')}>{title}</h3>
           <p className={cn('text-[15px] leading-relaxed', us ? 'text-white/85' : 'text-muted-foreground')}>{body}</p>
           <span className={cn('mt-auto text-[13px]', us ? 'text-white/80' : 'text-muted-foreground')}>{eg}</span>
-        </div>
+        </Reveal>
       ))}
     </div>
   );
 }
 
 function Stack() {
-  const [active, setActive] = useState('causal');
+  const [active, setActive] = useState('apps');
+  const [auto, setAuto] = useState(true);
+  const [ref, seen] = useInView<HTMLDivElement>(0.35);
   const cur = layers.find((l) => l.id === active)!;
+
+  // Walks through the layers once the section is in view, until the visitor picks one.
+  useEffect(() => {
+    if (!auto || !seen || (typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+    const t = setInterval(() => {
+      setActive((a) => layers[(layers.findIndex((l) => l.id === a) + 1) % layers.length].id);
+    }, 5200);
+    return () => clearInterval(t);
+  }, [auto, seen]);
+  const pick = (id: string) => {
+    setAuto(false);
+    setActive(id);
+  };
   const tiers: Layer['tier'][] = ['Decision apps', 'Core services', 'Connectors'];
   return (
-    <div className="mt-14 grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.3fr)]">
+    <div ref={ref} className="mt-14 grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.3fr)]">
       <div className="rounded-xl border border-brand bg-brand p-4 sm:p-5">
         <p className="mb-3 text-xs font-semibold uppercase tracking-[0.08em] text-white/75">Kimaru Enterprise Decision Operating System</p>
         <div className="grid gap-3">
@@ -98,11 +114,11 @@ function Stack() {
                   .map((l) => (
                     <button
                       key={l.id}
-                      onClick={() => setActive(l.id)}
+                      onClick={() => pick(l.id)}
                       aria-pressed={active === l.id}
                       className={cn(
-                        'flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left transition-colors',
-                        active === l.id ? 'bg-white text-primary shadow-md' : 'bg-white/10 text-white hover:bg-white/20',
+                        'flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left transition-all duration-300',
+                        active === l.id ? 'ping-soft translate-x-1 bg-white text-primary shadow-md' : 'bg-white/10 text-white hover:bg-white/20',
                         l.id === 'agents' && active !== l.id && 'bg-agent hover:bg-agent/90',
                       )}
                     >

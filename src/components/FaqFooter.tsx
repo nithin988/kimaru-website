@@ -33,7 +33,10 @@ export function Closing() {
     <section id="book" className="py-16">
       <Container>
         <div className="relative overflow-hidden rounded-[20px] bg-brand px-6 py-16 text-center text-white sm:px-10">
-          <div className="absolute inset-x-0 top-0 h-1" style={{ background: 'var(--kimaru-agent-gradient)' }} />
+          <div className="shimmer absolute inset-x-0 top-0 h-1" style={{ background: 'linear-gradient(90deg, #0284c7, #5eead4, #6d28d9, #4f46e5, #0284c7, #5eead4)' }} />
+          <span className="floaty pointer-events-none absolute left-[7%] top-[22%] size-7 rotate-45 rounded-lg bg-logo-blue/70" />
+          <span className="floaty-b pointer-events-none absolute bottom-[18%] right-[8%] size-9 rotate-45 rounded-xl bg-logo-purple/70" />
+          <span className="floaty pointer-events-none absolute bottom-[14%] left-[16%] size-5 rotate-45 rounded-md bg-logo-teal/80" />
           <h2 className="mx-auto max-w-[14em] text-[clamp(32px,5vw,54px)] font-extrabold leading-[1.05] text-white">Show us one hard decision.</h2>
           <p className="mx-auto mb-7 mt-4 max-w-[34em] text-lg text-white/85">Thirty minutes. Bring a decision your team keeps making the hard way and we will show you the route.</p>
           <Button href={BOOK_URL} variant="light" size="lg">
@@ -62,7 +65,11 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-8 md:grid-cols-[1.4fr_repeat(3,1fr)]">
           <div className="col-span-2 md:col-span-1">
             <img src={asset('logo.png')} alt="kimaru.ai" className="h-7 w-auto" />
-            <p className="mt-3 max-w-[24em] text-sm text-muted-foreground">The Enterprise Decision Operating System for manufacturing and supply chains. Backed by Alchemist Accelerator.</p>
+            <p className="mt-3 max-w-[24em] text-sm text-muted-foreground">The Enterprise Decision Operating System for manufacturing and supply chains.</p>
+            <div className="mt-4 flex items-center gap-3">
+              <span className="text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground">Backed by</span>
+              <img src={asset('alchemist.webp')} alt="Alchemist Accelerator" className="h-7 w-auto" />
+            </div>
           </div>
           {col('Product', [['What it is', '#edos'], ['How it works', '#how'], ['Trust and security', '#trust']])}
           {col('Solutions', [['Production readiness', '#start'], ['Supplier and cost', '#start'], ['Inventory and allocation', '#start']])}

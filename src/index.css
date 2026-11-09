@@ -90,7 +90,52 @@ h1, h2, h3 { text-wrap: balance; letter-spacing: -0.025em; }
 @keyframes fade-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 .fade-in { animation: fade-in .3s ease both; }
 
+/* Logo marquee: two rows moving in opposite directions, paused on hover */
+.marquee {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee-track { animation: marquee var(--speed, 50s) linear infinite; padding-left: 12px; }
+.marquee.rev .marquee-track { animation-direction: reverse; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* Hero entrance, staggered */
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+.rise { animation: rise .8s cubic-bezier(.2,.7,.2,1) both; }
+.rise-1 { animation-delay: .05s; } .rise-2 { animation-delay: .15s; } .rise-3 { animation-delay: .27s; }
+.rise-4 { animation-delay: .4s; } .rise-5 { animation-delay: .52s; } .rise-6 { animation-delay: .7s; }
+
+/* Floating product cards in the hero */
+@keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.floaty { animation: floaty 7s ease-in-out infinite; }
+.floaty-b { animation: floaty 8.5s ease-in-out -2s infinite; }
+
+/* Pulsing ring on the selected layer and live badges */
+@keyframes ping-soft { 0% { box-shadow: 0 0 0 0 rgb(0 128 128 / .45); } 100% { box-shadow: 0 0 0 12px rgb(0 128 128 / 0); } }
+.ping-soft { animation: ping-soft 1.8s ease-out infinite; }
+
+/* Slide progress fill */
+@keyframes slide-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.slide-fill { transform-origin: left; animation: slide-fill var(--dur, 6s) linear both; }
+@keyframes ken { from { transform: scale(1.045); } to { transform: scale(1); } }
+.ken { animation: ken 1.4s cubic-bezier(.2,.7,.2,1) both; transform-origin: 30% 20%; }
+
+/* Gentle shimmer along the closing banner edge */
+@keyframes shimmer { from { background-position: 0% 50%; } to { background-position: 200% 50%; } }
+.shimmer { background-size: 200% 100%; animation: shimmer 6s linear infinite; }
+
+/* Thumbnail zoom on card hover */
+.thumb-img { transition: background-size .8s cubic-bezier(.2,.7,.2,1); }
+.group:hover .thumb-img { background-size: var(--z2); }
+
+/* Card lift */
+.lift { transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease, border-color .3s ease; }
+.lift:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -20px rgb(37 59 127 / .35); border-color: var(--ring); }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .lane.play .bar, .fade-in { animation: none; }
+  .lane.play .bar, .fade-in, .rise, .floaty, .floaty-b, .ping-soft, .slide-fill, .ken, .shimmer { animation: none; }
+  .marquee { -webkit-mask-image: none; mask-image: none; }
+  .marquee-track { animation: none; flex-wrap: wrap; width: auto; padding: 0 16px; }
 }

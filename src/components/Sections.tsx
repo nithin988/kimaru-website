@@ -1,5 +1,7 @@
 import { Boxes, Cloud, FileCheck2, Factory, Lock, PackageSearch, ShieldCheck, UserCheck } from 'lucide-react';
-import { Section, SectionHead, cn, useInView, Eyebrow } from './ui';
+import { BrowserFrame, Section, SectionHead, cn, Eyebrow, useInView, Thumb } from './ui';
+import { CountUp, Reveal } from './motion';
+import { brandLogos } from '../data/brandLogos';
 
 const decisions = [
   {
@@ -8,6 +10,9 @@ const decisions = [
     q: 'Which plan do we authorize when material, labor and due dates do not line up?',
     who: 'Plant managers, production planners, operations VPs',
     verbs: ['Resequence', 'Split', 'Expedite', 'Defer'],
+    shot: 'screens/work-hub.png',
+    f: [0.36, 0.3, 1.8] as const,
+    cap: 'Work Hub',
   },
   {
     icon: PackageSearch,
@@ -15,6 +20,9 @@ const decisions = [
     q: 'Do we buy now, wait, substitute or renegotiate when a price or lead time moves?',
     who: 'Procurement, sourcing and finance leaders',
     verbs: ['Buy', 'Wait', 'Substitute', 'Renegotiate'],
+    shot: 'screens/recommendation-detail.png',
+    f: [0.55, 0.57, 1.9] as const,
+    cap: 'Recommendations',
   },
   {
     icon: Boxes,
@@ -22,6 +30,9 @@ const decisions = [
     q: 'Who gets the stock we have when demand is higher than supply?',
     who: 'Supply chain, logistics and customer commitments teams',
     verbs: ['Allocate', 'Hold', 'Transfer', 'Rebalance'],
+    shot: 'screens/decision-tracker.png',
+    f: [0.3, 0.3, 1.6] as const,
+    cap: 'Decision Tracker',
   },
 ];
 
@@ -30,8 +41,10 @@ export function Solutions() {
     <Section id="start" tone="alt">
       <SectionHead eyebrow="Where teams start" title="Start with one decision someone already owns." body="Pick the call your team keeps making the hard way. Add more decisions once the first one pays off." />
       <div className="grid gap-4 md:grid-cols-3">
-        {decisions.map(({ icon: I, title, q, who, verbs }) => (
-          <article key={title} className="flex min-w-0 flex-col gap-3.5 rounded-xl border border-border bg-card p-6">
+        {decisions.map(({ icon: I, title, q, who, verbs, shot, f, cap }, n) => (
+          <Reveal key={title} delay={n * 120} className="h-full">
+          <article className="group lift flex h-full min-w-0 flex-col gap-3.5 rounded-xl border border-border bg-card p-5">
+            <Thumb src={shot} cx={f[0]} cy={f[1]} zoom={f[2]} cap={cap} className="overflow-hidden rounded-lg border" />
             <span className="grid size-10 place-items-center rounded-[10px] bg-brand-soft text-brand">
               <I size={20} />
             </span>
@@ -46,6 +59,7 @@ export function Solutions() {
               ))}
             </div>
           </article>
+          </Reveal>
         ))}
       </div>
       <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 rounded-xl border border-active bg-teal-50 px-5 py-4 text-[15px]">
@@ -62,7 +76,7 @@ export function Results() {
   return (
     <Section id="results">
       <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
-        <div>
+        <Reveal>
           <Eyebrow>Results</Eyebrow>
           <h2 className="mt-3 text-[clamp(30px,4vw,44px)] font-extrabold leading-[1.08] text-primary">One pilot, measured.</h2>
           <p className="mt-4 text-[17px] leading-relaxed text-muted-foreground">
@@ -71,20 +85,20 @@ export function Results() {
           <p className="mt-4 rounded-lg bg-amber-100 px-4 py-2.5 text-[13px]">
             The 96% to 100% figure is a validation check against the ERP, not an on-time delivery rate. Results are from one pilot and are not universal.
           </p>
-        </div>
+        </Reveal>
         <div ref={ref} className="rounded-xl border border-border bg-card p-6">
           <Eyebrow>New orders produced on time</Eyebrow>
           <div className="mt-4 grid h-64 grid-cols-2 items-end gap-5 px-2">
             {[
               { v: 43, label: 'Before', cls: 'bg-slate-300 text-primary' },
               { v: 75, label: 'After Kimaru', cls: 'bg-active text-white' },
-            ].map((b) => (
+            ].map((b, n) => (
               <div key={b.label} className="flex h-full min-w-0 flex-col justify-end gap-2">
                 <div
-                  className={cn('flex items-start justify-center rounded-t-lg pt-2.5 text-3xl font-extrabold tabular-nums transition-[height] duration-1000 ease-out', b.cls)}
-                  style={{ height: seen ? `${b.v}%` : `${b.v}%`, transform: seen ? 'none' : 'none' }}
+                  className={cn('flex items-start justify-center overflow-hidden rounded-t-lg pt-2.5 text-3xl font-extrabold tabular-nums transition-[height] duration-[1400ms] ease-out', b.cls)}
+                  style={{ height: seen ? `${b.v}%` : '8%', transitionDelay: `${n * 250}ms` }}
                 >
-                  {b.v}%
+                  <CountUp to={b.v} suffix="%" duration={1400} />
                 </div>
                 <span className="text-center text-[13px] text-muted-foreground">{b.label}</span>
               </div>
@@ -99,14 +113,22 @@ export function Results() {
           </div>
         </div>
       </div>
+
+      <Reveal className="mt-14">
+        <div className="mb-5 max-w-2xl">
+          <h3 className="text-2xl font-bold text-primary">Every decision is tracked against what was expected.</h3>
+          <p className="mt-2 text-base leading-relaxed text-muted-foreground">The Decision Tracker shows each outcome over time, so you can see which decisions paid off and which missed.</p>
+        </div>
+        <BrowserFrame src="screens/decision-tracker.png" alt="Kimaru Decision Tracker with outcome cards and a trend chart by region" title="Decision Tracker" aspect="2000 / 860" />
+      </Reveal>
     </Section>
   );
 }
 
 const pilot = [
-  { t: 'Define', b: 'Pick one recurring decision. We map who decides, what data they use and how it is made today.' },
-  { t: 'Shadow mode', b: 'Kimaru recommends alongside your team and changes nothing in your systems. Your people still decide.' },
-  { t: 'Measure', b: 'Compare each recommendation with what happened. Expand only if the numbers justify it.' },
+  { t: 'Define', b: 'Pick one recurring decision. We map who decides, what data they use and how it is made today.', shot: 'screens/causal-diagram.png', f: [0.45, 0.3, 1.7] as const, cap: 'The decision, mapped' },
+  { t: 'Shadow mode', b: 'Kimaru recommends alongside your team and changes nothing in your systems. Your people still decide.', shot: 'screens/review-step.png', f: [0.35, 0.3, 1.8] as const, cap: 'Your people still decide' },
+  { t: 'Measure', b: 'Compare each recommendation with what happened. Expand only if the numbers justify it.', shot: 'screens/decision-tracker.png', f: [0.5, 0.45, 1.5] as const, cap: 'Expected vs actual' },
 ];
 
 export function Pilot() {
@@ -115,26 +137,31 @@ export function Pilot() {
       <SectionHead eyebrow="Start small" title="Prove it on one decision before you commit to anything." />
       <ol className="m-0 grid list-none gap-6 p-0 md:grid-cols-3">
         {pilot.map((p, n) => (
-          <li key={p.t} className="min-w-0">
+          <Reveal as="li" key={p.t} delay={n * 140} className="min-w-0">
             <div className="mb-3.5 flex items-center gap-3">
               <span className="grid size-9 place-items-center rounded-full bg-brand text-[15px] font-bold text-white">{n + 1}</span>
               {n < pilot.length - 1 && <span className="hidden flex-1 border-t-2 border-dashed border-slate-300 md:block" />}
             </div>
-            <h3 className="mb-2 text-xl font-bold text-primary">{p.t}</h3>
-            <p className="text-[15px] leading-relaxed text-muted-foreground">{p.b}</p>
-          </li>
+            <div className="group lift overflow-hidden rounded-xl border border-border bg-card">
+              <Thumb src={p.shot} cx={p.f[0]} cy={p.f[1]} zoom={p.f[2]} cap={p.cap} />
+              <div className="p-5">
+                <h3 className="mb-2 text-xl font-bold text-primary">{p.t}</h3>
+                <p className="text-[15px] leading-relaxed text-muted-foreground">{p.b}</p>
+              </div>
+            </div>
+          </Reveal>
         ))}
       </ol>
-      <div className="mt-9 flex flex-wrap items-center gap-x-4 gap-y-1 rounded-xl border border-active bg-teal-50 px-6 py-5">
+      <Reveal className="mt-9 flex flex-wrap items-center gap-x-4 gap-y-1 rounded-xl border border-active bg-teal-50 px-6 py-5">
         <b className="text-base text-primary">No write-back and no rip-and-replace.</b>
         <span className="text-[15px] text-muted-foreground">Begin with files or read-only access. Add connections once the first decision has proven itself.</span>
-      </div>
+      </Reveal>
     </Section>
   );
 }
 
 const trust = [
-  { icon: Cloud, t: 'Run it where you choose', b: 'Your AWS account, a private Kimaru-managed tenant, or on-premises.' },
+  { icon: Cloud, t: 'Run it where you choose', b: 'Your AWS account, a private Kimaru-managed tenant, or on-premises.', logo: 'aws' as const },
   { icon: Lock, t: 'Read-only to start', b: 'Files, read-only database views or scheduled API pulls. No write-back required.' },
   { icon: ShieldCheck, t: 'Humans keep authority', b: 'Every action follows your approval rules. Nothing runs without the right owner.' },
   { icon: FileCheck2, t: 'A record of every decision', b: 'What was known, what was chosen, who approved it and what happened.' },
@@ -145,12 +172,17 @@ export function Trust() {
     <Section id="trust">
       <SectionHead eyebrow="Trust and security" title="Your data stays yours." body="Enterprise teams ask about data first. These are the answers." />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {trust.map(({ icon: I, t, b }) => (
-          <div key={t} className="rounded-xl border border-border bg-card p-5">
-            <I size={26} className="mb-3 text-active" />
+        {trust.map(({ icon: I, t, b, logo }, n) => (
+          <Reveal key={t} delay={n * 90} className="lift flex flex-col rounded-xl border border-border bg-card p-5">
+            <div className="mb-3 flex items-center justify-between">
+              <I size={26} className="text-active" />
+              {logo && (
+                <svg role="img" aria-label="AWS" viewBox={`0 0 ${brandLogos[logo].w} ${brandLogos[logo].h}`} className="h-6 w-auto opacity-80" dangerouslySetInnerHTML={{ __html: brandLogos[logo].body }} />
+              )}
+            </div>
             <h3 className="mb-1.5 text-base font-bold text-primary">{t}</h3>
             <p className="text-sm leading-relaxed text-muted-foreground">{b}</p>
-          </div>
+          </Reveal>
         ))}
       </div>
       <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold text-active">

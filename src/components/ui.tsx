@@ -1,5 +1,6 @@
 import type { ReactNode, AnchorHTMLAttributes } from 'react';
 import { useEffect, useRef, useState } from 'react';
+import { Reveal } from './motion';
 
 export const asset = (p: string) => `${import.meta.env.BASE_URL}${p.replace(/^\//, '')}`;
 export const BOOK_URL = 'https://kimaru.ai/contact-us/';
@@ -43,11 +44,11 @@ export function Eyebrow({ children, className }: { children: ReactNode; classNam
 
 export function SectionHead({ eyebrow, title, body, className }: { eyebrow: string; title: ReactNode; body?: ReactNode; className?: string }) {
   return (
-    <div className={cn('mb-12 max-w-3xl', className)}>
+    <Reveal className={cn('mb-12 max-w-3xl', className)}>
       <Eyebrow>{eyebrow}</Eyebrow>
       <h2 className="mt-3 text-[clamp(30px,4vw,44px)] font-extrabold leading-[1.08] text-primary">{title}</h2>
       {body && <p className="mt-4 text-lg leading-relaxed text-muted-foreground">{body}</p>}
-    </div>
+    </Reveal>
   );
 }
 
@@ -113,4 +114,23 @@ export function useInView<T extends Element>(threshold = 0.35) {
     return () => io.disconnect();
   }, [threshold]);
   return [ref, seen] as const;
+}
+
+/**
+ * Sharp zoomed crop of a platform screenshot. cx and cy are the focal point as a fraction of the full image,
+ * zoom is how much bigger than the frame the image is drawn.
+ */
+export function Thumb({ src, cx, cy, zoom, cap, className }: { src: string; cx: number; cy: number; zoom: number; cap?: string; className?: string }) {
+  const pos = (c: number) => (zoom <= 1 ? 50 : Math.max(0, Math.min(100, ((c * zoom - 0.5) / (zoom - 1)) * 100)));
+  return (
+    <div className={cn('thumb relative aspect-[16/10] overflow-hidden border-b border-border bg-panel', className)}>
+      <div
+        role="img"
+        aria-label={cap}
+        className="thumb-img absolute inset-0"
+        style={{ backgroundImage: `url(${asset(src)})`, backgroundSize: `${zoom * 100}%`, backgroundPosition: `${pos(cx)}% ${pos(cy)}%`, backgroundRepeat: 'no-repeat', ['--z' as string]: `${zoom * 100}%`, ['--z2' as string]: `${zoom * 108}%` }}
+      />
+      {cap && <span className="absolute bottom-2 left-2 rounded-full bg-white/95 px-2.5 py-1 text-[11px] font-semibold text-foreground shadow">{cap}</span>}
+    </div>
+  );
 }

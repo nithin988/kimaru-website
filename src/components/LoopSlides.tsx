@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { BrowserFrame, Section, SectionHead, cn } from './ui';
+import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
+import { BrowserFrame, Section, SectionHead, cn, useInView } from './ui';
 
 type Slide = {
   step: string;
@@ -25,6 +25,18 @@ export function LoopSlides() {
   const [i, setI] = useState(0);
   const go = useCallback((n: number) => setI((n + slides.length) % slides.length), []);
   const s = slides[i];
+  const DUR = 6500;
+  const [playing, setPlaying] = useState(true);
+  const [hover, setHover] = useState(false);
+  const [wrapRef, seen] = useInView<HTMLDivElement>(0.3);
+  const run = playing && seen && !hover && !(typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  // Advances by itself while visible. Hover, a manual pick or the pause button stops it.
+  useEffect(() => {
+    if (!run) return;
+    const t = setTimeout(() => go(i + 1), DUR);
+    return () => clearTimeout(t);
+  }, [run, i, go]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -53,7 +65,7 @@ export function LoopSlides() {
                 <button
                   role="tab"
                   aria-selected={n === i}
-                  onClick={() => setI(n)}
+                  onClick={() => { setPlaying(false); setI(n); }}
                   className={cn(
                     'grid w-full grid-cols-[34px_minmax(0,1fr)] items-center gap-x-3.5 rounded-xl border bg-card px-4 py-3 text-left transition-shadow',
                     n === i ? 'border-active shadow-[0_0_0_1px_var(--kimaru-active)]' : 'border-border hover:border-ring',
@@ -68,9 +80,9 @@ export function LoopSlides() {
           </ol>
         </div>
 
-        <div className="min-w-0">
+        <div ref={wrapRef} className="min-w-0" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
           <div key={i} className="fade-in">
-            <BrowserFrame src={s.screen} alt={`${s.title} screen in Kimaru`} title={s.title} aspect="2000 / 1150" imgClassName={s.crop} />
+            <BrowserFrame src={s.screen} alt={`${s.title} screen in Kimaru`} title={s.title} aspect="2000 / 1150" imgClassName={s.crop?.includes('scale') ? s.crop : cn('ken', s.crop)} />
             <div className="mt-5 flex items-start gap-4">
               <div className="min-w-0 flex-1">
                 <p className="text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground">
@@ -89,10 +101,24 @@ export function LoopSlides() {
               </div>
             </div>
           </div>
-          <div className="mt-5 flex gap-1.5" aria-hidden="true">
-            {slides.map((_, n) => (
-              <span key={n} className={cn('h-1 flex-1 rounded-full', n <= i ? 'bg-active' : 'bg-border')} />
-            ))}
+          <div className="mt-5 flex items-center gap-3">
+            <div className="flex flex-1 gap-1.5" aria-hidden="true">
+              {slides.map((_, n) => (
+                <button key={n} tabIndex={-1} onClick={() => { setPlaying(false); setI(n); }} className="h-1.5 flex-1 overflow-hidden rounded-full bg-border">
+                  {n < i && <span className="block h-full w-full bg-active" />}
+                  {n === i && (
+                    <span
+                      key={`${i}-${run}`}
+                      className={cn('block h-full w-full bg-active', run && 'slide-fill')}
+                      style={{ ['--dur' as string]: `${DUR}ms`, transform: run ? undefined : 'scaleX(1)', transformOrigin: 'left' }}
+                    />
+                  )}
+                </button>
+              ))}
+            </div>
+            <button onClick={() => setPlaying((p) => !p)} aria-label={playing ? 'Pause slides' : 'Play slides'} className="grid size-8 place-items-center rounded-md border border-border bg-card text-muted-foreground hover:border-ring">
+              {playing ? <Pause size={14} /> : <Play size={14} />}
+            </button>
           </div>
         </div>
       </div>
