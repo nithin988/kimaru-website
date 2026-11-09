@@ -144,3 +144,37 @@ h1, h2, h3 { text-wrap: balance; letter-spacing: -0.025em; }
   .marquee { -webkit-mask-image: none; mask-image: none; }
   .marquee-track { animation: none; flex-wrap: wrap; width: auto; padding: 0 16px; }
 }
+
+/* Spotlight: a soft glow follows the pointer inside any .lift card (position set in App) */
+.lift { position: relative; isolation: isolate; }
+.lift::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 0;
+  background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgb(0 128 128 / .09), transparent 62%);
+  opacity: 0; transition: opacity .35s ease;
+}
+.lift:hover::before { opacity: 1; }
+.lift > * { position: relative; z-index: 1; }
+
+/* Beam: a bright arc travels around the border */
+@property --angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+.beam { position: relative; }
+.beam::after {
+  content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 2px; pointer-events: none;
+  background: conic-gradient(from var(--angle), transparent 0 68%, #5eead4 80%, #6d28d9 92%, transparent 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: beam-spin 5s linear infinite;
+}
+@keyframes beam-spin { to { --angle: 360deg; } }
+
+/* Flowing dashes along the connection lines */
+@keyframes flow { to { stroke-dashoffset: -28; } }
+.flow-line { stroke-dasharray: 4 10; animation: flow 1.2s linear infinite; }
+
+/* Hero three-up: side screens turn in toward the centre like an Apple product shot */
+.tilt-l { transform: perspective(1600px) rotateY(16deg) scale(.92); transform-origin: right center; }
+.tilt-r { transform: perspective(1600px) rotateY(-16deg) scale(.92); transform-origin: left center; }
+
+@media (prefers-reduced-motion: reduce) {
+  .beam::after, .flow-line { animation: none; }
+}

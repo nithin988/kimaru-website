@@ -1,5 +1,5 @@
 import { Boxes, Cloud, FileCheck2, Factory, Lock, PackageSearch, ShieldCheck, UserCheck } from 'lucide-react';
-import { BrowserFrame, Section, SectionHead, cn, Eyebrow, useInView, Thumb } from './ui';
+import { BrowserFrame, Section, SectionHead, cn, Eyebrow, useInView, Thumb, asset } from './ui';
 import { CountUp, Reveal } from './motion';
 import { brandLogos } from '../data/brandLogos';
 
@@ -13,6 +13,8 @@ const decisions = [
     shot: 'screens/production-recs.png',
     f: [0.45, 0.56, 1.7] as const,
     cap: 'Component risk by order',
+    photo: 'photos/factory.jpg',
+    ppos: '50% 60%',
   },
   {
     icon: PackageSearch,
@@ -23,6 +25,8 @@ const decisions = [
     shot: 'screens/supplier-hub.png',
     f: [0.4, 0.28, 1.7] as const,
     cap: 'Tariff and BOM exposure',
+    photo: 'photos/port.jpg',
+    ppos: '40% 55%',
   },
   {
     icon: Boxes,
@@ -33,6 +37,8 @@ const decisions = [
     shot: 'screens/work-hub.png',
     f: [0.36, 0.3, 1.8] as const,
     cap: 'Stock and truck loading',
+    photo: 'photos/crane.jpg',
+    ppos: '55% 40%',
   },
 ];
 
@@ -41,10 +47,17 @@ export function Solutions() {
     <Section id="start" tone="alt">
       <SectionHead eyebrow="Where teams start" title="Start with one decision someone already owns." body="Pick the call your team keeps making the hard way. Add more decisions once the first one pays off." />
       <div className="grid gap-4 md:grid-cols-3">
-        {decisions.map(({ icon: I, title, q, who, verbs, shot, f, cap }, n) => (
+        {decisions.map(({ icon: I, title, q, who, verbs, shot, f, cap, photo, ppos }, n) => (
           <Reveal key={title} delay={n * 120} className="h-full">
           <article className="group lift flex h-full min-w-0 flex-col gap-3.5 rounded-xl border border-border bg-card p-5">
-            <Thumb src={shot} cx={f[0]} cy={f[1]} zoom={f[2]} cap={cap} className="overflow-hidden rounded-lg border" />
+            <div className="relative aspect-[16/11] overflow-hidden rounded-xl">
+              <img src={asset(photo)} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-[1.06]" style={{ objectPosition: ppos }} />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/55 via-slate-900/5 to-transparent" />
+              <div className="absolute -bottom-px -right-px w-[62%] overflow-hidden rounded-tl-xl border-l border-t border-white/60 bg-white shadow-2xl transition-transform duration-700 ease-[cubic-bezier(.22,1,.36,1)] group-hover:-translate-x-1 group-hover:-translate-y-1">
+                <Thumb src={shot} cx={f[0]} cy={f[1]} zoom={f[2]} className="aspect-[16/10] border-0" />
+              </div>
+              <span className="absolute bottom-3 left-3 max-w-[34%] rounded-full bg-white/95 px-2.5 py-1 text-[11px] font-semibold leading-tight shadow">{cap}</span>
+            </div>
             <span className="grid size-10 place-items-center rounded-[10px] bg-brand-soft text-brand">
               <I size={20} />
             </span>
@@ -86,7 +99,7 @@ export function Results() {
             The 96% to 100% figure is a validation check against the ERP, not an on-time delivery rate. Results are from one pilot and are not universal.
           </p>
         </Reveal>
-        <div ref={ref} className="rounded-xl border border-border bg-card p-6">
+        <div ref={ref} className="beam rounded-xl border border-border bg-card p-6">
           <Eyebrow>New orders produced on time</Eyebrow>
           <div className="mt-4 grid h-64 grid-cols-2 items-end gap-5 px-2">
             {[

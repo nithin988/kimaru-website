@@ -65,7 +65,7 @@ function Jobs() {
   return (
     <div className="grid gap-4 md:grid-cols-3">
       {jobs.map(({ who, title, body, eg, icon: I, us }, n) => (
-        <Reveal key={who} delay={n * 120} className={cn('lift flex min-w-0 flex-col gap-3 rounded-xl border p-6', us ? 'border-brand bg-brand text-white' : 'border-border bg-card')}>
+        <Reveal key={who} delay={n * 120} className={cn('lift flex min-w-0 flex-col gap-3 rounded-xl border p-6', us ? 'beam border-brand bg-brand text-white' : 'border-border bg-card')}>
           <div className="flex items-center gap-2.5">
             <span className={cn('grid size-9 place-items-center rounded-lg', us ? 'bg-white/15' : 'bg-secondary text-muted-foreground')}>
               <I size={18} />

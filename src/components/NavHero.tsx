@@ -68,7 +68,7 @@ export function Hero() {
             Book a Decision Walkthrough <ArrowRight size={16} />
           </Button>
           <Button href="#how" variant="outline" size="lg">
-            See how it works
+            Take the 2-minute tour
           </Button>
         </div>
         <p className="rise rise-5 mt-5 inline-flex items-center gap-2.5 text-sm text-muted-foreground">
@@ -79,34 +79,39 @@ export function Hero() {
         </p>
       </Container>
 
-      <Container className="rise rise-6 relative mt-12 pb-28">
-        <div className="relative">
-          <Depth>
-          <BrowserFrame
-            src="screens/production-recs.png"
-            alt="Kimaru recommendations screen for a typhoon alert, listing at-risk components, their order fulfillment risk and the recommended action with its predicted outcome"
-            title="Decide on recommendations"
-            aspect="2000 / 940"
-          >
-            <span className="ping-soft absolute left-[47%] top-[74%] hidden items-center gap-1.5 rounded-full bg-brand px-3 py-1.5 text-xs font-semibold text-white shadow-lg md:flex">
-              <Check size={12} /> Predicted outcome for every recommendation
-            </span>
-            <span className="absolute right-[2%] top-[74%] hidden items-center gap-1.5 rounded-full bg-agent px-3 py-1.5 text-xs font-semibold text-white shadow-lg md:flex">
-              <PlugZap size={12} /> Accept, ask the agent, or defer
-            </span>
-          </BrowserFrame>
-          </Depth>
-
-          {/* Two supporting screens float over the corners and drift at different speeds */}
-          <Parallax factor={4} className="pointer-events-none absolute -left-4 -bottom-24 hidden w-[28%] lg:block xl:-left-12">
-            <div className="floaty">
-              <BrowserFrame src="screens/production-hub.png" alt="Kimaru Work Hub listing open decisions" title="Work Hub" aspect="2000 / 1150" className="shadow-2xl" />
+      <Container className="rise rise-6 relative mt-12 pb-16 max-w-[1360px]!">
+        <div className="relative grid items-center lg:grid-cols-[minmax(0,0.6fr)_minmax(0,2.3fr)_minmax(0,0.6fr)]">
+          {/* Left supporting screen, turned in toward the centre */}
+          <Parallax factor={3} className="relative z-0 hidden lg:block lg:-mr-10">
+            <div className="tilt-l floaty">
+              <BrowserFrame src="screens/production-hub.png" alt="Kimaru Work Hub listing open material shortage decisions" title="Work Hub" aspect="4 / 5" imgClassName="object-left-top scale-[1.05] origin-top-left" className="shadow-2xl" />
             </div>
           </Parallax>
-          <Parallax factor={9} className="pointer-events-none absolute -bottom-28 -right-4 hidden w-[26%] lg:block xl:-right-12">
-            <div className="floaty-b">
-              <BrowserFrame src="screens/production-tracker.png" alt="Kimaru Decision Tracker with expected and actual outcomes" title="Decision Tracker" aspect="2000 / 1150" className="shadow-2xl" imgClassName="scale-[1.2] origin-bottom-right">
-                <span className="absolute right-2 top-2 flex items-center gap-1 rounded-full bg-active px-2.5 py-1 text-[11px] font-semibold text-white">
+
+          {/* Main screen */}
+          <div className="relative z-10">
+            <Depth>
+              <BrowserFrame
+                src="screens/production-recs.png"
+                alt="Kimaru recommendations screen for a typhoon alert, listing at-risk components, their order fulfillment risk and the recommended action with its predicted outcome"
+                title="Decide on recommendations"
+                aspect="2000 / 940"
+              >
+                <span className="ping-soft absolute left-[38%] top-[74%] hidden items-center gap-1.5 rounded-full bg-brand px-3 py-1.5 text-xs font-semibold text-white shadow-lg md:flex">
+                  <Check size={12} /> Predicted outcome
+                </span>
+                <span className="absolute right-[2%] top-[74%] hidden items-center gap-1.5 rounded-full bg-agent px-3 py-1.5 text-xs font-semibold text-white shadow-lg md:flex">
+                  <PlugZap size={12} /> Accept, ask the agent, defer
+                </span>
+              </BrowserFrame>
+            </Depth>
+          </div>
+
+          {/* Right supporting screen */}
+          <Parallax factor={5} className="relative z-0 hidden lg:block lg:-ml-10">
+            <div className="tilt-r floaty-b">
+              <BrowserFrame src="screens/production-tracker.png" alt="Kimaru Decision Tracker showing on-time delivery rate by product line" title="Decision Tracker" aspect="4 / 5" imgClassName="object-right-bottom" className="shadow-2xl">
+                <span className="absolute left-2 top-2 flex items-center gap-1 rounded-full bg-active px-2.5 py-1 text-[11px] font-semibold text-white">
                   <TrendingUp size={11} /> Expected vs actual
                 </span>
               </BrowserFrame>
