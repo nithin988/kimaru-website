@@ -33,7 +33,7 @@ const layers: Layer[] = [
     id: 'causal', tier: 'Core services', icon: Brain, title: 'Causal models and simulation', short: 'What drives the outcome',
     body: 'Levers, outside factors and outcomes are mapped, so each option can be tested before anyone commits to it.',
     replaces: 'Gut feel about what will happen',
-    img: { src: 'screens/uc-model.png', title: 'Causal AI Modeler', aspect: '1440 / 760' },
+    img: { src: 'screens/uc-cdd-select.png', title: 'Causal AI Modeler: select a node to see its connections', aspect: '1440 / 900' },
   },
   {
     id: 'gov', tier: 'Core services', icon: ShieldCheck, title: 'Governance', short: 'Who has the authority',
@@ -43,9 +43,9 @@ const layers: Layer[] = [
   },
   {
     id: 'agents', tier: 'Core services', icon: Bot, title: 'Agent orchestration', short: 'AI tools act within limits',
-    body: 'Copilot, Claude and other agents carry out approved choices inside the limits you set. They help with the work. They do not own the decision.',
+    body: 'Ask Kimaru why a recommendation was made or what else you could do. Approved choices are carried out by AI tools inside the limits you set.',
     replaces: 'AI that acts on ambiguous instructions',
-    chips: ['Microsoft Copilot', 'Claude', 'Codex', 'SAP Joule', 'Your own agents'],
+    img: { src: 'screens/uc-agent.png', title: 'Agent Interaction drawer', aspect: '1440 / 900' },
   },
   {
     id: 'memory', tier: 'Core services', icon: History, title: 'Decision memory', short: 'Results and lessons kept',
@@ -246,15 +246,10 @@ export function Edos() {
       <SectionHead
         eyebrow="What an Enterprise Decision Operating System does"
         title="Your systems record. Your AI answers. Kimaru runs the decision."
-        body="You already have tools for the first two. Nothing in your stack owns the decision itself."
+        body="You already have tools for the first two. Like an operating system, Kimaru lets many decision apps share one foundation: your data, rules, approvals and memory."
       />
       <Jobs />
-      <WhyOs />
-      <Reveal className="mb-6 mt-16 flex items-center gap-4">
-        <span className="h-px flex-1 bg-border" />
-        <p className="text-center text-xs font-semibold uppercase tracking-[0.1em] text-muted-foreground">Inside Kimaru. Pick a layer.</p>
-        <span className="h-px flex-1 bg-border" />
-      </Reveal>
+      <div className="mt-12" />
       <Stack />
     </Section>
   );

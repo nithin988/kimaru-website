@@ -4,12 +4,12 @@ import { Depth, Parallax, ScrollProgress } from './motion';
 import { Marquee } from './Marquee';
 
 const links = [
+  ['Why Kimaru', '#cost'],
   ['Product', '#edos'],
   ['How it works', '#how'],
-  ['Solutions', '#start'],
-  ['Results', '#results'],
+  ['What you get', '#benefits'],
+  ['Industries', '#industries'],
   ['Trust & Security', '#trust'],
-  ['FAQ', '#faq'],
 ] as const;
 
 export function Nav() {
@@ -68,7 +68,7 @@ export function Hero() {
             Book a Decision Walkthrough <ArrowRight size={16} />
           </Button>
           <Button href="#how" variant="outline" size="lg">
-            Take the 2-minute tour
+            See how it works
           </Button>
         </div>
         <p className="rise rise-5 mt-5 inline-flex items-center gap-2.5 text-sm text-muted-foreground">

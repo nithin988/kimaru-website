@@ -2,11 +2,10 @@ import { ChevronDown } from 'lucide-react';
 import { BOOK_URL, Button, Container, Section, SectionHead, asset } from './ui';
 
 const faqs = [
-  { q: 'Does Kimaru replace human judgment?', a: 'No. Kimaru compares the options and recommends one. The person with the authority accepts, adjusts, defers or escalates, and the reasoning is kept on record.' },
-  { q: 'Do we have to replace or rewire our ERP?', a: 'No. Kimaru works next to your ERP, supply chain tools, spreadsheets, databases and APIs. A first pilot can run from controlled files or read-only access, with no write-back.' },
-  { q: 'How is this different from Copilot or Claude?', a: 'An assistant answers a request. Kimaru keeps the options, the rules, the approval and the result together for a recurring decision. Assistants can still be used to carry out what has been approved.' },
-  { q: 'What do we need to get started?', a: 'One recurring decision, the person who owns it, and a sample of the data they use today. Files are fine. We scope the rest in the walkthrough.' },
-  { q: 'Where does our data live?', a: 'In your AWS account, in a private Kimaru-managed tenant, or in an agreed on-premises or private-cloud design. Your learning stays with your company.' },
+  { q: 'Does Kimaru replace human judgment?', a: 'No. Kimaru recommends. The person with the authority accepts, adjusts, defers or escalates, and the reasoning stays on record.' },
+  { q: 'Do we have to replace or rewire our systems?', a: 'No. Kimaru works next to your ERP, supply chain tools, spreadsheets and databases. A first pilot can run from files or read-only access.' },
+  { q: 'How is this different from Copilot or Claude?', a: 'An assistant answers a request. Kimaru keeps the options, rules, approval and result together for a recurring decision. Assistants can still carry out what was approved.' },
+  { q: 'What do we need to start?', a: 'One recurring decision, the person who owns it, and a sample of the data they use today. Files are fine.' },
 ];
 
 export function Faq() {
@@ -76,8 +75,8 @@ export function Footer() {
               <img src={asset('alchemist.webp')} alt="Alchemist Accelerator" className="h-7 w-auto" />
             </div>
           </div>
-          {col('Product', [['What it is', '#edos'], ['How it works', '#how'], ['Trust and security', '#trust']])}
-          {col('Solutions', [['Production readiness', '#start'], ['Supplier and cost', '#start'], ['Inventory and allocation', '#start']])}
+          {col('Product', [['Why Kimaru', '#cost'], ['What it is', '#edos'], ['How it works', '#how']])}
+          {col('Learn more', [['What you get', '#benefits'], ['Industries', '#industries'], ['Trust and security', '#trust']])}
           {col('Company', [['About', 'https://kimaru.ai/about-us/'], ['Blog', 'https://kimaru.ai/blog/'], ['Contact', 'https://kimaru.ai/contact-us/']])}
         </div>
         <div className="mt-9 flex flex-wrap justify-between gap-3 border-t border-border pt-5 text-[13px] text-muted-foreground">

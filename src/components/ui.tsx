@@ -19,18 +19,19 @@ type BtnProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
 };
 /** Link-styled button. 40px (md) matches the product ActionButton height; 48px (lg) for page CTAs. */
 export function Button({ variant = 'brand', size = 'md', className, ...rest }: BtnProps) {
+  // Kimaru ActionButton rules: h-10, 6px radius, no hover colour. Primary is slate-900, secondary is slate-100.
   const v = {
-    brand: 'bg-brand text-white border-brand hover:bg-[#1c2d63]',
+    brand: 'bg-primary text-primary-foreground border-primary',
     dark: 'bg-primary text-primary-foreground border-primary',
-    outline: 'bg-card text-foreground border-border hover:border-ring',
-    light: 'bg-white text-brand border-white hover:bg-brand-soft',
+    outline: 'bg-secondary text-foreground border-secondary',
+    light: 'bg-white text-primary border-white',
   }[variant];
   return (
     <a
       {...rest}
       className={cn(
-        'inline-flex items-center justify-center gap-2 rounded-xl border font-semibold no-underline transition-[background-color,transform,box-shadow] duration-300 ease-[cubic-bezier(.22,1,.36,1)] hover:-translate-y-px hover:shadow-md active:translate-y-0 active:scale-[0.97]',
-        size === 'lg' ? 'h-12 px-6 text-[15px]' : 'h-10 px-4 text-sm',
+        'inline-flex h-10 items-center justify-center gap-2 rounded-md border text-sm font-semibold no-underline [&_svg]:size-4',
+        size === 'lg' ? 'px-5' : 'px-4',
         v,
         className,
       )}

@@ -30,11 +30,11 @@ const slides: Slide[] = [
   },
   {
     step: 'Model', gps: 'The map', headline: 'See what drives the outcome.',
-    body: 'Supplier choice, safety stock and lead times feed component availability, which drives on-time delivery and cost. Test options on the map before you commit.',
-    screen: 'screens/uc-model.png', w: 1440, h: 760, title: 'Causal AI Modeler', page: 'Causal AI Modeler',
+    body: 'Select a node to see the factors that connect to it and the outcomes it moves.',
+    screen: 'screens/uc-cdd-select.png', w: 1440, h: 900, title: 'Causal AI Modeler', page: 'Causal AI Modeler',
     hot: [
-      { x: 5.5, y: 14, w: 20, h: 47, label: 'Levers you control' },
-      { x: 49.5, y: 14, w: 20.5, h: 26, label: 'Outcomes that matter' },
+      { x: 28, y: 13, w: 20.5, h: 8, label: 'Pick any node', side: 'above' },
+      { x: 50.5, y: 12.5, w: 20, h: 15, label: 'See what it moves', side: 'above' },
     ],
   },
   {

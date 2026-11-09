@@ -1,12 +1,11 @@
 import { useEffect } from 'react';
 import Lenis from 'lenis';
 import { Nav, Hero } from './components/NavHero';
-import { Glance, WhyNow, Team } from './components/Facts';
-import { Problem } from './components/Problem';
+import { Team } from './components/Facts';
+import { CostOfDelay, Benefits, Industries } from './components/Value';
 import { Edos } from './components/Edos';
 import { LoopSlides } from './components/LoopSlides';
-import { Connect } from './components/Connect';
-import { Solutions, Results, Pilot, Trust } from './components/Sections';
+import { Pilot, Trust } from './components/Sections';
 import { Faq, Closing, Footer } from './components/FaqFooter';
 
 export default function App() {
@@ -53,14 +52,11 @@ export default function App() {
       <Nav />
       <main>
         <Hero />
-        <Glance />
-        <Problem />
+        <CostOfDelay />
         <Edos />
         <LoopSlides />
-        <Connect />
-        <Solutions />
-        <Results />
-        <WhyNow />
+        <Benefits />
+        <Industries />
         <Pilot />
         <Trust />
         <Team />

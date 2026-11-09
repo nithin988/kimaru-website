@@ -68,7 +68,7 @@ export function Reveal({
 }
 
 /** Counts up to a number once it is in view. Shows the final value when motion is reduced. */
-export function CountUp({ to, suffix = '', duration = 1200, className }: { to: number; suffix?: string; duration?: number; className?: string }) {
+export function CountUp({ to, suffix = '', decimals = 0, duration = 1200, className }: { to: number; suffix?: string; decimals?: number; duration?: number; className?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const [val, setVal] = useState(to);
   useEffect(() => {
@@ -82,7 +82,7 @@ export function CountUp({ to, suffix = '', duration = 1200, className }: { to: n
         const t0 = performance.now();
         const tick = (t: number) => {
           const p = Math.min(1, (t - t0) / duration);
-          setVal(Math.round(to * (1 - Math.pow(1 - p, 3))));
+          setVal(to * (1 - Math.pow(1 - p, 3)));
           if (p < 1) raf = requestAnimationFrame(tick);
         };
         setVal(0);
@@ -98,7 +98,7 @@ export function CountUp({ to, suffix = '', duration = 1200, className }: { to: n
   }, [to, duration]);
   return (
     <span ref={ref} className={className}>
-      {val}
+      {val.toFixed(decimals)}
       {suffix}
     </span>
   );
