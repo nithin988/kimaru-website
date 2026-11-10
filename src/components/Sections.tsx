@@ -1,7 +1,6 @@
 import { Boxes, Cloud, FileCheck2, Factory, Lock, PackageSearch, ShieldCheck, UserCheck } from 'lucide-react';
 import { BrowserFrame, Section, SectionHead, cn, Eyebrow, useInView, Thumb, asset } from './ui';
 import { CountUp, Reveal } from './motion';
-import { brandLogos } from '../data/brandLogos';
 
 const decisions = [
   {
@@ -174,7 +173,7 @@ export function Pilot() {
 }
 
 const trust = [
-  { icon: Cloud, t: 'Run it where you choose', b: 'Your AWS account, a private Kimaru-managed tenant, or on-premises.', logo: 'aws' as const },
+  { icon: Cloud, t: 'Run it where you choose', b: 'In your own cloud, a private environment, or on-premises.' },
   { icon: Lock, t: 'Read-only to start', b: 'Files, read-only database views or scheduled API pulls. No write-back required.' },
   { icon: ShieldCheck, t: 'Humans keep authority', b: 'Every action follows your approval rules. Nothing runs without the right owner.' },
   { icon: FileCheck2, t: 'A record of every decision', b: 'What was known, what was chosen, who approved it and what happened.' },
@@ -185,13 +184,10 @@ export function Trust() {
     <Section id="trust">
       <SectionHead eyebrow="Trust and security" title="Your data stays yours." body="Enterprise teams ask about data first. These are the answers." />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {trust.map(({ icon: I, t, b, logo }, n) => (
+        {trust.map(({ icon: I, t, b }, n) => (
           <Reveal key={t} delay={n * 90} className="lift flex flex-col rounded-xl border border-border bg-card p-5">
             <div className="mb-3 flex items-center justify-between">
               <I size={26} className="text-active" />
-              {logo && (
-                <svg role="img" aria-label="AWS" viewBox={`0 0 ${brandLogos[logo].w} ${brandLogos[logo].h}`} className="h-6 w-auto opacity-80" dangerouslySetInnerHTML={{ __html: brandLogos[logo].body }} />
-              )}
             </div>
             <h3 className="mb-1.5 text-base font-bold text-primary">{t}</h3>
             <p className="text-sm leading-relaxed text-muted-foreground">{b}</p>

@@ -3,11 +3,10 @@ import { Brain, Cable, Database, History, LayoutDashboard, LayoutGrid, ShieldChe
 import type { LucideIcon } from 'lucide-react';
 import { BrowserFrame, Section, SectionHead, asset, cn, useInView } from './ui';
 import { Reveal } from './motion';
-import { SharedConfigured } from './Architecture';
 
 type Layer = {
   id: string;
-  tier: 'Decision Models' | 'Kimaru core' | 'Your systems and data';
+  tier: 'Decision Models' | 'What Kimaru does' | 'Your systems and data';
   icon: LucideIcon;
   title: string;
   short: string;
@@ -25,38 +24,38 @@ const layers: Layer[] = [
     chips: ['Production commitment', 'Material readiness', 'Inventory and allocation', 'Supplier, BOM and cost', 'Order prioritization', 'Invoice exceptions'],
   },
   {
-    id: 'reality', tier: 'Kimaru core', icon: Database, title: 'Reality', short: 'What is true right now',
-    body: 'Connects your systems and data, and brings the facts for a decision together with their source and confidence.',
+    id: 'reality', tier: 'What Kimaru does', icon: Database, title: 'Understand', short: 'What is true right now',
+    body: 'Brings the facts for a decision together from your systems and files, with their source and confidence.',
     replaces: 'Gathering facts by hand from several systems',
     img: { src: 'screens/uc-hub.png', title: 'Work Hub', aspect: '1440 / 651' },
   },
   {
-    id: 'decisions', tier: 'Kimaru core', icon: Brain, title: 'Decisions', short: 'Compare feasible options',
-    body: 'Causal models and simulation test what each option would do, so you compare likely consequences before anyone commits.',
+    id: 'decisions', tier: 'What Kimaru does', icon: Brain, title: 'Compare options', short: 'Likely consequences',
+    body: 'See what each option would do before anyone commits, so the choice is made with the outcome in view.',
     replaces: 'Gut feel about what will happen',
     img: { src: 'screens/uc-cdd-select.png', title: 'Causal AI Modeler: select a node to see its connections', aspect: '1440 / 900' },
   },
   {
-    id: 'cockpit', tier: 'Kimaru core', icon: LayoutDashboard, title: 'Cockpit', short: 'Where people work',
-    body: 'The screens where planners compare options and decide. Ask the agent why a recommendation was made, or what else you could do.',
+    id: 'cockpit', tier: 'What Kimaru does', icon: LayoutDashboard, title: 'Ask why', short: 'Where people work',
+    body: 'Planners work in one place. Ask Kimaru why a recommendation was made, or what else you could do.',
     replaces: 'Answers locked in one expert’s head',
     img: { src: 'screens/uc-agent.png', title: 'Agent Interaction drawer', aspect: '1440 / 900' },
   },
   {
-    id: 'gov', tier: 'Kimaru core', icon: ShieldCheck, title: 'Governance', short: 'Authority, approval and audit',
-    body: 'Approval rules decide who can commit. Each decision keeps a Decision Receipt of what was known, who approved it and why. AI tools act only on what was approved.',
+    id: 'gov', tier: 'What Kimaru does', icon: ShieldCheck, title: 'Approve with authority', short: 'Who commits, and a record',
+    body: 'The right person commits within their limits. Each decision keeps a Decision Receipt of what was known and why it was chosen.',
     replaces: 'Approvals buried in email',
     img: { src: 'screens/uc-act.png', title: 'Review recommendations', aspect: '1440 / 775' },
   },
   {
-    id: 'memory', tier: 'Kimaru core', icon: History, title: 'Decision Memory', short: 'What worked, kept',
+    id: 'memory', tier: 'What Kimaru does', icon: History, title: 'Measure and learn', short: 'What worked, kept',
     body: 'Expected against actual for every decision, so the next comparable decision starts with what the company already learned.',
     replaces: 'Knowledge that walks out with one expert',
     img: { src: 'screens/uc-learn.png', title: 'Decision Tracker', aspect: '1440 / 662' },
   },
   {
-    id: 'connect', tier: 'Your systems and data', icon: Cable, title: 'Connectors', short: 'Whatever you already run',
-    body: 'Start from controlled files, read-only database views or scheduled API pulls. No write-back is needed to begin. Write-back follows the integration you agree.',
+    id: 'connect', tier: 'Your systems and data', icon: Cable, title: 'Works with your stack', short: 'Whatever you already run',
+    body: 'Start from files or read-only access. No write-back is needed to begin.',
     replaces: 'Rip-and-replace projects',
     chips: ['ERP', 'SCM, WMS, TMS', 'Spreadsheets and files', 'Databases and APIs', 'Planner know-how', 'AI assistants'],
   },
@@ -80,7 +79,7 @@ function Stack() {
     setAuto(false);
     setActive(id);
   };
-  const tiers: Layer['tier'][] = ['Decision Models', 'Kimaru core', 'Your systems and data'];
+  const tiers: Layer['tier'][] = ['Decision Models', 'What Kimaru does', 'Your systems and data'];
 
   return (
     <div ref={ref} className="grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.3fr)]">
@@ -152,19 +151,16 @@ export function Edos() {
         <SectionHead
           className="!mb-0"
           eyebrow="Enterprise Decision Operating System"
-          title="One engine. A Decision Model for every recurring call."
-          body="A phone has one operating system and many apps. Kimaru has one reusable engine and a Decision Model for each decision, built on top of the systems you already run."
+          title="A Decision Model for every recurring call."
+          body="Kimaru turns each recurring operating choice into a Decision Model, working alongside the systems you already run."
         />
         <Reveal delay={120} className="mx-auto w-full max-w-[380px]">
           <div className="floaty relative aspect-square overflow-hidden rounded-3xl">
-            <img src={asset('photos/layers.webp')} alt="Three layers: decision apps on top, rules and connections in the middle, your data underneath" loading="lazy" className="absolute inset-0 h-full w-full origin-top-left scale-[1.1] object-cover" />
+            <img src={asset('photos/layers.webp')} alt="Decision models connected to your rules and data" loading="lazy" className="absolute inset-0 h-full w-full origin-top-left scale-[1.1] object-cover" />
           </div>
         </Reveal>
       </div>
       <Stack />
-      <div className="mt-12">
-        <SharedConfigured />
-      </div>
     </Section>
   );
 }

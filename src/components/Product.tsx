@@ -83,7 +83,7 @@ export function Modules() {
       <SectionHead eyebrow="Six views" title="Everything the decision needs, one screen each." body="Each view is a real Kimaru page. Together they take a decision from alert to a measured result." />
       <div className="grid gap-16 lg:gap-24">
         {mods.map((m, n) => (
-          <div key={m.n} className="grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
+          <div key={m.n} className={cn('grid items-center gap-8 lg:gap-12', n % 2 === 1 ? 'lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.65fr)]' : 'lg:grid-cols-[minmax(0,0.65fr)_minmax(0,1.35fr)]')}>
             <Reveal className={cn('min-w-0', n % 2 === 1 && 'lg:order-2')}>
               <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.09em] text-muted-foreground">
                 <span className="grid size-9 place-items-center rounded-xl bg-brand-soft text-brand">
