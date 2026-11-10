@@ -1,5 +1,5 @@
 import { ChevronDown } from 'lucide-react';
-import { BOOK_URL, Button, Container, Section, SectionHead, asset } from './ui';
+import { BOOK_URL, Button, Container, PRODUCT_URL, Section, SectionHead, asset, homeHref } from './ui';
 
 const faqs = [
   { q: 'Does Kimaru replace human judgment?', a: 'No. Kimaru recommends. The person with the authority accepts, adjusts, defers or escalates, and the reasoning stays on record.' },
@@ -57,7 +57,7 @@ export function Footer() {
     <div>
       <h4 className="mb-2.5 text-xs font-semibold uppercase tracking-[0.08em] text-foreground">{title}</h4>
       {items.map(([l, h]) => (
-        <a key={l} href={h} className="block py-1 text-sm text-muted-foreground no-underline hover:text-foreground">
+        <a key={l} href={homeHref(h)} className="block py-1 text-sm text-muted-foreground no-underline hover:text-foreground">
           {l}
         </a>
       ))}
@@ -75,7 +75,7 @@ export function Footer() {
               <img src={asset('alchemist.webp')} alt="Alchemist Accelerator" className="h-7 w-auto" />
             </div>
           </div>
-          {col('Product', [['Why Kimaru', '#cost'], ['What it is', '#edos'], ['How it works', '#how']])}
+          {col('Product', [['Product overview', PRODUCT_URL], ['Why Kimaru', '#cost'], ['How it works', '#how']])}
           {col('Learn more', [['What you get', '#benefits'], ['Industries', '#industries'], ['Trust and security', '#trust']])}
           {col('Company', [['About', 'https://kimaru.ai/about-us/'], ['Blog', 'https://kimaru.ai/blog/'], ['Contact', 'https://kimaru.ai/contact-us/']])}
         </div>

@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import { resolve } from 'node:path';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 
@@ -6,4 +7,7 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   base: process.env.VITE_BASE ?? '/kimaru-website/',
   plugins: [react(), tailwindcss()],
+  build: {
+    rollupOptions: { input: { main: resolve(__dirname, 'index.html'), product: resolve(__dirname, 'product.html') } },
+  },
 });

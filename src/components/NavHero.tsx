@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { ArrowRight, Check, TrendingUp } from 'lucide-react';
-import { BOOK_URL, BrowserFrame, Button, Container, Eyebrow, asset, cn, useInView } from './ui';
+import { BOOK_URL, BrowserFrame, Button, Container, Eyebrow, PRODUCT_URL, asset, cn, homeHref, useInView } from './ui';
 import { Marquee } from './Marquee';
 import { ScrollProgress } from './motion';
 
 const links = [
   ['Why Kimaru', '#cost'],
-  ['Product', '#edos'],
+  ['Product', 'product'],
   ['How it works', '#how'],
   ['What you get', '#benefits'],
   ['Industries', '#industries'],
@@ -23,7 +23,7 @@ export function Nav() {
         </a>
         <nav className="ml-4 hidden gap-6 text-sm font-medium text-muted-foreground lg:flex" aria-label="Main">
           {links.map(([l, h]) => (
-            <a key={h} href={h} className="no-underline transition-colors hover:text-foreground">
+            <a key={h} href={h === 'product' ? PRODUCT_URL : homeHref(h)} className="no-underline transition-colors hover:text-foreground">
               {l}
             </a>
           ))}

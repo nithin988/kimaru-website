@@ -3,6 +3,10 @@ import { useEffect, useRef, useState } from 'react';
 import { Reveal } from './motion';
 
 export const asset = (p: string) => `${import.meta.env.BASE_URL}${p.replace(/^\//, '')}`;
+const onProduct = typeof location !== 'undefined' && /product.html$/.test(location.pathname);
+/** Links to a home-page section work from either page. */
+export const homeHref = (h: string) => (!h.startsWith('#') || !onProduct ? h : `${import.meta.env.BASE_URL}${h}`);
+export const PRODUCT_URL = `${import.meta.env.BASE_URL}product.html`;
 export const BOOK_URL = 'https://kimaru.ai/contact-us/';
 
 export function cn(...c: Array<string | false | null | undefined>) {
