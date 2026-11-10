@@ -8,7 +8,7 @@ export function SolutionHero() {
   return (
     <div id="top" className="relative overflow-hidden">
       <div className="hero-grid pointer-events-none absolute inset-0" aria-hidden="true" />
-      <Container className="relative grid items-center gap-12 pb-16 pt-12 lg:pb-20 lg:pt-16">
+      <div className="relative mx-auto grid w-full max-w-[1360px] items-center gap-12 px-4 pb-20 pt-12 sm:px-6 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-10 lg:px-8 lg:pb-24 lg:pt-20">
         <div>
           <Eyebrow className="rise rise-1">Solutions · Production commitment</Eyebrow>
           <h1 className="rise rise-2 mt-4 text-[clamp(34px,4.4vw,54px)] font-extrabold leading-[1.05] text-primary">
@@ -35,7 +35,7 @@ export function SolutionHero() {
         <div className="rise rise-5 mt-2 min-w-0">
           <BrowserFrame src="screens/uc-compare.png" alt="Kimaru recommendations page listing each component at risk with stock, backlog, risk and confidence" title="Components at risk, by order" aspect="1440 / 745" />
         </div>
-      </Container>
+      </div>
     </div>
   );
 }
