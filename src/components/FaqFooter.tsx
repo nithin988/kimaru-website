@@ -1,5 +1,5 @@
 import { ChevronDown } from 'lucide-react';
-import { BOOK_URL, CONTACT_URL, WALKTHROUGH_URL, Button, Container, PRODUCT_URL, SOLUTION_URL, COMPANY_URL, Section, SectionHead, asset, homeHref } from './ui';
+import { BOOK_URL, CONTACT_URL, WALKTHROUGH_URL, Button, Container, PRODUCT_URL, SOLUTION_URL, COMPANY_URL, RESULTS_URL, Section, SectionHead, asset, homeHref } from './ui';
 
 const faqs = [
   { q: 'Does Kimaru replace human judgment?', a: 'No. Kimaru recommends. The person with the authority accepts, adjusts, defers or escalates, and the reasoning stays on record.' },
@@ -76,7 +76,7 @@ export function Footer() {
             </div>
           </div>
           {col('Product', [['Product overview', PRODUCT_URL], ['Production commitment', SOLUTION_URL], ['How it works', '#how']])}
-          {col('Learn more', [['What you get', '#benefits'], ['Industries', '#industries'], ['Trust and security', '#trust'], ['Start small', '#pilot'], ['Book a walkthrough', WALKTHROUGH_URL]])}
+          {col('Learn more', [['Results', RESULTS_URL], ['What you get', '#benefits'], ['Industries', '#industries'], ['Trust and security', '#trust'], ['Start small', '#pilot'], ['Book a walkthrough', WALKTHROUGH_URL]])}
           {col('Company', [['About', COMPANY_URL], ['Blog', 'https://kimaru.ai/blog/'], ['Contact', 'https://kimaru.ai/contact-us/']])}
         </div>
         <div className="mt-9 flex flex-wrap justify-between gap-3 border-t border-border pt-5 text-[13px] text-muted-foreground">
