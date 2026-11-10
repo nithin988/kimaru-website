@@ -7,7 +7,7 @@ import { CountUp, Reveal } from './motion';
 
 /* ---------- Cost of delay: published survey figures, each with its source ---------- */
 
-type Stat = {
+export type Stat = {
   theme: string;
   icon: LucideIcon;
   to: number;
@@ -22,7 +22,7 @@ type Stat = {
   helps: string;
 };
 
-const stats: Stat[] = [
+export const stats: Stat[] = [
   {
     theme: 'Late and slow decisions', icon: Clock, to: 61, suffix: '%',
     what: 'of executives say most of the time spent on decisions in their company is used ineffectively.',

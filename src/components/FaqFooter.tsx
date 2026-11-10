@@ -1,5 +1,5 @@
 import { ChevronDown } from 'lucide-react';
-import { BOOK_URL, Button, Container, PRODUCT_URL, Section, SectionHead, asset, homeHref } from './ui';
+import { BOOK_URL, Button, Container, PRODUCT_URL, SOLUTION_URL, Section, SectionHead, asset, homeHref } from './ui';
 
 const faqs = [
   { q: 'Does Kimaru replace human judgment?', a: 'No. Kimaru recommends. The person with the authority accepts, adjusts, defers or escalates, and the reasoning stays on record.' },
@@ -75,7 +75,7 @@ export function Footer() {
               <img src={asset('alchemist.webp')} alt="Alchemist Accelerator" className="h-7 w-auto" />
             </div>
           </div>
-          {col('Product', [['Product overview', PRODUCT_URL], ['Why Kimaru', '#cost'], ['How it works', '#how']])}
+          {col('Product', [['Product overview', PRODUCT_URL], ['Production commitment', SOLUTION_URL], ['How it works', '#how']])}
           {col('Learn more', [['What you get', '#benefits'], ['Industries', '#industries'], ['Trust and security', '#trust'], ['Start small', '#pilot']])}
           {col('Company', [['About', 'https://kimaru.ai/about-us/'], ['Blog', 'https://kimaru.ai/blog/'], ['Contact', 'https://kimaru.ai/contact-us/']])}
         </div>
