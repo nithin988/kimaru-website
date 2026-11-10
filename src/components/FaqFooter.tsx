@@ -1,5 +1,5 @@
 import { ChevronDown } from 'lucide-react';
-import { BOOK_URL, CONTACT_URL, WALKTHROUGH_URL, Button, Container, PRODUCT_URL, SOLUTION_URL, COMPANY_URL, RESULTS_URL, RESOURCES_URL, Section, SectionHead, asset, homeHref } from './ui';
+import { BOOK_URL, CONTACT_URL, WALKTHROUGH_URL, Button, Container, PRODUCT_URL, SOLUTION_URL, COMPANY_URL, HOME_URL, RESULTS_URL, RESOURCES_URL, Section, SectionHead, asset, homeHref } from './ui';
 
 const faqs = [
   { q: 'Does Kimaru replace human judgment?', a: 'No. Kimaru recommends. The person with the authority accepts, adjusts, defers or escalates, and the reasoning stays on record.' },
@@ -68,7 +68,7 @@ export function Footer() {
       <Container>
         <div className="grid grid-cols-2 gap-8 md:grid-cols-[1.4fr_repeat(3,1fr)]">
           <div className="col-span-2 md:col-span-1">
-            <img src={asset('logo.svg')} alt="kimaru.ai" className="h-7 w-auto" />
+            <a href={HOME_URL} aria-label="kimaru.ai home"><img src={asset('logo.svg')} alt="kimaru.ai" className="h-7 w-auto" /></a>
             <p className="mt-3 max-w-[24em] text-sm text-muted-foreground">The Enterprise Decision Operating System for manufacturing and supply chains.</p>
             <div className="mt-4 flex items-center gap-3">
               <span className="text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground">Backed by</span>

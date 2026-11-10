@@ -5,6 +5,8 @@ import { Reveal } from './motion';
 export const asset = (p: string) => `${import.meta.env.BASE_URL}${p.replace(/^\//, '')}`;
 const onProduct = typeof location !== 'undefined' && /\/[a-z-]+\.html$/.test(location.pathname) && !/index\.html$/.test(location.pathname);
 /** Links to a home-page section work from either page. */
+export const HOME_URL = import.meta.env.BASE_URL;
+export const onSubpage = onProduct;
 export const homeHref = (h: string) => (!h.startsWith('#') || !onProduct ? h : `${import.meta.env.BASE_URL}${h}`);
 export const PRODUCT_URL = `${import.meta.env.BASE_URL}product.html`;
 export const SOLUTION_URL = `${import.meta.env.BASE_URL}production-commitment.html`;

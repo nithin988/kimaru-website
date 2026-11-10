@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { ArrowRight, Check, TrendingUp } from 'lucide-react';
-import { BOOK_URL, BrowserFrame, Button, Container, Eyebrow, PRODUCT_URL, SOLUTION_URL, COMPANY_URL, RESULTS_URL, RESOURCES_URL, asset, cn, homeHref, useInView } from './ui';
+import { BOOK_URL, BrowserFrame, Button, Container, Eyebrow, PRODUCT_URL, SOLUTION_URL, COMPANY_URL, HOME_URL, onSubpage, RESULTS_URL, RESOURCES_URL, asset, cn, homeHref, useInView } from './ui';
 import { Marquee } from './Marquee';
 import { ScrollProgress } from './motion';
 
@@ -17,7 +17,7 @@ export function Nav() {
   return (
     <header className="sticky top-0 z-30 border-b border-border/70 bg-white/70 backdrop-blur-xl backdrop-saturate-150">
       <Container className="flex h-[68px] items-center gap-6">
-        <a href="#top" aria-label="kimaru.ai home" className="flex shrink-0 items-center">
+        <a href={onSubpage ? HOME_URL : '#top'} aria-label="kimaru.ai home" className="flex shrink-0 items-center">
           <img src={asset('logo.svg')} alt="kimaru.ai" className="h-7 w-auto sm:h-8" />
         </a>
         <nav className="ml-4 hidden gap-6 text-sm font-medium text-muted-foreground lg:flex" aria-label="Main">
