@@ -1,4 +1,4 @@
-import { Boxes, Cloud, FileCheck2, Factory, Lock, PackageSearch, ShieldCheck, UserCheck } from 'lucide-react';
+import { Boxes, ClipboardCheck, Cloud, FileCheck2, Factory, Flag, History, Lock, PackageSearch, ShieldCheck, UserCheck } from 'lucide-react';
 import { BrowserFrame, Section, SectionHead, cn, Eyebrow, useInView, Thumb, asset } from './ui';
 import { CountUp, Reveal } from './motion';
 
@@ -138,9 +138,9 @@ export function Results() {
 }
 
 const pilot = [
-  { t: 'Pick one decision', b: 'One recurring call, its owner, a baseline and the data behind it. We map how it is made today.', shot: 'screens/production-causal.png', f: [0.45, 0.3, 1.7] as const, cap: 'The decision, mapped' },
-  { t: 'Replay or shadow mode', b: 'Kimaru replays past decisions or recommends alongside your team. Nothing is written to your systems and your people still decide.', shot: 'screens/production-review.png', f: [0.35, 0.3, 1.8] as const, cap: 'Your people still decide' },
-  { t: 'Result and a decision', b: 'A governed result against the baseline, then a dated production-or-stop decision. Expand only if the numbers justify it.', shot: 'screens/production-tracker.png', f: [0.5, 0.55, 1.5] as const, cap: 'Expected vs actual' },
+  { t: 'Pick one decision', b: 'One recurring call, its owner, a baseline and the data behind it. We map how it is made today.', icon: ClipboardCheck },
+  { t: 'Replay or shadow mode', b: 'Kimaru replays past decisions or recommends alongside your team. Nothing is written to your systems and your people still decide.', icon: History },
+  { t: 'Result and a decision', b: 'A governed result against the baseline, then a dated production-or-stop decision. Expand only if the numbers justify it.', icon: Flag },
 ];
 
 export function Pilot() {
@@ -154,12 +154,12 @@ export function Pilot() {
               <span className="grid size-9 place-items-center rounded-full bg-brand text-[15px] font-bold text-white">{n + 1}</span>
               {n < pilot.length - 1 && <span className="hidden flex-1 border-t-2 border-dashed border-slate-300 md:block" />}
             </div>
-            <div className="group lift overflow-hidden rounded-xl border border-border bg-card">
-              <Thumb src={p.shot} cx={p.f[0]} cy={p.f[1]} zoom={p.f[2]} cap={p.cap} />
-              <div className="p-5">
-                <h3 className="mb-2 text-xl font-bold text-primary">{p.t}</h3>
-                <p className="text-[15px] leading-relaxed text-muted-foreground">{p.b}</p>
-              </div>
+            <div className="lift h-full rounded-xl border border-border bg-card p-6">
+              <span className="grid size-11 place-items-center rounded-xl bg-brand-soft text-brand">
+                <p.icon size={20} />
+              </span>
+              <h3 className="mt-4 mb-2 text-xl font-bold text-primary">{p.t}</h3>
+              <p className="text-[15px] leading-relaxed text-muted-foreground">{p.b}</p>
             </div>
           </Reveal>
         ))}
