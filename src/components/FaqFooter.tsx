@@ -68,7 +68,7 @@ export function Footer() {
       <Container>
         <div className="grid grid-cols-2 gap-8 md:grid-cols-[1.4fr_repeat(3,1fr)]">
           <div className="col-span-2 md:col-span-1">
-            <img src={asset('logo.png')} alt="kimaru.ai" className="h-7 w-auto" />
+            <img src={asset('logo.svg')} alt="kimaru.ai" className="h-7 w-auto" />
             <p className="mt-3 max-w-[24em] text-sm text-muted-foreground">The Enterprise Decision Operating System for manufacturing and supply chains.</p>
             <div className="mt-4 flex items-center gap-3">
               <span className="text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground">Backed by</span>
@@ -76,7 +76,7 @@ export function Footer() {
             </div>
           </div>
           {col('Product', [['Product overview', PRODUCT_URL], ['Why Kimaru', '#cost'], ['How it works', '#how']])}
-          {col('Learn more', [['What you get', '#benefits'], ['Industries', '#industries'], ['Trust and security', '#trust']])}
+          {col('Learn more', [['What you get', '#benefits'], ['Industries', '#industries'], ['Trust and security', '#trust'], ['Start small', '#pilot']])}
           {col('Company', [['About', 'https://kimaru.ai/about-us/'], ['Blog', 'https://kimaru.ai/blog/'], ['Contact', 'https://kimaru.ai/contact-us/']])}
         </div>
         <div className="mt-9 flex flex-wrap justify-between gap-3 border-t border-border pt-5 text-[13px] text-muted-foreground">

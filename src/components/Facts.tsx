@@ -64,8 +64,8 @@ export function WhyNow() {
 }
 
 const founders = [
-  { name: 'Evan Burkosky', role: 'Cofounder and CEO', initials: 'EB', note: 'Leads the company and customer relationships.', grad: 'from-logo-blue to-logo-purple' },
-  { name: 'Hareesh Nambiar', role: 'Cofounder and CTO', initials: 'HN', note: 'Leads the platform. Patent work on decision intelligence.', grad: 'from-logo-purple to-logo-teal' },
+  { name: 'Evan Burkosky', role: 'Cofounder and CEO', photo: 'team/evan.png', note: 'Leads the company and customer relationships.' },
+  { name: 'Dr. Hareesh Nambiar', role: 'Cofounder and CTO', photo: 'team/hareesh.png', note: 'Leads the platform. Patent work on decision intelligence.' },
 ];
 
 export function Team() {
@@ -92,7 +92,7 @@ export function Team() {
           {founders.map((f, n) => (
             <Reveal key={f.name} delay={n * 120}>
               <div className="lift h-full rounded-2xl border border-border bg-card p-6">
-                <div className={`grid size-16 place-items-center rounded-2xl bg-gradient-to-br ${f.grad} text-xl font-extrabold text-white`}>{f.initials}</div>
+                <img src={asset(f.photo)} alt={`${f.name}, Kimaru ${f.role.toLowerCase()}`} loading="lazy" className="size-24 rounded-2xl border border-border object-cover object-top" />
                 <h3 className="mt-5 text-xl font-bold text-primary">{f.name}</h3>
                 <p className="text-sm font-semibold text-active">{f.role}</p>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.note}</p>

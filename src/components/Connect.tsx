@@ -130,7 +130,7 @@ export function Connect() {
           </div>
 
           <div ref={hub} className="beam relative z-10 mx-auto grid w-full max-w-[260px] place-items-center rounded-3xl bg-brand px-6 py-8 text-center text-white shadow-[0_30px_60px_-20px_rgb(37_59_127/0.6)]">
-            <img src={asset('logo.png')} alt="" className="h-8 w-auto rounded bg-white/95 px-2 py-1.5" />
+            <img src={asset('logo.svg')} alt="" className="h-8 w-auto rounded bg-white/95 px-2 py-1.5" />
             <p className="mt-4 text-sm font-semibold">Enterprise Decision Operating System</p>
             <p className="mt-1 text-xs text-white/75">Compare, govern, act, learn</p>
           </div>

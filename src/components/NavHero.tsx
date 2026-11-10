@@ -6,12 +6,11 @@ import { Marquee } from './Marquee';
 import { ScrollProgress } from './motion';
 
 const links = [
-  ['Why Kimaru', '#cost'],
   ['Product', 'product'],
-  ['How it works', '#how'],
-  ['What you get', '#benefits'],
-  ['Industries', '#industries'],
-  ['Trust & Security', '#trust'],
+  ['Solutions', '#industries'],
+  ['Results', '#benefits'],
+  ['Resources', 'https://kimaru.ai/blog/'],
+  ['Company', '#team'],
 ] as const;
 
 export function Nav() {
@@ -19,7 +18,7 @@ export function Nav() {
     <header className="sticky top-0 z-30 border-b border-border/70 bg-white/70 backdrop-blur-xl backdrop-saturate-150">
       <Container className="flex h-[68px] items-center gap-6">
         <a href="#top" aria-label="kimaru.ai home" className="flex shrink-0 items-center">
-          <img src={asset('logo.png')} alt="kimaru.ai" className="h-7 w-auto sm:h-8" />
+          <img src={asset('logo.svg')} alt="kimaru.ai" className="h-7 w-auto sm:h-8" />
         </a>
         <nav className="ml-4 hidden gap-6 text-sm font-medium text-muted-foreground lg:flex" aria-label="Main">
           {links.map(([l, h]) => (
