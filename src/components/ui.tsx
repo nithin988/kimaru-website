@@ -8,6 +8,7 @@ const onProduct = typeof location !== 'undefined' && /\/[a-z-]+\.html$/.test(loc
 export const homeHref = (h: string) => (!h.startsWith('#') || !onProduct ? h : `${import.meta.env.BASE_URL}${h}`);
 export const PRODUCT_URL = `${import.meta.env.BASE_URL}product.html`;
 export const SOLUTION_URL = `${import.meta.env.BASE_URL}production-commitment.html`;
+export const COMPANY_URL = `${import.meta.env.BASE_URL}company.html`;
 export const BOOK_URL = 'https://kimaru.ai/contact-us/';
 
 export function cn(...c: Array<string | false | null | undefined>) {

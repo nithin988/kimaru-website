@@ -8,6 +8,6 @@ export default defineConfig({
   base: process.env.VITE_BASE ?? '/kimaru-website/',
   plugins: [react(), tailwindcss()],
   build: {
-    rollupOptions: { input: { main: resolve(__dirname, 'index.html'), product: resolve(__dirname, 'product.html'), production: resolve(__dirname, 'production-commitment.html') } },
+    rollupOptions: { input: { main: resolve(__dirname, 'index.html'), product: resolve(__dirname, 'product.html'), production: resolve(__dirname, 'production-commitment.html'), company: resolve(__dirname, 'company.html') } },
   },
 });
