@@ -258,7 +258,7 @@ export function Industries() {
       <SectionHead
         eyebrow="One engine, many operations"
         title="The same loop fits different kinds of operations."
-        body="These are real Kimaru demos built for different industries. The alerts and decisions change. The way people decide does not."
+        body="These are Kimaru demonstrations on synthetic data, built for different industries. The alerts and decisions change. The way people decide does not."
       />
       <div role="tablist" aria-label="Industry demos" className="mb-6 flex flex-wrap gap-2">
         {inds.map((d, n) => (

@@ -37,7 +37,7 @@ export function Closing() {
           <span className="floaty-b pointer-events-none absolute max-sm:hidden bottom-[18%] right-[8%] size-9 rotate-45 rounded-xl bg-logo-purple/70" />
           <span className="floaty pointer-events-none absolute max-sm:hidden bottom-[14%] left-[16%] size-5 rotate-45 rounded-md bg-logo-teal/80" />
           <h2 className="mx-auto max-w-[14em] text-[clamp(32px,5vw,54px)] font-extrabold leading-[1.05] text-white">Show us one hard decision.</h2>
-          <p className="mx-auto mb-7 mt-4 max-w-[34em] text-lg text-white/85">Thirty minutes. Bring a decision your team keeps making the hard way and we will show you the route. Investors and partners are welcome too.</p>
+          <p className="mx-auto mb-7 mt-4 max-w-[34em] text-lg text-white/85">A 20 to 30 minute walkthrough. Bring a decision your team keeps making the hard way and we will show the full loop on it. Investors and partners are welcome too.</p>
           <div className="flex flex-wrap justify-center gap-3">
             <Button href={BOOK_URL} variant="light" size="lg">
               Book a Decision Walkthrough

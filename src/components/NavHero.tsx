@@ -111,13 +111,13 @@ function HeroStage() {
           {step >= 2 && (
             <motion.span
               key="ok"
-              className="absolute left-[3%] top-[6%] flex items-center gap-1.5 rounded-md bg-active px-2.5 py-1.5 text-[10px] font-semibold text-white shadow-lg sm:text-xs"
+              className="absolute right-[7%] top-[3%] flex items-center gap-1.5 rounded-md bg-active px-2.5 py-1.5 text-[10px] font-semibold text-white shadow-lg sm:text-xs"
               initial={{ opacity: 0, scale: 0.7 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
               transition={{ type: 'spring', stiffness: 260, damping: 16 }}
             >
-              <Check size={13} /> Approved by plant planning
+              <Check size={13} /> Approved by plant planning. Decision Receipt saved
             </motion.span>
           )}
         </AnimatePresence>
@@ -138,7 +138,7 @@ function HeroStage() {
               <TrendingUp size={18} />
             </span>
             <div>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">Result tracked</p>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">Result tracked. Decision Memory updated</p>
               <p className="text-sm font-bold text-primary">
                 On-time orders <span className="text-muted-foreground">43%</span> → <span className="text-active">75%</span> <span className="text-[10px] font-medium text-muted-foreground">in one pilot</span>
               </p>
@@ -163,14 +163,16 @@ function HeroStage() {
 export function Hero() {
   return (
     <div id="top" className="relative overflow-hidden">
-      <Container className="relative grid items-center gap-14 pb-20 pt-12 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:pb-24 lg:pt-20">
+      <div className="hero-grid pointer-events-none absolute inset-0" aria-hidden="true" />
+      <div className="pointer-events-none absolute -right-40 top-10 size-[620px] rounded-full bg-[radial-gradient(circle,rgb(81_141_224/.16),transparent_65%)]" aria-hidden="true" />
+      <div className="relative mx-auto grid w-full max-w-[1360px] items-center gap-12 px-4 pb-20 pt-12 sm:px-6 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-10 lg:px-8 lg:pb-24 lg:pt-20">
         <div>
           <Eyebrow className="rise rise-1">Enterprise Decision Operating System</Eyebrow>
-          <h1 className="rise rise-2 mt-4 text-[clamp(36px,4.4vw,56px)] font-extrabold leading-[1.04] text-primary">
+          <h1 className="rise rise-2 mt-4 text-[clamp(36px,4.2vw,56px)] font-extrabold leading-[1.05] text-primary">
             The operating system for your <span className="grad-text">hardest decisions.</span>
           </h1>
-          <p className="rise rise-3 mt-5 max-w-[32em] text-lg leading-relaxed text-muted-foreground">
-            Kimaru is built for manufacturing and supply chains. It pulls in the data you already have, compares realistic options, lets the right person choose, and learns from every result.{' '}
+          <p className="rise rise-3 mt-5 max-w-[31em] text-lg leading-relaxed text-muted-foreground">
+            When operating choices span ERP data, spreadsheets, expert judgment and several teams, a Kimaru Decision Model compares the practical options, makes approval explicit, supports the action and measures the result.{' '}
             <b className="font-semibold text-foreground">Think GPS for business decisions.</b>
           </p>
           <div className="rise rise-4 mt-7 flex flex-wrap gap-3">
@@ -188,10 +190,10 @@ export function Hero() {
             </span>
           </p>
         </div>
-        <div className="rise rise-6 px-1 pb-8 pt-10 lg:pl-4">
+        <div className="rise rise-6 px-1 pb-8 pt-10">
           <HeroStage />
         </div>
-      </Container>
+      </div>
       <Marquee />
     </div>
   );

@@ -68,12 +68,12 @@ const mods: Mod[] = [
   {
     n: 'Governed approval', title: 'Governed approval', head: 'Approve, then send it where work happens.',
     body: 'Accepted, adjusted and deferred choices are reviewed in one place, then sent to your ERP, Excel, HubSpot or a report.',
-    chips: ['Authority limits', 'ERP', 'Excel', 'HubSpot'], src: 'screens/uc-act.png', w: 1440, h: 775, icon: ShieldCheck,
+    chips: ['Authority limits', 'Decision Receipt', 'ERP', 'Excel'], src: 'screens/uc-act.png', w: 1440, h: 775, icon: ShieldCheck,
   },
   {
     n: 'Decision Tracker', title: 'Decision Tracker', head: 'Measure what actually happened.',
     body: 'Expected against actual by outcome and product line, so you see which decisions paid off and keep the lesson.',
-    chips: ['Expected vs actual', 'By outcome', 'Decision history'], src: 'screens/uc-learn.png', w: 1440, h: 662, icon: TrendingUp,
+    chips: ['Expected vs actual', 'By outcome', 'Decision Memory'], src: 'screens/uc-learn.png', w: 1440, h: 662, icon: TrendingUp,
   },
 ];
 
@@ -155,7 +155,7 @@ const starts = [
 
 export function Connect() {
   return (
-    <Section id="start" tone="alt">
+    <Section id="start">
       <SectionHead eyebrow="Connects to your stack" title="Three ways to start. No rip-and-replace." body="Kimaru sits next to your ERP, supply chain tools, spreadsheets and data platforms. Begin read-only and add connections as the first decision proves itself." />
       <div className="grid gap-4 md:grid-cols-3">
         {starts.map(({ icon: I, t, b }, n) => (

@@ -139,9 +139,9 @@ export function Results() {
 }
 
 const pilot = [
-  { t: 'Define', b: 'Pick one recurring decision. We map who decides, what data they use and how it is made today.', shot: 'screens/production-causal.png', f: [0.45, 0.3, 1.7] as const, cap: 'The decision, mapped' },
-  { t: 'Shadow mode', b: 'Kimaru recommends alongside your team and changes nothing in your systems. Your people still decide.', shot: 'screens/production-review.png', f: [0.35, 0.3, 1.8] as const, cap: 'Your people still decide' },
-  { t: 'Measure', b: 'Compare each recommendation with what happened. Expand only if the numbers justify it.', shot: 'screens/production-tracker.png', f: [0.5, 0.55, 1.5] as const, cap: 'Expected vs actual' },
+  { t: 'Pick one decision', b: 'One recurring call, its owner, a baseline and the data behind it. We map how it is made today.', shot: 'screens/production-causal.png', f: [0.45, 0.3, 1.7] as const, cap: 'The decision, mapped' },
+  { t: 'Replay or shadow mode', b: 'Kimaru replays past decisions or recommends alongside your team. Nothing is written to your systems and your people still decide.', shot: 'screens/production-review.png', f: [0.35, 0.3, 1.8] as const, cap: 'Your people still decide' },
+  { t: 'Result and a decision', b: 'A governed result against the baseline, then a dated production-or-stop decision. Expand only if the numbers justify it.', shot: 'screens/production-tracker.png', f: [0.5, 0.55, 1.5] as const, cap: 'Expected vs actual' },
 ];
 
 export function Pilot() {

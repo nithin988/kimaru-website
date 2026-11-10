@@ -20,7 +20,7 @@ type Slide = {
 // Every screenshot is a clean capture of one real page in the Manufacturing demo (typhoon alert, component shortages).
 const slides: Slide[] = [
   {
-    step: 'Know', gps: 'Where you are', headline: 'Every alert, with the components it hits.',
+    step: 'Understand', gps: 'Where you are', headline: 'Every alert, with the components it hits.',
     body: 'A weather or supply alert lands in the Work Hub with its source, confidence, the components affected and the delay for each.',
     screen: 'screens/uc-hub.png', w: 1440, h: 651, title: 'Work Hub', page: 'Work Hub',
     hot: [
@@ -29,7 +29,7 @@ const slides: Slide[] = [
     ],
   },
   {
-    step: 'Model', gps: 'The map', headline: 'See what drives the outcome.',
+    step: 'Simulate', gps: 'The map', headline: 'See what drives the outcome.',
     body: 'Select a node to see the factors that connect to it and the outcomes it moves.',
     screen: 'screens/uc-cdd-select.png', w: 1440, h: 900, title: 'Causal AI Modeler', page: 'Causal AI Modeler',
     hot: [
@@ -47,8 +47,8 @@ const slides: Slide[] = [
     ],
   },
   {
-    step: 'Choose', gps: 'You pick the route', headline: 'Open a component to see its recommendation.',
-    body: 'Expand a row for the recommended action and its predicted outcome, then accept it, ask the agent, or defer.',
+    step: 'Govern', gps: 'You pick the route', headline: 'The right person commits, with a record.',
+    body: 'Expand a row for the recommended action and its predicted outcome. The owner accepts, asks the agent or defers, and the reasoning is kept as a Decision Receipt.',
     screen: 'screens/uc-choose.png', w: 1440, h: 872, title: 'Recommendation for one component', page: 'Recommendations, expanded',
     hot: [{ x: 5.5, y: 44.5, w: 91, h: 11.5, label: 'Recommendation, predicted outcome, decision', side: 'below' }],
   },
@@ -62,8 +62,8 @@ const slides: Slide[] = [
     ],
   },
   {
-    step: 'Learn', gps: 'It reroutes next time', headline: 'See whether it worked.',
-    body: 'On-time delivery by product line over time, against the baseline, so you can see which decisions paid off and which missed.',
+    step: 'Learn', gps: 'It reroutes next time', headline: 'Measure the result and keep the lesson.',
+    body: 'Expected against actual by outcome and product line. What worked is kept as Decision Memory for the next comparable decision.',
     screen: 'screens/uc-learn.png', w: 1440, h: 662, title: 'Decision Tracker', page: 'Decision Tracker',
     hot: [
       { x: 4.5, y: 10, w: 18, h: 17, label: 'Outcome against baseline', side: 'right' },
@@ -284,7 +284,7 @@ export function LoopSlides() {
       <Section id="how">
         <SectionHead
           eyebrow="How it works"
-          title="Know, model, compare, choose, act, learn."
+          title="Understand, simulate, compare, govern, act, learn."
           body="One loop for every recurring decision. Each step below is a real Kimaru page, shown with a typhoon alert that threatens component supply."
         />
         {pinned ? (
