@@ -8,6 +8,7 @@ const onProduct = typeof location !== 'undefined' && /\/[a-z-]+\.html$/.test(loc
 export const homeHref = (h: string) => (!h.startsWith('#') || !onProduct ? h : `${import.meta.env.BASE_URL}${h}`);
 export const PRODUCT_URL = `${import.meta.env.BASE_URL}product.html`;
 export const SOLUTION_URL = `${import.meta.env.BASE_URL}production-commitment.html`;
+export const RESOURCES_URL = `${import.meta.env.BASE_URL}resources.html`;
 export const RESULTS_URL = `${import.meta.env.BASE_URL}results.html`;
 export const COMPANY_URL = `${import.meta.env.BASE_URL}company.html`;
 // Same links the live kimaru.ai site uses: the founder's meeting link for the walkthrough, the contact form for everything else.
