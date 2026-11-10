@@ -1,7 +1,9 @@
-import { ArrowRight, Check, PlugZap, TrendingUp } from 'lucide-react';
-import { BOOK_URL, BrowserFrame, Button, Container, Eyebrow, asset } from './ui';
-import { Depth, Parallax, ScrollProgress } from './motion';
+import { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
+import { ArrowRight, Check, TrendingUp } from 'lucide-react';
+import { BOOK_URL, BrowserFrame, Button, Container, Eyebrow, asset, cn, useInView } from './ui';
 import { Marquee } from './Marquee';
+import { ScrollProgress } from './motion';
 
 const links = [
   ['Why Kimaru', '#cost'],
@@ -36,92 +38,160 @@ export function Nav() {
   );
 }
 
+const reduced = () => typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const STEPS = ['Alert', 'Compare', 'Approve', 'Result'] as const;
+
+/**
+ * Right side of the hero: the real Work Hub screen with a short loop laid on top.
+ * Alert lands, options are compared, an owner approves, the result is tracked.
+ */
+function HeroStage() {
+  const [ref, seen] = useInView<HTMLDivElement>(0.2);
+  const [step, setStep] = useState(reduced() ? 3 : 0);
+  useEffect(() => {
+    if (!seen || reduced()) return;
+    const t = setInterval(() => setStep((s) => (s + 1) % STEPS.length), 2600);
+    return () => clearInterval(t);
+  }, [seen]);
+
+  return (
+    <div ref={ref} className="relative">
+      {/* Decision route artwork behind the frame */}
+      <img src={asset('photos/route.webp')} alt="" aria-hidden="true" className="pointer-events-none absolute -inset-10 -z-10 h-[calc(100%+5rem)] w-[calc(100%+5rem)] object-cover [mask-image:radial-gradient(ellipse_at_center,#000_40%,transparent_75%)]" />
+
+      <BrowserFrame src="screens/uc-hub.png" alt="Kimaru Work Hub showing a typhoon alert and the components it affects" title="Work Hub" aspect="1440 / 651">
+        {/* Step 1: the alert */}
+        <motion.div
+          className="pointer-events-none absolute rounded-lg border-2 border-active bg-active/[0.07]"
+          style={{ left: '54.5%', top: '31%', width: '21.5%', height: '31%' }}
+          animate={{ opacity: step >= 0 ? 1 : 0, scale: step === 0 ? [1, 1.03, 1] : 1 }}
+          transition={{ duration: 0.8 }}
+        >
+          <span className="absolute -top-3 left-1 -translate-y-full whitespace-nowrap rounded-full bg-active px-2.5 py-1 text-[11px] font-semibold text-white shadow-lg">3 components at risk</span>
+        </motion.div>
+
+        {/* Step 2: options compared */}
+        <AnimatePresence>
+          {step >= 1 && (
+            <motion.div
+              key="opts"
+              className="absolute right-[3%] top-[44%] w-[44%] rounded-xl border border-border bg-white p-2.5 shadow-2xl sm:p-3"
+              initial={{ opacity: 0, y: 16, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 8 }}
+              transition={{ type: 'spring', stiffness: 170, damping: 20 }}
+            >
+              <p className="text-[9px] font-semibold uppercase tracking-[0.08em] text-muted-foreground sm:text-[10px]">Options compared</p>
+              {[
+                { n: 'Expedite by air', v: 78, best: true },
+                { n: 'Resequence line', v: 71 },
+                { n: 'Wait for supplier', v: 52 },
+              ].map((o, k) => (
+                <div key={o.n} className="mt-1.5 flex items-center gap-2 text-[9px] sm:text-[11px]">
+                  <span className={cn('w-[34%] truncate font-medium', o.best ? 'text-primary' : 'text-muted-foreground')}>{o.n}</span>
+                  <span className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-secondary sm:h-2">
+                    <motion.span
+                      className={cn('absolute inset-y-0 left-0 rounded-full', o.best ? 'bg-active' : 'bg-slate-300')}
+                      initial={{ width: 0 }}
+                      animate={{ width: `${o.v}%` }}
+                      transition={{ duration: 0.9, delay: 0.15 + k * 0.12, ease: 'easeOut' }}
+                    />
+                  </span>
+                  <span className="w-7 text-right font-bold tabular-nums text-primary">{o.v}%</span>
+                </div>
+              ))}
+              <p className="mt-1.5 text-[8px] text-muted-foreground sm:text-[9px]">Predicted on-time orders. Illustrative.</p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Step 3: approved */}
+        <AnimatePresence>
+          {step >= 2 && (
+            <motion.span
+              key="ok"
+              className="absolute left-[3%] top-[6%] flex items-center gap-1.5 rounded-md bg-active px-2.5 py-1.5 text-[10px] font-semibold text-white shadow-lg sm:text-xs"
+              initial={{ opacity: 0, scale: 0.7 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ type: 'spring', stiffness: 260, damping: 16 }}
+            >
+              <Check size={13} /> Approved by plant planning
+            </motion.span>
+          )}
+        </AnimatePresence>
+      </BrowserFrame>
+
+      {/* Step 4: tracked result, floating below the frame */}
+      <AnimatePresence>
+        {step >= 3 && (
+          <motion.div
+            key="res"
+            className="absolute -bottom-5 left-4 flex items-center gap-3 rounded-xl border border-border bg-white px-4 py-3 shadow-2xl"
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 6 }}
+            transition={{ type: 'spring', stiffness: 160, damping: 20 }}
+          >
+            <span className="grid size-9 place-items-center rounded-lg bg-teal-50 text-active">
+              <TrendingUp size={18} />
+            </span>
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">Result tracked</p>
+              <p className="text-sm font-bold text-primary">
+                On-time orders <span className="text-muted-foreground">43%</span> → <span className="text-active">75%</span> <span className="text-[10px] font-medium text-muted-foreground">in one pilot</span>
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Progress dots for the loop */}
+      <div className="absolute -top-8 right-0 hidden items-center gap-2 text-[11px] font-semibold text-muted-foreground sm:flex" aria-hidden="true">
+        {STEPS.map((s, n) => (
+          <span key={s} className={cn('flex items-center gap-1.5 transition-colors', n === step ? 'text-active' : '')}>
+            <span className={cn('size-1.5 rounded-full', n <= step ? 'bg-active' : 'bg-border')} />
+            {s}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function Hero() {
   return (
     <div id="top" className="relative overflow-hidden">
-      {/* GPS routes at the edges, with the logo diamonds as waypoints and a dot travelling the route */}
-      <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
-        <path id="route-l" d="M-20 120 C 120 120, 120 330, 70 470 S 40 760, 240 800" fill="none" stroke="#cbd5e1" strokeWidth="2" strokeDasharray="3 9" strokeLinecap="round" />
-        <path id="route-r" d="M1460 90 C 1330 100, 1330 300, 1380 430 S 1400 700, 1200 760" fill="none" stroke="#cbd5e1" strokeWidth="2" strokeDasharray="3 9" strokeLinecap="round" />
-        <rect x="60" y="150" width="22" height="22" rx="6" transform="rotate(45 71 161)" fill="#518de0" />
-        <rect x="1360" y="130" width="22" height="22" rx="6" transform="rotate(45 1371 141)" fill="#6f33bf" />
-        <rect x="1352" y="580" width="26" height="26" rx="7" transform="rotate(45 1365 593)" fill="#5aaeb0" />
-        <circle r="5" fill="#008080">
-          <animateMotion dur="9s" repeatCount="indefinite" rotate="auto"><mpath href="#route-l" /></animateMotion>
-        </circle>
-        <circle r="5" fill="#5215a3">
-          <animateMotion dur="11s" repeatCount="indefinite" begin="-3s"><mpath href="#route-r" /></animateMotion>
-        </circle>
-      </svg>
-
-      <Container className="relative pt-14 text-center lg:pt-20">
-        <Eyebrow className="rise rise-1">Enterprise Decision Operating System</Eyebrow>
-        <h1 className="rise rise-2 mx-auto mt-4 max-w-[14em] text-[clamp(38px,6.2vw,76px)] font-extrabold leading-[1.03] text-primary">
-          The operating system for your <span className="grad-text">hardest decisions.</span>
-        </h1>
-        <p className="rise rise-3 mx-auto mt-5 max-w-[38em] text-lg leading-relaxed text-muted-foreground sm:text-xl">
-          Kimaru is built for manufacturing and supply chains. It pulls in the data you already have, compares realistic options, lets the right person choose, and learns from every result.{' '}
-          <b className="font-semibold text-foreground">Think GPS for business decisions.</b>
-        </p>
-        <div className="rise rise-4 mt-7 flex flex-wrap justify-center gap-3">
-          <Button href={BOOK_URL} size="lg">
-            Book a Decision Walkthrough <ArrowRight size={16} />
-          </Button>
-          <Button href="#how" variant="outline" size="lg">
-            See how it works
-          </Button>
-        </div>
-        <p className="rise rise-5 mt-5 inline-flex items-center gap-2.5 text-sm text-muted-foreground">
-          <span className="size-2.5 shrink-0 rotate-45 rounded-[3px] bg-logo-teal" />
-          <span>
-            In one pilot, on-time production went from <b className="text-foreground">43% to 75%</b>. Measured, not universal.
-          </span>
-        </p>
-      </Container>
-
-      <Container className="rise rise-6 relative mt-12 pb-16 max-w-[1360px]!">
-        <div className="relative grid items-center lg:grid-cols-[minmax(0,0.6fr)_minmax(0,2.3fr)_minmax(0,0.6fr)]">
-          {/* Left supporting screen, turned in toward the centre */}
-          <Parallax factor={3} className="relative z-0 hidden lg:block lg:-mr-10">
-            <div className="tilt-l floaty">
-              <BrowserFrame src="screens/uc-hub.png" alt="Kimaru Work Hub listing a typhoon alert and the components it affects" title="Work Hub" aspect="4 / 5" imgClassName="object-left-top" fade compact className="shadow-2xl" />
-            </div>
-          </Parallax>
-
-          {/* Main screen */}
-          <div className="relative z-10">
-            <Depth>
-              <BrowserFrame
-                src="screens/uc-compare.png"
-                alt="Kimaru recommendations page for a typhoon alert, listing every component at risk with its stock, backlog, order fulfillment risk and confidence"
-                title="Decide on recommendations"
-                aspect="1440 / 745"
-                mobileAspect="1 / 1"
-                imgClassName="max-md:object-[56%_100%] max-md:scale-[1.3] max-md:origin-[56%_100%]"
-              >
-                <span className="ping-soft absolute left-[47%] top-[22%] hidden items-center gap-1.5 rounded-full bg-brand px-3 py-1.5 text-xs font-semibold text-white shadow-lg md:flex">
-                  <Check size={12} /> Risk for every component
-                </span>
-                <span className="absolute right-[3%] top-[22%] hidden items-center gap-1.5 rounded-full bg-agent px-3 py-1.5 text-xs font-semibold text-white shadow-lg md:flex">
-                  <PlugZap size={12} /> Ask the agent, or defer
-                </span>
-              </BrowserFrame>
-            </Depth>
+      <Container className="relative grid items-center gap-14 pb-20 pt-12 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:pb-24 lg:pt-20">
+        <div>
+          <Eyebrow className="rise rise-1">Enterprise Decision Operating System</Eyebrow>
+          <h1 className="rise rise-2 mt-4 text-[clamp(36px,4.4vw,56px)] font-extrabold leading-[1.04] text-primary">
+            The operating system for your <span className="grad-text">hardest decisions.</span>
+          </h1>
+          <p className="rise rise-3 mt-5 max-w-[32em] text-lg leading-relaxed text-muted-foreground">
+            Kimaru is built for manufacturing and supply chains. It pulls in the data you already have, compares realistic options, lets the right person choose, and learns from every result.{' '}
+            <b className="font-semibold text-foreground">Think GPS for business decisions.</b>
+          </p>
+          <div className="rise rise-4 mt-7 flex flex-wrap gap-3">
+            <Button href={BOOK_URL} size="lg">
+              Book a Decision Walkthrough <ArrowRight />
+            </Button>
+            <Button href="#how" variant="outline" size="lg">
+              See how it works
+            </Button>
           </div>
-
-          {/* Right supporting screen */}
-          <Parallax factor={5} className="relative z-0 hidden lg:block lg:-ml-10">
-            <div className="tilt-r floaty-b">
-              <BrowserFrame src="screens/uc-learn.png" alt="Kimaru Decision Tracker showing on-time delivery rate by product line" title="Decision Tracker" aspect="4 / 5" imgClassName="object-right-top" fade compact className="shadow-2xl">
-                <span className="absolute left-2 top-2 flex items-center gap-1 rounded-full bg-active px-2.5 py-1 text-[11px] font-semibold text-white">
-                  <TrendingUp size={11} /> Expected vs actual
-                </span>
-              </BrowserFrame>
-            </div>
-          </Parallax>
+          <p className="rise rise-5 mt-6 flex items-center gap-2.5 text-sm text-muted-foreground">
+            <span className="size-2.5 shrink-0 rotate-45 rounded-[3px] bg-logo-teal" />
+            <span>
+              In one pilot, on-time production went from <b className="text-foreground">43% to 75%</b>. Measured, not universal.
+            </span>
+          </p>
+        </div>
+        <div className="rise rise-6 px-1 pb-8 pt-10 lg:pl-4">
+          <HeroStage />
         </div>
       </Container>
-
       <Marquee />
     </div>
   );

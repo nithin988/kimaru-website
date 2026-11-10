@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Bot, Brain, Cable, Database, GitBranch, History, LayoutGrid, MonitorSmartphone, ScrollText, ShieldCheck, Sparkles } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import { BrowserFrame, Section, SectionHead, cn, useInView } from './ui';
+import { BrowserFrame, Section, SectionHead, asset, cn, useInView } from './ui';
 import { Reveal } from './motion';
 
 const jobs = [
@@ -243,13 +243,20 @@ function WhyOs() {
 export function Edos() {
   return (
     <Section id="edos" tone="alt">
-      <SectionHead
-        eyebrow="What an Enterprise Decision Operating System does"
-        title="Your systems record. Your AI answers. Kimaru runs the decision."
-        body="You already have tools for the first two. Like an operating system, Kimaru lets many decision apps share one foundation: your data, rules, approvals and memory."
-      />
+      <div className="mb-12 grid items-center gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
+        <SectionHead
+          className="!mb-0"
+          eyebrow="What an Enterprise Decision Operating System does"
+          title="Your systems record. Your AI answers. Kimaru runs the decision."
+          body="You already have tools for the first two. Like an operating system, Kimaru lets many decision apps share one foundation: your data, rules, approvals and memory."
+        />
+        <Reveal delay={120} className="mx-auto w-full max-w-[380px]">
+          <div className="floaty relative aspect-square overflow-hidden rounded-3xl">
+            <img src={asset('photos/layers.webp')} alt="Three layers: decision apps on top, rules and connections in the middle, your data underneath" loading="lazy" className="absolute inset-0 h-full w-full origin-top-left scale-[1.1] object-cover" />
+          </div>
+        </Reveal>
+      </div>
       <Jobs />
-      <div className="mt-12" />
       <Stack />
     </Section>
   );

@@ -149,3 +149,12 @@ export function Thumb({ src, cx, cy, zoom, cap, className }: { src: string; cx: 
     </div>
   );
 }
+
+/** Full-bleed photo. Scaled slightly from the top-left so any corner mark in the bottom-right falls outside the frame. */
+export function Photo({ src, className, pos = '50% 50%' }: { src: string; className?: string; pos?: string }) {
+  return (
+    <div className={cn('relative overflow-hidden bg-panel', className)}>
+      <img src={asset(src)} alt="" loading="lazy" className="absolute inset-0 h-full w-full origin-top-left scale-[1.08] object-cover" style={{ objectPosition: pos }} />
+    </div>
+  );
+}
