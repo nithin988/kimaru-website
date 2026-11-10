@@ -9,7 +9,10 @@ export const homeHref = (h: string) => (!h.startsWith('#') || !onProduct ? h : `
 export const PRODUCT_URL = `${import.meta.env.BASE_URL}product.html`;
 export const SOLUTION_URL = `${import.meta.env.BASE_URL}production-commitment.html`;
 export const COMPANY_URL = `${import.meta.env.BASE_URL}company.html`;
-export const BOOK_URL = 'https://kimaru.ai/contact-us/';
+// Same links the live kimaru.ai site uses: the founder's meeting link for the walkthrough, the contact form for everything else.
+export const BOOK_URL = 'https://meetings.hubspot.com/evan-burkosky';
+export const CONTACT_URL = 'https://kimaru.ai/contact-us/';
+export const WALKTHROUGH_URL = `${import.meta.env.BASE_URL}walkthrough.html`;
 
 export function cn(...c: Array<string | false | null | undefined>) {
   return c.filter(Boolean).join(' ');

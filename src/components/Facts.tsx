@@ -1,5 +1,5 @@
 import { ArrowUpRight, Bot, Building2, Compass, Factory, Gauge, Layers, MapPin, Shuffle, TrendingUp } from 'lucide-react';
-import { BOOK_URL, COMPANY_URL, Button, Eyebrow, Section, SectionHead, asset } from './ui';
+import { CONTACT_URL, COMPANY_URL, Button, Eyebrow, Section, SectionHead, asset } from './ui';
 import { CountUp, Reveal } from './motion';
 
 export function Glance() {
@@ -84,7 +84,7 @@ export function Team() {
             </span>
           </div>
           <div className="mt-7 flex flex-wrap gap-3">
-            <Button href={BOOK_URL}>Talk to the founders <ArrowUpRight size={15} /></Button>
+            <Button href={CONTACT_URL}>Talk to the founders <ArrowUpRight size={15} /></Button>
             <Button href={COMPANY_URL} variant="outline">About Kimaru</Button>
           </div>
         </Reveal>

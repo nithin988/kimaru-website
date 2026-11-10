@@ -1,6 +1,6 @@
 import { ArrowRight, Building2, CalendarDays, Eye, MapPin, Scale, ShieldCheck, Target } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import { BOOK_URL, Button, Container, Eyebrow, Section, SectionHead, asset } from './ui';
+import { CONTACT_URL, Button, Container, Eyebrow, Section, SectionHead, asset } from './ui';
 import { Reveal } from './motion';
 
 const people = [
@@ -28,7 +28,7 @@ export function CompanyHero() {
             Kimaru brings together what your software shows, what your people know and what AI recommends, so the company can choose, get the right approval, see what happened and remember what worked.
           </p>
           <div className="rise rise-4 mt-7 flex flex-wrap gap-3">
-            <Button href={BOOK_URL} size="lg">
+            <Button href={CONTACT_URL} size="lg">
               Talk to the founders <ArrowRight />
             </Button>
             <Button href="#team" variant="outline" size="lg">

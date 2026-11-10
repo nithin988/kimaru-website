@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { ArrowUpRight, Clock, Handshake, PiggyBank, Radar, Scale, Sparkles, TrendingUp, Zap } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import { BrowserFrame, Button, BOOK_URL, Eyebrow, Photo, Section, SectionHead, cn } from './ui';
+import { BrowserFrame, Button, CONTACT_URL, Eyebrow, Photo, Section, SectionHead, cn } from './ui';
 import { CountUp, Reveal } from './motion';
 
 /* ---------- Cost of delay: published survey figures, each with its source ---------- */
@@ -286,7 +286,7 @@ export function Industries() {
               ))}
             </div>
             {s.id === 'yours' ? (
-              <Button href={BOOK_URL} className="mt-6">Show us one hard decision <ArrowUpRight /></Button>
+              <Button href={CONTACT_URL} className="mt-6">Show us one hard decision <ArrowUpRight /></Button>
             ) : (
               <a href="#how" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-active no-underline hover:underline">
                 See how a decision runs <ArrowUpRight size={15} />
