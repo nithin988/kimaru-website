@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ArrowRight, Check, Gauge, Target, Waypoints } from 'lucide-react';
 import { BrowserFrame, Button, Eyebrow, Section, cn } from './ui';
 import { Reveal } from './motion';
+import { NetworkBackdrop } from './Flow';
 
 type Driver = { name: string; w: number; conf: number; dir: 'helps' | 'against' };
 type Outcome = { id: string; label: string; blurb: string; drivers: Driver[] };
@@ -118,18 +119,19 @@ export function ImpactMap() {
 
 const paths = [
   {
-    k: 'The platform', t: 'Run decisions in Kimaru', b: 'Your team works in one place every day: the decision map, the options, the approval and the tracked result.',
+    k: 'The platform', who: 'For teams that make the same costly decision again and again', t: 'Run decisions in Kimaru', b: 'Your team works in one place every day: the decision map, the options, the approval and the tracked result.',
     pts: ['Decision map with influence values', 'Options compared before you commit', 'Approval, record and tracking'], cta: 'Book a walkthrough', primary: true,
   },
   {
-    k: 'Decisions as a Service', t: 'Start with a service', b: 'Not ready for a platform? We do the groundwork with you: data, the decision map, forecasts, even running the decision.',
+    k: 'Decisions as a Service', who: 'For teams that want results before committing to a platform', t: 'Start with a service', b: 'Not ready for a platform? We do the groundwork with you: data, the decision map, forecasts, even running the decision.',
     pts: ['No platform commitment', 'Useful with any AI you choose later', 'Grow into the platform when ready'], cta: 'Tell us what you need', primary: false,
   },
 ];
 
 export function TwoWays({ bookUrl, contactUrl }: { bookUrl: string; contactUrl: string }) {
   return (
-    <Section id="ways">
+    <Section id="ways" className="relative overflow-hidden">
+      <NetworkBackdrop className="-right-16 top-6 hidden w-[620px] opacity-60 lg:block" />
       <div className="mb-10 max-w-3xl">
         <Reveal>
           <Eyebrow>Two ways to start</Eyebrow>
@@ -141,7 +143,8 @@ export function TwoWays({ bookUrl, contactUrl }: { bookUrl: string; contactUrl: 
           <Reveal key={p.k} delay={n * 110} className="h-full">
             <div className={cn('lift flex h-full flex-col rounded-3xl border p-7 sm:p-8', p.primary ? 'border-brand bg-brand text-white' : 'border-border bg-card')}>
               <p className={cn('text-xs font-semibold uppercase tracking-[0.09em]', p.primary ? 'text-white/75' : 'text-muted-foreground')}>{p.k}</p>
-              <h3 className={cn('mt-2 text-3xl font-extrabold leading-tight', p.primary ? 'text-white' : 'text-primary')}>{p.t}</h3>
+              <p className={cn('mt-2 text-sm font-semibold', p.primary ? 'text-teal-200' : 'text-active')}>{p.who}</p>
+              <h3 className={cn('mt-1 text-3xl font-extrabold leading-tight', p.primary ? 'text-white' : 'text-primary')}>{p.t}</h3>
               <p className={cn('mt-3 text-base leading-relaxed', p.primary ? 'text-white/85' : 'text-muted-foreground')}>{p.b}</p>
               <ul className="m-0 mt-5 grid list-none gap-2.5 p-0">
                 {p.pts.map((x) => (
