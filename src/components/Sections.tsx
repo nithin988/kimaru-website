@@ -149,12 +149,12 @@ export function Pilot() {
       <SectionHead eyebrow="Start small" title="Prove it on one decision before you commit to anything." />
       <ol className="m-0 grid list-none gap-6 p-0 md:grid-cols-3">
         {pilot.map((p, n) => (
-          <Reveal as="li" key={p.t} delay={n * 140} className="min-w-0">
+          <Reveal as="li" key={p.t} delay={n * 140} className="flex min-w-0 flex-col">
             <div className="mb-3.5 flex items-center gap-3">
               <span className="grid size-9 place-items-center rounded-full bg-brand text-[15px] font-bold text-white">{n + 1}</span>
               {n < pilot.length - 1 && <span className="hidden flex-1 border-t-2 border-dashed border-slate-300 md:block" />}
             </div>
-            <div className="lift h-full rounded-xl border border-border bg-card p-6">
+            <div className="lift flex-1 rounded-xl border border-border bg-card p-6">
               <span className="grid size-11 place-items-center rounded-xl bg-brand-soft text-brand">
                 <p.icon size={20} />
               </span>

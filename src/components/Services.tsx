@@ -107,12 +107,12 @@ export function GrowPath() {
       <SectionHead eyebrow="How it grows" title="A path, not a leap." />
       <ol className="m-0 grid list-none gap-6 p-0 md:grid-cols-3">
         {path.map((p, n) => (
-          <Reveal as="li" key={p.t} delay={n * 120} className="min-w-0">
+          <Reveal as="li" key={p.t} delay={n * 120} className="flex min-w-0 flex-col">
             <div className="mb-3.5 flex items-center gap-3">
               <span className="grid size-9 place-items-center rounded-full bg-brand text-[15px] font-bold text-white">{n + 1}</span>
               {n < path.length - 1 && <span className="hidden flex-1 border-t-2 border-dashed border-slate-300 md:block" />}
             </div>
-            <div className="lift h-full rounded-xl border border-border bg-card p-6">
+            <div className="lift flex-1 rounded-xl border border-border bg-card p-6">
               <h3 className="text-xl font-bold text-primary">{p.t}</h3>
               <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{p.b}</p>
             </div>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ArrowRight, Check, Gauge, Target, Waypoints } from 'lucide-react';
-import { BrowserFrame, Button, Eyebrow, Section, cn } from './ui';
+import { Button, Eyebrow, Section, asset, cn } from './ui';
 import { Reveal } from './motion';
 import { NetworkBackdrop } from './Flow';
 
@@ -35,7 +35,7 @@ export function ImpactExplorer() {
   const [id, setId] = useState('otd');
   const o = outcomes.find((x) => x.id === id)!;
   return (
-    <div className="rounded-2xl border border-border bg-card p-5 shadow-[0_24px_60px_-28px_rgb(37_59_127/0.35)] sm:p-7">
+    <div className="flex h-full flex-col rounded-xl border border-border bg-card p-5 shadow-[0_24px_60px_-24px_rgb(37_59_127/0.35)] sm:p-7">
       <div className="flex flex-wrap items-center gap-2" role="tablist" aria-label="Outcome">
         <span className="mr-1 text-xs font-semibold uppercase tracking-[0.09em] text-muted-foreground">What moves</span>
         {outcomes.map((x) => (
@@ -52,7 +52,7 @@ export function ImpactExplorer() {
       </div>
       <p className="mt-3 text-sm text-muted-foreground">{o.blurb}</p>
 
-      <ul key={o.id} className="fade-in m-0 mt-5 grid list-none gap-3.5 p-0">
+      <ul key={o.id} className="fade-in m-0 mt-5 grid min-h-[372px] list-none content-start gap-3.5 p-0">
         {o.drivers.map((d) => (
           <li key={d.name} className="grid items-center gap-x-4 gap-y-1.5 sm:grid-cols-[minmax(0,1.1fr)_minmax(0,1.4fr)_auto]">
             <div className="min-w-0">
@@ -68,7 +68,7 @@ export function ImpactExplorer() {
           </li>
         ))}
       </ul>
-      <p className="mt-5 text-xs leading-relaxed text-muted-foreground">Strength of influence, from 0 to 1, and how sure the estimate is. Demonstration values on synthetic data.</p>
+      <p className="mt-auto pt-5 text-xs leading-relaxed text-muted-foreground">Strength of influence, from 0 to 1, and how sure the estimate is. Demonstration values on synthetic data.</p>
     </div>
   );
 }
@@ -91,13 +91,24 @@ export function ImpactMap() {
           </p>
         </Reveal>
       </div>
-      <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
-        <Reveal>
+      <div className="grid items-stretch gap-6 lg:grid-cols-2">
+        <Reveal className="h-full">
           <ImpactExplorer />
         </Reveal>
-        <Reveal delay={120} className="min-w-0">
-          <BrowserFrame src="screens/uc-cdd-weights.png" alt="The Kimaru decision map with a node selected, showing the strength of influence on each outcome it affects" title="Select any factor to see its influence" aspect="1440 / 1000" />
-          <p className="mt-3 text-sm text-muted-foreground">The same map inside Kimaru. Pick a factor and see which outcomes it moves and how strongly.</p>
+        <Reveal delay={120} className="h-full min-w-0">
+          <div className="flex h-full min-h-[420px] flex-col overflow-hidden rounded-xl border border-border bg-card shadow-[0_24px_60px_-24px_rgb(37_59_127/0.35)]">
+            <div className="flex items-center gap-2 border-b border-border bg-panel px-3.5 py-2.5 text-xs text-muted-foreground">
+              <span className="size-2.5 rounded-full bg-border" />
+              <span className="size-2.5 rounded-full bg-border" />
+              <span className="size-2.5 rounded-full bg-border" />
+              <span className="ml-2 font-semibold text-foreground">The same map inside Kimaru</span>
+              <span className="ml-auto hidden text-[11px] sm:inline">Synthetic demo data</span>
+            </div>
+            <div className="relative min-h-[300px] flex-1">
+              <img src={asset('screens/uc-cdd-weights.png')} alt="The Kimaru decision map with a node selected, showing the strength of influence on each outcome it affects" loading="lazy" className="absolute inset-0 h-full w-full object-cover object-[100%_0]" />
+            </div>
+            <p className="border-t border-border px-5 py-3 text-sm text-muted-foreground">Pick a factor and see which outcomes it moves, and how strongly.</p>
+          </div>
         </Reveal>
       </div>
       <div className="mt-10 grid gap-4 md:grid-cols-3">
