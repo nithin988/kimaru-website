@@ -9,6 +9,7 @@ export const HOME_URL = import.meta.env.BASE_URL;
 export const onSubpage = onProduct;
 export const homeHref = (h: string) => (!h.startsWith('#') || !onProduct ? h : `${import.meta.env.BASE_URL}${h}`);
 export const PRODUCT_URL = `${import.meta.env.BASE_URL}product.html`;
+export const SOLUTIONS_URL = `${import.meta.env.BASE_URL}solutions.html`;
 export const SOLUTION_URL = `${import.meta.env.BASE_URL}production-commitment.html`;
 export const RESOURCES_URL = `${import.meta.env.BASE_URL}resources.html`;
 export const RESULTS_URL = `${import.meta.env.BASE_URL}results.html`;

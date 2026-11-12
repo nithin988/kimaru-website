@@ -5,6 +5,7 @@ import { CostOfDelay, Benefits, Industries } from './components/Value';
 import { Edos } from './components/Edos';
 import { LoopSlides } from './components/LoopSlides';
 import { Pilot, Trust } from './components/Sections';
+import { ServicesTeaser } from './components/Services';
 import { Faq, Closing, Footer } from './components/FaqFooter';
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
         <LoopSlides />
         <Benefits />
         <Industries />
+        <ServicesTeaser />
         <Pilot />
         <Trust />
         <Team />
