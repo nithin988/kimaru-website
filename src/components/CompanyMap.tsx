@@ -3,7 +3,6 @@ import { geoNaturalEarth1, geoPath, geoInterpolate } from 'd3-geo';
 import { feature } from 'topojson-client';
 import type { FeatureCollection } from 'geojson';
 import land from 'world-atlas/land-110m.json';
-import { CalendarDays, MapPin } from 'lucide-react';
 import { asset } from './ui';
 
 const W = 800;
@@ -60,28 +59,21 @@ export function CompanyMap({ bare }: { bare?: boolean }) {
           </g>
         </svg>
       </div>
-      <dl className="m-0 grid grid-cols-1 divide-y divide-border border-t border-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-        <div className="flex min-w-0 items-center gap-3 p-4">
-          <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-brand-soft text-brand"><CalendarDays size={18} /></span>
-          <div>
-            <dt className="text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">Founded</dt>
-            <dd className="m-0 text-[15px] font-bold text-primary">November 2024</dd>
+      <dl className="m-0 grid grid-cols-2 border-t border-border sm:grid-cols-3">
+        {[
+          ['Company', 'Kimaru AI, Inc.'],
+          ['Founded', 'November 15, 2024'],
+          ['CEO', 'Evan Burkosky'],
+          ['EIN', '33-1995599'],
+          ['Capital', '$500,000'],
+          ['Website', 'kimaru.ai'],
+        ].map(([k, v], n) => (
+          <div key={k} className={`min-w-0 p-4 ${n % 3 !== 0 ? 'sm:border-l sm:border-border' : ''} ${n > 2 ? 'sm:border-t sm:border-border' : ''} ${n % 2 ? 'border-l border-border sm:border-l' : ''} ${n > 1 ? 'border-t border-border' : ''}`}>
+            <dt className="text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">{k}</dt>
+            <dd className="m-0 mt-1 text-[15px] font-bold text-primary">{v}</dd>
           </div>
-        </div>
-        <div className="flex min-w-0 items-center gap-3 p-4">
-          <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-brand-soft text-brand"><MapPin size={18} /></span>
-          <div>
-            <dt className="text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">Based in</dt>
-            <dd className="m-0 text-[15px] font-bold text-primary">Austin, Texas</dd>
-          </div>
-        </div>
-        <div className="flex min-w-0 items-center gap-3 p-4">
-          <div className="min-w-0">
-            <dt className="text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">Backed by</dt>
-            <dd className="m-0 mt-1"><img src={asset('alchemist.webp')} alt="Alchemist Accelerator" className="h-6 w-auto max-w-full" /></dd>
-          </div>
-        </div>
-      </dl>
+        ))}
+        </dl>
     </div>
   );
 }

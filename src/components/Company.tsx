@@ -16,40 +16,13 @@ const people = [
   },
 ];
 
-const orbit = ['Pricing', 'Inventory', 'Staffing', 'Procurement', 'Capacity', 'Forecasting'];
-
-/** Abstract hero: one decision system in the middle, the recurring decisions a company repeats around it. */
 function HeroVisual() {
-  const pts = orbit.map((_, n) => {
-    const a = (-90 + n * 60) * (Math.PI / 180);
-    return { x: 50 + 37 * Math.cos(a), y: 50 + 32 * Math.sin(a) };
-  });
   return (
     <div className="relative">
-      <div className="relative aspect-square overflow-hidden rounded-3xl border border-border bg-[radial-gradient(circle_at_50%_45%,#ffffff_0%,#eef2ff_45%,#dbe7ff_75%,#d5f3f1_100%)] shadow-[0_30px_70px_-30px_rgb(37_59_127/0.55)] sm:aspect-[5/4]">
-        <div className="hero-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden="true" />
-        <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 h-full w-full" aria-hidden="true">
-          <ellipse cx="50" cy="50" rx="37" ry="32" fill="none" strokeWidth="0.25" strokeDasharray="1.2 1.8" className="stroke-brand/45" vectorEffect="non-scaling-stroke" />
-          <ellipse cx="50" cy="50" rx="21" ry="20" fill="none" strokeWidth="0.25" className="stroke-brand/25" vectorEffect="non-scaling-stroke" />
-          {pts.map((p, n) => (
-            <line key={n} x1="50" y1="50" x2={p.x} y2={p.y} strokeWidth="0.25" strokeDasharray="1 1.4" className="stroke-brand/40" vectorEffect="non-scaling-stroke" />
-          ))}
-        </svg>
-        <div className="absolute left-1/2 top-1/2 grid size-24 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-card shadow-[0_0_0_10px_rgb(255_255_255/0.55),0_20px_50px_-12px_rgb(37_59_127/0.5)] max-sm:size-20">
-          <img src={asset('favicon.svg')} alt="" className="size-11 max-sm:size-9" />
-        </div>
-        {orbit.map((label, n) => (
-          <span
-            key={label}
-            className="absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border border-border bg-card px-3.5 py-1.5 text-[13px] font-bold text-primary shadow-[0_10px_26px_-12px_rgb(37_59_127/0.5)] max-sm:px-2.5 max-sm:text-[11px]"
-            style={{ left: `${pts[n].x}%`, top: `${pts[n].y}%` }}
-          >
-            <span className={`mr-1.5 inline-block size-2 rounded-full ${n % 2 ? 'bg-brand' : 'bg-active'}`} />
-            {label}
-          </span>
-        ))}
+      <div className="overflow-hidden rounded-3xl border border-border shadow-[0_30px_70px_-30px_rgb(37_59_127/0.55)]">
+        <img src={asset('photos/company-hero.webp')} alt="Business leaders reviewing a decision network on a large display" className="aspect-[4/5] w-full object-cover sm:aspect-[5/4]" />
       </div>
-      <div className="floaty absolute -bottom-14 left-2 w-[218px] max-sm:hidden rounded-2xl border border-border bg-card/95 p-4 shadow-[0_20px_50px_-20px_rgb(37_59_127/0.55)] backdrop-blur max-sm:-bottom-12 max-sm:left-3 max-sm:w-[215px]">
+      <div className="floaty absolute -bottom-8 left-5 w-[250px] rounded-2xl border border-border bg-card/95 p-4 shadow-[0_20px_50px_-20px_rgb(37_59_127/0.55)] backdrop-blur max-sm:left-3 max-sm:w-[215px]">
         <p className="text-[10px] font-semibold uppercase tracking-[0.09em] text-muted-foreground">Decision on record</p>
         <ul className="m-0 mt-2.5 grid list-none gap-2 p-0 text-[13px] font-semibold text-primary">
           {['Options compared', 'Approved by the owner', 'Result tracked'].map((x) => (
@@ -206,36 +179,3 @@ export function Facts() {
   );
 }
 
-const details: Array<[string, string]> = [
-  ['Company', 'Kimaru AI, Inc.'],
-  ['Founded', 'November 15, 2024'],
-  ['CEO', 'Evan Burkosky'],
-  ['Office', '1606 Headway Cir STE 9718, Austin, TX 78754'],
-  ['Telephone', '+1 737 377 1477'],
-  ['Website', 'kimaru.ai'],
-  ['EIN', '33-1995599'],
-  ['Capital', '$500,000'],
-];
-
-export function Details() {
-  return (
-    <Section id="details" tone="alt">
-      <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
-        <Reveal>
-          <Eyebrow>Company details</Eyebrow>
-          <h2 className="mt-3 text-[clamp(28px,3.4vw,40px)] font-extrabold leading-[1.1] text-primary">The facts, in one place.</h2>
-        </Reveal>
-        <Reveal delay={100}>
-          <dl className="m-0 divide-y divide-border overflow-hidden rounded-2xl border border-border bg-card">
-            {details.map(([k, v]) => (
-              <div key={k} className="grid gap-1 px-5 py-3.5 sm:grid-cols-[150px_1fr] sm:gap-4">
-                <dt className="text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground sm:pt-0.5">{k}</dt>
-                <dd className="m-0 text-[15px] font-semibold text-primary">{v}</dd>
-              </div>
-            ))}
-          </dl>
-        </Reveal>
-      </div>
-    </Section>
-  );
-}
