@@ -12,7 +12,7 @@ const AUSTIN: [number, number] = [-97.74, 30.27];
 const JAPAN: [number, number] = [138.25, 36.2];
 
 /** Where Kimaru is based, and where the cofounders first worked together. */
-export function CompanyMap() {
+export function CompanyMap({ bare }: { bare?: boolean }) {
   const { d, austin, japan, arc } = useMemo(() => {
     const geo = feature(land as never, (land as never as { objects: { land: never } }).objects.land) as unknown as FeatureCollection;
     const proj = geoNaturalEarth1().rotate([-150, 0]).fitExtent([[6, -8], [W - 6, 392]], geo);
@@ -30,10 +30,10 @@ export function CompanyMap() {
   }, []);
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-[0_24px_60px_-28px_rgb(37_59_127/0.4)]">
-      <div className="relative bg-[linear-gradient(160deg,#f5f7ff,#eef6ff_55%,#ecfeff)]">
+    <div className={bare ? 'flex h-full flex-col bg-card' : 'overflow-hidden rounded-2xl border border-border bg-card shadow-[0_24px_60px_-28px_rgb(37_59_127/0.4)]'}>
+      <div className="relative flex-1 bg-[linear-gradient(160deg,#f5f7ff,#eef6ff_55%,#ecfeff)]">
         <div className="hero-grid pointer-events-none absolute inset-0 opacity-70" aria-hidden="true" />
-        <svg viewBox={`0 34 ${W} 280`} className="relative block w-full" role="img" aria-label="World map showing Kimaru's office in Austin, Texas, and Japan, where the cofounders first worked together">
+        <svg viewBox={`0 34 ${W} 280`} className="relative block w-full lg:h-full" role="img" aria-label="World map showing Kimaru's office in Austin, Texas, and Japan, where the cofounders first worked together">
           <path d={d} className="fill-brand/15 stroke-brand/30" strokeWidth="0.6" strokeLinejoin="round" />
           <path d={arc} fill="none" strokeWidth="1.6" strokeDasharray="4 5" className="stroke-brand/60" />
 

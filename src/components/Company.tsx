@@ -1,8 +1,9 @@
-import { ArrowRight, Eye, Users, MapPin, Phone, Scale, ShieldCheck, Target } from 'lucide-react';
+import { ArrowRight, BadgeCheck, Eye, Users, MapPin, Phone, Scale, ShieldCheck, Target, TrendingUp } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { CONTACT_URL, Button, Container, Eyebrow, Section, SectionHead, asset } from './ui';
 import { Reveal } from './motion';
 import { CompanyMap } from './CompanyMap';
+import { BOOK_URL } from './ui';
 
 const people = [
   {
@@ -14,6 +15,32 @@ const people = [
     bio: "Leads the platform and contributes to Kimaru's patent work on Decision Intelligence.",
   },
 ];
+
+function HeroVisual() {
+  return (
+    <div className="relative">
+      <div className="overflow-hidden rounded-3xl border border-border shadow-[0_30px_70px_-30px_rgb(37_59_127/0.55)]">
+        <img src={asset('photos/factory.webp')} alt="A modern production hall with assembly lines" className="aspect-[4/5] w-full object-cover sm:aspect-[5/4]" />
+        <div className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-t from-[#253B80]/35 via-transparent to-transparent" aria-hidden="true" />
+      </div>
+      <div className="floaty absolute -left-3 bottom-8 w-[250px] rounded-2xl border border-border bg-card/95 p-4 shadow-[0_20px_50px_-20px_rgb(37_59_127/0.55)] backdrop-blur max-sm:left-3 max-sm:w-[215px]">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.09em] text-muted-foreground">Decision on record</p>
+        <ul className="m-0 mt-2.5 grid list-none gap-2 p-0 text-[13px] font-semibold text-primary">
+          {['Options compared', 'Approved by the owner', 'Result tracked'].map((x) => (
+            <li key={x} className="flex items-center gap-2"><BadgeCheck size={16} className="shrink-0 text-active" /> {x}</li>
+          ))}
+        </ul>
+      </div>
+      <div className="floaty-b absolute -right-3 top-8 flex max-sm:hidden items-center gap-3 rounded-2xl border border-border bg-card/95 px-4 py-3 shadow-[0_20px_50px_-20px_rgb(37_59_127/0.55)] backdrop-blur max-sm:right-3">
+        <span className="grid size-10 place-items-center rounded-xl bg-brand text-white"><TrendingUp size={18} /></span>
+        <div>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.09em] text-muted-foreground">Built for</p>
+          <p className="text-[14px] font-bold text-primary">Manufacturing and supply chains</p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export function CompanyHero() {
   return (
@@ -38,7 +65,7 @@ export function CompanyHero() {
           </div>
         </div>
         <div className="rise rise-5 min-w-0">
-          <CompanyMap />
+          <HeroVisual />
         </div>
       </Container>
     </div>
@@ -103,17 +130,14 @@ export function Cofounders() {
       <div className="grid gap-6 md:grid-cols-2">
         {people.map((p, n) => (
           <Reveal key={p.name} delay={n * 110} className="h-full">
-            <figure className="lift m-0 flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-[0_24px_60px_-28px_rgb(37_59_127/0.4)]">
-              <div className="relative">
-                <img src={asset(p.photo)} alt={`${p.name}, Kimaru ${p.role.toLowerCase()}`} loading="lazy" className="aspect-[4/4.2] w-full object-cover object-top" />
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/45 to-transparent" aria-hidden="true" />
-                <figcaption className="absolute inset-x-0 bottom-0 p-6">
-                  <p className="text-2xl font-extrabold text-white">{p.name}</p>
-                  <p className="text-sm font-semibold text-teal-200">{p.role}</p>
-                </figcaption>
+            <div className="lift flex h-full items-center gap-6 rounded-3xl border border-border bg-card p-5 max-sm:flex-col max-sm:items-start sm:p-6">
+              <img src={asset(p.photo)} alt={`${p.name}, Kimaru ${p.role.toLowerCase()}`} loading="lazy" className="aspect-[4/5] w-40 shrink-0 rounded-2xl border border-border object-cover object-top max-sm:w-36" />
+              <div className="min-w-0">
+                <h3 className="text-2xl font-extrabold leading-tight text-primary">{p.name}</h3>
+                <p className="mt-1 text-sm font-semibold text-active">{p.role}</p>
+                <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">{p.bio}</p>
               </div>
-              <p className="p-6 text-[16px] leading-relaxed text-muted-foreground">{p.bio}</p>
-            </figure>
+            </div>
           </Reveal>
         ))}
       </div>
@@ -123,40 +147,42 @@ export function Cofounders() {
 }
 
 const reach = [
-  { icon: MapPin, k: 'Office', v: '1606 Headway Cir STE 9718', v2: 'Austin, TX 78754', href: 'https://www.google.com/maps/search/?api=1&query=1606+Headway+Cir+STE+9718+Austin+TX+78754' },
-  { icon: Phone, k: 'Phone', v: '+1 737 377 1477', v2: 'Austin, Texas', href: 'tel:+17373771477' },
-  { icon: Users, k: 'LinkedIn', v: 'Kimaru AI', v2: 'Company updates', href: 'https://www.linkedin.com/company/kimaru-ai/' },
+  { icon: MapPin, v: '1606 Headway Cir STE 9718, Austin, TX 78754', href: 'https://www.google.com/maps/search/?api=1&query=1606+Headway+Cir+STE+9718+Austin+TX+78754' },
+  { icon: Phone, v: '+1 737 377 1477', href: 'tel:+17373771477' },
+  { icon: Users, v: 'Kimaru AI on LinkedIn', href: 'https://www.linkedin.com/company/kimaru-ai/' },
 ];
 
 export function Facts() {
   return (
     <Section id="contact">
-      <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
-        <Reveal>
-          <Eyebrow>Find us</Eyebrow>
-          <h2 className="mt-3 text-[clamp(28px,3.6vw,42px)] font-extrabold leading-[1.1] text-primary">Talk to the founders.</h2>
-          <p className="mt-4 text-lg leading-relaxed text-muted-foreground">Bring a decision your team keeps making the hard way. Investors and partners are welcome too.</p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Button href={CONTACT_URL} size="lg">
-              Get in touch <ArrowRight />
-            </Button>
+      <Reveal>
+        <div className="grid overflow-hidden rounded-3xl border border-border bg-card shadow-[0_30px_70px_-34px_rgb(37_59_127/0.45)] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+          <div className="flex flex-col bg-brand p-8 text-white sm:p-10">
+            <Eyebrow className="!text-white/70">Find us</Eyebrow>
+            <h2 className="mt-3 text-[clamp(28px,3.4vw,40px)] font-extrabold leading-[1.1] text-white">Talk to the founders.</h2>
+            <p className="mt-3 text-base leading-relaxed text-white/80">Bring a decision your team keeps making the hard way. Investors and partners are welcome too.</p>
+            <ul className="m-0 mt-6 grid list-none gap-3 p-0">
+              {reach.map(({ icon: I, v, href }) => (
+                <li key={v}>
+                  <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel="noreferrer" className="flex items-start gap-3 text-[15px] font-semibold text-white no-underline hover:text-teal-200">
+                    <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-white/12"><I size={17} /></span>
+                    <span className="pt-1.5">{v}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-auto flex flex-wrap gap-3 pt-8">
+              <Button href={BOOK_URL} variant="light" size="lg">
+                Book a walkthrough
+              </Button>
+              <Button href={CONTACT_URL} size="lg" className="border-white/40 bg-white/10 text-white hover:bg-white/20">
+                Send a message
+              </Button>
+            </div>
           </div>
-        </Reveal>
-        <div className="grid gap-3 sm:grid-cols-3">
-          {reach.map(({ icon: I, k, v, v2, href }, n) => (
-            <Reveal key={k} delay={n * 90} className="h-full">
-              <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel="noreferrer" className="lift block h-full rounded-2xl border border-border bg-card p-5 no-underline">
-                <span className="grid size-10 place-items-center rounded-xl bg-brand-soft text-brand">
-                  <I size={18} />
-                </span>
-                <p className="mt-3 text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground">{k}</p>
-                <p className="mt-1 text-base font-bold leading-snug text-primary">{v}</p>
-                <p className="text-sm text-muted-foreground">{v2}</p>
-              </a>
-            </Reveal>
-          ))}
+          <CompanyMap bare />
         </div>
-      </div>
+      </Reveal>
     </Section>
   );
 }
