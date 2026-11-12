@@ -9,24 +9,24 @@ export function ServicesHero() {
       <div className="hero-grid pointer-events-none absolute inset-0" aria-hidden="true" />
       <div className="relative mx-auto grid w-full max-w-[1360px] items-center gap-12 px-4 pb-20 pt-12 sm:px-6 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-10 lg:px-8 lg:pb-24 lg:pt-20">
         <div>
-          <Eyebrow className="rise rise-1">Solutions · Decisions as a Service</Eyebrow>
+          <Eyebrow className="rise rise-1">Solutions</Eyebrow>
           <h1 className="rise rise-2 mt-4 text-[clamp(34px,4.4vw,54px)] font-extrabold leading-[1.05] text-primary">
-            Start with a service. <span className="grad-text">Grow into the platform.</span>
+            Know what moves the outcome. <span className="grad-text">Then decide.</span>
           </h1>
           <p className="rise rise-3 mt-5 max-w-[31em] text-lg leading-relaxed text-muted-foreground">
-            Every AI project needs clean data and a clear decision. Kimaru does that work with you first, then helps you run the decision day to day.
+            Kimaru maps what drives a result and how strongly. Run it on the platform, or let us start the groundwork as a service.
           </p>
           <div className="rise rise-4 mt-7 flex flex-wrap gap-3">
-            <Button href={CONTACT_URL} size="lg">
-              Tell us what you need <ArrowRight />
+            <Button href={BOOK_URL} size="lg">
+              Book a walkthrough <ArrowRight />
             </Button>
-            <Button href="#services" variant="outline" size="lg">
-              See the services
+            <Button href="#ways" variant="outline" size="lg">
+              See the two ways
             </Button>
           </div>
         </div>
         <div className="rise rise-5 min-w-0">
-          <BrowserFrame src="screens/uc-cdd-select.png" alt="A decision map showing the levers, outside factors and outcomes that drive one decision" title="A decision map" aspect="1440 / 900" />
+          <BrowserFrame src="screens/uc-cdd-weights.png" alt="The Kimaru decision map with the strength of influence shown for each outcome" title="The decision map, with influence values" aspect="1440 / 1000" />
         </div>
       </div>
     </div>
@@ -71,7 +71,7 @@ const services: Array<{ icon: LucideIcon; t: string; b: string; out: string }> =
 export function ServiceCards() {
   return (
     <Section id="services">
-      <SectionHead eyebrow="The services" title="Pick the one that fits where you are." body="Use one on its own or in order. The scope is agreed for each decision." />
+      <SectionHead eyebrow="Decisions as a Service" title="Not ready for a platform? Start with a service." body="Every AI project needs clean data and a clear decision. We do that work with you first. Use one service on its own or in order. The scope is agreed for each decision." />
       <div className="grid gap-5 md:grid-cols-2">
         {services.map(({ icon: I, t, b, out }, n) => (
           <Reveal key={t} delay={(n % 2) * 100} className="h-full">

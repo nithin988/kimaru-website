@@ -1,6 +1,8 @@
 import { usePageEffects } from './hooks';
 import { Nav } from './components/NavHero';
-import { ServicesHero, WhyStart, ServiceCards, GrowPath, Areas } from './components/Services';
+import { ServicesHero, ServiceCards, GrowPath, Areas } from './components/Services';
+import { ImpactMap, TwoWays } from './components/ImpactMap';
+import { BOOK_URL, CONTACT_URL } from './components/ui';
 import { Faq, Closing, Footer } from './components/FaqFooter';
 
 export default function ServicesApp() {
@@ -10,7 +12,8 @@ export default function ServicesApp() {
       <Nav />
       <main>
         <ServicesHero />
-        <WhyStart />
+        <TwoWays bookUrl={BOOK_URL} contactUrl={CONTACT_URL} />
+        <ImpactMap />
         <ServiceCards />
         <GrowPath />
         <Areas />
