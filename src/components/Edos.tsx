@@ -21,7 +21,7 @@ const layers: Layer[] = [
     id: 'apps', tier: 'Decision Models', icon: LayoutGrid, title: 'Decision models', short: 'One application per recurring decision',
     body: 'Each recurring call becomes a Decision Model with its own rules, constraints, options, workflow and outcome measures. Start with one. Add the next when the first proves itself.',
     replaces: 'A fresh spreadsheet and meeting every time',
-    chips: ['Production commitment', 'Material readiness', 'Inventory and allocation', 'Supplier, BOM and cost', 'Order prioritization', 'Invoice exceptions'],
+    img: { src: 'art:models', title: 'Decision Models', aspect: '1440 / 760' },
   },
   {
     id: 'reality', tier: 'What Kimaru does', icon: Database, title: 'Understand', short: 'What is true right now',
@@ -57,7 +57,7 @@ const layers: Layer[] = [
     id: 'connect', tier: 'Your systems and data', icon: Cable, title: 'Works with your stack', short: 'Whatever you already run',
     body: 'Start from files or read-only access. No write-back is needed to begin.',
     replaces: 'Rip-and-replace projects',
-    chips: ['ERP', 'SCM, WMS, TMS', 'Spreadsheets and files', 'Databases and APIs', 'Planner know-how', 'AI assistants'],
+    img: { src: 'art:stack', title: 'Your systems and data', aspect: '1440 / 760' },
   },
 ];
 

@@ -54,7 +54,7 @@ const slides: Slide[] = [
   },
   {
     step: 'Act', gps: 'Go', headline: 'Send what you accepted where work happens.',
-    body: 'Review accepted, adjusted and deferred choices, then push to your ERP, download for Excel, send to HubSpot workflows or create a report.',
+    body: 'Review accepted, adjusted and deferred choices, then push to your ERP, download a file, send to your workflow tools or create a report.',
     screen: 'screens/uc-act.png', w: 1440, h: 775, title: 'Review recommendations', page: 'Review',
     hot: [
       { x: 31, y: 18, w: 64, h: 10, label: 'What you accepted' },

@@ -67,8 +67,8 @@ const mods: Mod[] = [
   },
   {
     n: 'Governed approval', title: 'Governed approval', head: 'Approve, then send it where work happens.',
-    body: 'Accepted, adjusted and deferred choices are reviewed in one place, then sent to your ERP, Excel, HubSpot or a report.',
-    chips: ['Authority limits', 'Decision Receipt', 'ERP', 'Excel'], src: 'screens/uc-act.png', w: 1440, h: 775, icon: ShieldCheck,
+    body: 'Accepted, adjusted and deferred choices are reviewed in one place, then sent to your ERP, a file, your workflow tools or a report.',
+    chips: ['Authority limits', 'Decision Receipt', 'ERP', 'File export'], src: 'screens/uc-act.png', w: 1440, h: 775, icon: ShieldCheck,
   },
   {
     n: 'Decision Tracker', title: 'Decision Tracker', head: 'Measure what actually happened.',

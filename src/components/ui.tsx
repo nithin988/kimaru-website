@@ -1,4 +1,5 @@
 import type { ReactNode, AnchorHTMLAttributes } from 'react';
+import { ART, ScaledArt } from './ProductArt';
 import { useEffect, useRef, useState } from 'react';
 import { Reveal } from './motion';
 
@@ -110,16 +111,23 @@ export function BrowserFrame({
         <span className="ml-2 whitespace-nowrap font-semibold text-foreground">{title}</span>
         {!compact && <span className="ml-auto hidden text-[11px] sm:inline">Synthetic demo data</span>}
       </div>
-      <div className="relative w-full overflow-hidden [aspect-ratio:var(--arm,var(--ar))] md:[aspect-ratio:var(--ar)]" style={{ ['--ar' as string]: aspect, ['--arm' as string]: mobileAspect }}>
-        <img
-          src={asset(src)}
-          alt={alt}
-          loading="lazy"
-          className={cn('absolute inset-0 h-full w-full object-cover', !imgClassName?.includes('object-') && 'object-top', imgClassName)}
-          style={fade ? { WebkitMaskImage: 'linear-gradient(to bottom, #000 62%, transparent 100%)', maskImage: 'linear-gradient(to bottom, #000 62%, transparent 100%)' } : undefined}
-        />
-        {children}
-      </div>
+      {ART[src] ? (
+        <div className="relative w-full">
+          <ScaledArt w={ART[src].w} h={ART[src].h}>{ART[src].node}</ScaledArt>
+          {children}
+        </div>
+      ) : (
+        <div className="relative w-full overflow-hidden [aspect-ratio:var(--arm,var(--ar))] md:[aspect-ratio:var(--ar)]" style={{ ['--ar' as string]: aspect, ['--arm' as string]: mobileAspect }}>
+          <img
+            src={asset(src)}
+            alt={alt}
+            loading="lazy"
+            className={cn('absolute inset-0 h-full w-full object-cover', !imgClassName?.includes('object-') && 'object-top', imgClassName)}
+            style={fade ? { WebkitMaskImage: 'linear-gradient(to bottom, #000 62%, transparent 100%)', maskImage: 'linear-gradient(to bottom, #000 62%, transparent 100%)' } : undefined}
+          />
+          {children}
+        </div>
+      )}
     </div>
   );
 }
