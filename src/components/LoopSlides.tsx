@@ -33,8 +33,8 @@ const slides: Slide[] = [
     body: 'Select a node to see the factors that connect to it and the outcomes it moves.',
     screen: 'screens/uc-cdd-select.png', w: 1440, h: 900, title: 'Causal AI Modeler', page: 'Causal AI Modeler',
     hot: [
-      { x: 27.5, y: 60.2, w: 17.8, h: 8.6, label: 'Pick any node', side: 'above' },
-      { x: 51.8, y: 22.5, w: 18.2, h: 50, label: 'See what it moves', side: 'right' },
+      { x: 28, y: 13, w: 20.5, h: 8, label: 'Pick any node', side: 'above' },
+      { x: 50.5, y: 12.5, w: 20, h: 15, label: 'See what it moves', side: 'above' },
     ],
   },
   {

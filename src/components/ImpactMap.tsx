@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { ArrowRight, Check, Gauge, Target, Waypoints } from 'lucide-react';
-import { Button, Eyebrow, Section, cn } from './ui';
-import { CddArt, ScaledArt } from './ProductArt';
+import { Button, Eyebrow, Section, asset, cn } from './ui';
 import { Reveal } from './motion';
 import { NetworkBackdrop } from './Flow';
 
@@ -114,21 +113,8 @@ export function ImpactMap() {
               <span className="ml-2 font-semibold text-foreground">The same map inside Kimaru</span>
               <span className="ml-auto hidden text-[11px] sm:inline">Synthetic demo data</span>
             </div>
-            <div className="flex flex-1 flex-col bg-panel">
-              <ScaledArt w={1440} h={840}><CddArt /></ScaledArt>
-              <ul className="m-0 grid flex-1 list-none content-center gap-4 border-t border-border bg-card p-5 sm:grid-cols-3">
-                {[
-                  ['h-[7px] bg-slate-400', 'Thicker line', 'A stronger influence'],
-                  ['h-[3px] bg-teal-600', 'Teal line', 'Raises the item it points to'],
-                  ['h-[3px] bg-red-500', 'Red line', 'Lowers the item it points to'],
-                ].map(([bar, t, b]) => (
-                  <li key={t} className="min-w-0">
-                    <span className={'block w-12 rounded-full ' + bar} />
-                    <p className="mt-2.5 text-sm font-bold text-primary">{t}</p>
-                    <p className="text-[13px] leading-snug text-muted-foreground">{b}</p>
-                  </li>
-                ))}
-              </ul>
+            <div className="relative flex-1 bg-panel [aspect-ratio:1440/1000]">
+              <img src={asset('screens/uc-cdd-weights.png')} alt="The Kimaru decision map with a node selected, showing the strength of influence on each outcome it affects" loading="lazy" className="absolute inset-0 h-full w-full object-contain object-top" />
             </div>
             <p className="border-t border-border px-5 py-3 text-sm text-muted-foreground">Pick a factor and see which outcomes it moves, and how strongly.</p>
           </div>
