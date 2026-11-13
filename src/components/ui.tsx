@@ -77,6 +77,48 @@ export function Section({ id, tone = 'plain', children, className }: { id?: stri
 }
 
 /** Real platform screenshot in a browser-style frame. All shots are synthetic demo data. */
+
+/*
+ * Loading placeholders over details that should not be public on the real captures
+ * (part names, ids, source and vendor names). Coordinates are in the pixels of the image at the size
+ * it was measured, so they scale with the screenshot.
+ */
+type Rect = [number, number, number, number];
+const rowsAt = (x: number, y: number, w: number, h: number, step: number, n: number): Rect[] => Array.from({ length: n }, (_, i) => [x, y + i * step, w, h] as Rect);
+export const MASKS: Record<string, { w: number; h: number; rects: Rect[] }> = {
+  'screens/uc-hub.png': {
+    w: 2000, h: 904,
+    rects: [[700, 296, 345, 32], [700, 646, 345, 32], [1112, 376, 315, 26], [1112, 420, 315, 26], [1112, 462, 315, 52], [1112, 726, 315, 26], [1112, 768, 315, 50], [1112, 838, 315, 26]],
+  },
+  'screens/uc-compare.png': { w: 2000, h: 1035, rects: [[160, 200, 340, 32], ...rowsAt(410, 459, 372, 52, 68, 7)] },
+  'screens/uc-choose.png': {
+    w: 2000, h: 1211,
+    rects: [[160, 200, 340, 32], [410, 459, 372, 52], ...rowsAt(410, 703, 372, 52, 68, 6), [255, 612, 395, 34], [920, 612, 205, 34]],
+  },
+  'screens/uc-act.png': {
+    w: 2000, h: 1076,
+    rects: [[183, 793, 470, 56], [885, 800, 125, 36], [1130, 793, 330, 56], [1860, 788, 70, 60], [183, 951, 470, 56], [920, 274, 175, 30]],
+  },
+  'screens/uc-agent.png': { w: 2000, h: 1250, rects: [[1240, 143, 150, 28], [1322, 430, 600, 36], [1350, 508, 330, 34]] },
+};
+
+function Masks({ src }: { src: string }) {
+  const m = MASKS[src];
+  if (!m) return null;
+  return (
+    <>
+      {m.rects.map(([x, y, w, h], i) => (
+        <span
+          key={i}
+          aria-hidden="true"
+          className="skel pointer-events-none absolute rounded-md"
+          style={{ left: `${(x / m.w) * 100}%`, top: `${(y / m.h) * 100}%`, width: `${(w / m.w) * 100}%`, height: `${(h / m.h) * 100}%` }}
+        />
+      ))}
+    </>
+  );
+}
+
 export function BrowserFrame({
   src,
   alt,
@@ -125,6 +167,7 @@ export function BrowserFrame({
             className={cn('absolute inset-0 h-full w-full object-cover', !imgClassName?.includes('object-') && 'object-top', imgClassName)}
             style={fade ? { WebkitMaskImage: 'linear-gradient(to bottom, #000 62%, transparent 100%)', maskImage: 'linear-gradient(to bottom, #000 62%, transparent 100%)' } : undefined}
           />
+          <Masks src={src} />
           {children}
         </div>
       )}

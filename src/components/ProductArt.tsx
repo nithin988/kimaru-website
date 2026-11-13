@@ -459,11 +459,6 @@ export function StackArt() {
 
 /** Product views that replace real screenshots. Keys match the screenshot path they stand in for. */
 export const ART: Record<string, { w: number; h: number; node: ReactNode }> = {
-  'screens/uc-hub.png': { w: 1440, h: 651, node: <HubArt /> },
-  'screens/uc-compare.png': { w: 1440, h: 745, node: <RecsArt /> },
-  'screens/uc-choose.png': { w: 1440, h: 872, node: <RecsArt expanded /> },
-  'screens/uc-act.png': { w: 1440, h: 775, node: <ActArt /> },
-  'screens/uc-agent.png': { w: 1440, h: 900, node: <AgentArt /> },
   'art:models': { w: 1440, h: 760, node: <ModelsArt /> },
   'art:stack': { w: 1440, h: 760, node: <StackArt /> },
 };

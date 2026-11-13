@@ -191,3 +191,8 @@ html.lenis, html.lenis body { height: auto; }
 .skel { background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%); background-size: 200% 100%; animation: skel 1.6s ease-in-out infinite; }
 @keyframes skel { from { background-position: 200% 0; } to { background-position: -200% 0; } }
 @media (prefers-reduced-motion: reduce) { .skel { animation: none; } }
+
+/* Loading placeholder that stands in for hidden details on product captures */
+@keyframes skel { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+.skel { background: linear-gradient(90deg, #e8edf5 25%, #f6f8fc 50%, #e8edf5 75%); background-size: 200% 100%; animation: skel 2.4s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .skel { animation: none; } }
