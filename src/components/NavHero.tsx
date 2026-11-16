@@ -1,38 +1,115 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { ArrowRight, Check, TrendingUp } from 'lucide-react';
-import { BOOK_URL, BrowserFrame, Button, Container, Eyebrow, PRODUCT_URL, SOLUTIONS_URL, COMPANY_URL, HOME_URL, onSubpage, RESULTS_URL, RESOURCES_URL, asset, cn, homeHref, useInView } from './ui';
+import { ArrowRight, Check, Menu, TrendingUp, X } from 'lucide-react';
+import { BOOK_URL, BrowserFrame, Button, Container, Eyebrow, PRODUCT_URL, SOLUTIONS_URL, COMPANY_URL, HOME_URL, onSubpage, RESULTS_URL, RESOURCES_URL, asset, cn, useInView } from './ui';
 import { Marquee } from './Marquee';
 import { ScrollProgress } from './motion';
 
 const links = [
-  ['Product', 'product'],
-  ['Solutions', 'solution'],
-  ['Results', 'results'],
-  ['Resources', 'resources'],
-  ['Company', 'company'],
+  ['Product', PRODUCT_URL],
+  ['Solutions', SOLUTIONS_URL],
+  ['Results', RESULTS_URL],
+  ['Resources', RESOURCES_URL],
+  ['Company', COMPANY_URL],
 ] as const;
 
 export function Nav() {
+  const [open, setOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const here = typeof location !== 'undefined' ? location.pathname : '';
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setOpen(false);
+        toggleRef.current?.focus();
+      }
+    };
+    const onClick = (e: MouseEvent) => {
+      if (headerRef.current && !headerRef.current.contains(e.target as Node)) setOpen(false);
+    };
+    // Close if the viewport grows past the mobile breakpoint.
+    const mq = matchMedia('(min-width: 1024px)');
+    const onMq = () => mq.matches && setOpen(false);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', onKey);
+    document.addEventListener('mousedown', onClick);
+    mq.addEventListener('change', onMq);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      document.removeEventListener('keydown', onKey);
+      document.removeEventListener('mousedown', onClick);
+      mq.removeEventListener('change', onMq);
+    };
+  }, [open]);
+
+  const isCurrent = (h: string) => here.endsWith(h.replace(import.meta.env.BASE_URL, '/'));
+
   return (
-    <header className="sticky top-0 z-30 border-b border-border/70 bg-white/70 backdrop-blur-xl backdrop-saturate-150">
-      <Container className="flex h-[68px] items-center gap-6">
+    <header ref={headerRef} className="sticky top-0 z-50 border-b border-border/70 bg-white/70 backdrop-blur-xl backdrop-saturate-150">
+      <Container className="flex h-[68px] items-center gap-3 sm:gap-6">
         <a href={onSubpage ? HOME_URL : '#top'} aria-label="kimaru.ai home" className="flex shrink-0 items-center">
           <img src={asset('logo.svg')} alt="kimaru.ai" className="h-7 w-auto sm:h-8" />
         </a>
         <nav className="ml-4 hidden gap-6 text-sm font-medium text-muted-foreground lg:flex" aria-label="Main">
           {links.map(([l, h]) => (
-            <a key={h} href={h === 'product' ? PRODUCT_URL : h === 'solution' ? SOLUTIONS_URL : h === 'company' ? COMPANY_URL : h === 'results' ? RESULTS_URL : h === 'resources' ? RESOURCES_URL : homeHref(h)} className="no-underline transition-colors hover:text-foreground">
+            <a key={h} href={h} aria-current={isCurrent(h) ? 'page' : undefined} className="no-underline transition-colors hover:text-foreground aria-[current=page]:text-foreground">
               {l}
             </a>
           ))}
         </nav>
-        <Button href={BOOK_URL} className="ml-auto">
-          <span className="sm:hidden">Book a walkthrough</span>
-          <span className="hidden sm:inline">Book a Decision Walkthrough</span>
-        </Button>
+        <div className="ml-auto hidden min-[400px]:block">
+          <Button href={BOOK_URL} className="whitespace-nowrap">
+            <span className="sm:hidden">Book a walkthrough</span>
+            <span className="hidden sm:inline">Book a Decision Walkthrough</span>
+          </Button>
+        </div>
+        <button
+          ref={toggleRef}
+          type="button"
+          className="ml-auto grid size-11 shrink-0 place-items-center rounded-md text-primary hover:bg-secondary min-[400px]:ml-0 lg:hidden"
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-expanded={open}
+          aria-controls="mobile-nav"
+          onClick={() => setOpen((o) => !o)}
+        >
+          {open ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </Container>
       <ScrollProgress />
+      <AnimatePresence>
+        {open && (
+          <motion.nav
+            id="mobile-nav"
+            aria-label="Mobile"
+            className="absolute inset-x-0 top-full h-[calc(100dvh-68px)] overflow-y-auto border-t border-border bg-white lg:hidden"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.18 }}
+          >
+            <Container className="flex flex-col py-4">
+              {links.map(([l, h]) => (
+                <a
+                  key={h}
+                  href={h}
+                  aria-current={isCurrent(h) ? 'page' : undefined}
+                  onClick={() => setOpen(false)}
+                  className="flex min-h-12 items-center border-b border-border text-lg font-semibold text-primary no-underline aria-[current=page]:text-active"
+                >
+                  {l}
+                </a>
+              ))}
+              <Button href={BOOK_URL} size="lg" className="mt-6 h-12 w-full" onClick={() => setOpen(false)}>
+                Book a Decision Walkthrough <ArrowRight />
+              </Button>
+            </Container>
+          </motion.nav>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
