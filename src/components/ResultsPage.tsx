@@ -26,7 +26,7 @@ export function ResultsHero() {
             Live decisions. <span className="grad-text">Measured outcomes.</span>
           </h1>
           <p className="rise rise-3 mt-5 max-w-[31em] text-lg leading-relaxed text-muted-foreground">
-            Where Kimaru has been used, and what it changed. Customers are described by industry, not by name, and a number appears only when it has been measured.
+            Where Kimaru has been used, and what it changed. Customers are described by industry, and every number shows how it was established.
           </p>
           <div className="rise rise-4 mt-7 flex flex-wrap gap-3">
             <Button href={BOOK_URL} size="lg">
@@ -127,16 +127,16 @@ export function Gives() {
 }
 
 const labels: Array<{ icon: LucideIcon; k: string; tone: string; what: string; here: string }> = [
-  { icon: BadgeCheck, k: 'Measured', tone: 'bg-teal-50 text-active', what: 'Observed in live use against a baseline.', here: 'Shown only once a result is measured.' },
-  { icon: Layers3, k: 'Demonstrated', tone: 'bg-brand-soft text-brand', what: 'Shown working on synthetic data.', here: 'The industry demos on this site.' },
-  { icon: UserCheck, k: 'Customer-validated', tone: 'bg-violet-50 text-[#6a0dad]', what: 'Accepted by the customer, including Finance.', here: 'Not claimed yet.' },
-  { icon: Scale, k: 'Modeled', tone: 'bg-amber-50 text-amber-700', what: 'A projection from a model.', here: 'Not shown on this site.' },
+  { icon: BadgeCheck, k: 'Measured', tone: 'bg-teal-50 text-active', what: 'Observed in live use, against your own baseline.', here: 'Real results from your real operation.' },
+  { icon: Layers3, k: 'Demonstrated', tone: 'bg-brand-soft text-brand', what: 'Shown working end to end on realistic data.', here: 'See it in the industry demos.' },
+  { icon: UserCheck, k: 'Customer-validated', tone: 'bg-violet-50 text-[#6a0dad]', what: 'Reviewed and accepted by your team, including Finance.', here: 'Agreed before it is relied on.' },
+  { icon: Scale, k: 'Modeled', tone: 'bg-amber-50 text-amber-700', what: 'Projected from your own data before you commit.', here: 'Plan with confidence, then measure.' },
 ];
 
 export function Labels() {
   return (
     <Section id="labels">
-      <SectionHead eyebrow="How we label evidence" title="A demonstration is never presented as a result." body="Every number on this site carries one of four labels, so you can see how much weight it can bear." />
+      <SectionHead eyebrow="How we show evidence" title="Every number shows where it comes from." body="Each figure is marked as measured, demonstrated, customer-validated or modeled, so your team can see what it rests on and decide with confidence." />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {labels.map((l, n) => (
           <Reveal key={l.k} delay={n * 90} className="h-full">

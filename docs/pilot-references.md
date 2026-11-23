@@ -41,3 +41,7 @@ No metric is shown today. When one is added, define it exactly first.
 ## Why this approach
 
 Practitioner guidance on anonymous proof says the same thing: describe the shape of the client, state the scope, frame early numbers as directional, get sign-off before publishing, and do not publish results for a pilot that has not concluded. Named customers are more convincing, so ask for permission to name them once a pilot is complete.
+
+## Tone
+
+The site talks to prospects. Say what Kimaru does and what a team gets. Do not write what we have not done or do not show (for example "not claimed yet" or "not shown on this site"): that invites doubt. Describe each evidence label by what it gives the reader.
