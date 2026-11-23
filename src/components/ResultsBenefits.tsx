@@ -1,11 +1,11 @@
-import { ArrowRight, ArrowUpRight, Boxes, Check, ClipboardCheck, Clock, Factory, Gauge, Handshake, Layers3, LineChart, MessageSquarePlus, PackageSearch, PiggyBank, Scale, ShieldCheck, Target, Truck, UserCheck, Users, Wallet, Wrench } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Boxes, Check, ClipboardCheck, Clock, Factory, Gauge, Handshake, Layers3, LineChart, MessageSquarePlus, PackageSearch, PiggyBank, Scale, ShieldCheck, ShoppingCart, Target, Truck, UserCheck, Users, Wallet, Wrench } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { BOOK_URL, Button, Container, Eyebrow, Section, SectionHead } from './ui';
 import { Reveal } from './motion';
 
 /* ---------- Hero picture: one decision, end to end, any industry (drawn in code, illustrative) ---------- */
 
-const industries = ['Commitment', 'Scheduling', 'Materials', 'Capacity', 'Lot sizing', 'Expedite'];
+const industries = ['Production', 'Inventory', 'Logistics', 'Procurement', 'Maintenance', 'Quality'];
 
 const lift = (t: number) => t * t * (3 - 2 * t);
 const KX = Array.from({ length: 21 }, (_, i) => 190 + i * 15.5);
@@ -121,7 +121,7 @@ export function BenefitsHero() {
             Better decisions. <span className="grad-text">Results you can see.</span>
           </h1>
           <p className="rise rise-3 mt-5 max-w-[32em] text-lg leading-relaxed text-muted-foreground">
-            Kimaru helps manufacturing teams make their production-planning calls with material, capacity and due dates in view, then tracks the result against your own baseline.
+            Kimaru helps your team make the recurring calls in manufacturing, supply chain and logistics with the full picture, then tracks the result against your own baseline.
           </p>
           <div className="rise rise-4 mt-7 flex flex-wrap gap-3">
             <Button href={BOOK_URL} size="lg">
@@ -153,13 +153,13 @@ export function BenefitsHero() {
 /* ---------- What you get ---------- */
 
 function Spark({ v, down }: { v: number[]; down?: boolean }) {
-  const w = 132, h = 44;
+  const w = 96, h = 32;
   const max = Math.max(...v), min = Math.min(...v);
   const xy = v.map((n, i) => [4 + (i * (w - 8)) / (v.length - 1), 4 + (h - 8) * (1 - (n - min) / (max - min))] as const);
   const line = xy.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
   const last = xy[xy.length - 1];
   return (
-    <svg viewBox={`0 0 ${w} ${h}`} className="h-11 w-[132px]" role="presentation">
+    <svg viewBox={`0 0 ${w} ${h}`} className="h-8 w-[96px]" role="presentation">
       <polygon points={`${line} ${last[0]},${h} 4,${h}`} fill="#008080" fillOpacity=".1" />
       <polyline points={line} fill="none" stroke="#008080" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
       <circle cx={last[0]} cy={last[1]} r="3.6" fill="#008080" />
@@ -172,16 +172,16 @@ const outcomes: Array<{ icon: LucideIcon; t: string; b: string; see: string[]; s
   {
     icon: Handshake,
     t: 'Dates you can promise and keep',
-    b: 'Decisions are made with material, capacity and demand in view, so commitments hold. Customers see dependable delivery, and dependable delivery wins repeat orders.',
-    see: ['On-time and in-full rate', 'Late orders', 'Repeat orders and renewals'],
+    b: 'Calls are made with material, capacity and demand in view, so commitments hold and customers reorder.',
+    see: ['On-time in-full rate', 'Late orders'],
     spark: [30, 33, 32, 41, 50, 58, 69, 78],
     trend: 'On-time delivery',
   },
   {
     icon: PiggyBank,
     t: 'Less waste and avoidable cost',
-    b: 'Each option shows its cost beside its outcome. You pay for an expedite, a buffer or overtime only where it earns its keep, and stop paying where it does not.',
-    see: ['Expedite and overtime spend', 'Excess stock and stockouts', 'Scrap and rework'],
+    b: 'Each option shows its cost beside its outcome, so you pay for expedites and buffers only where they earn it.',
+    see: ['Expedite and overtime', 'Excess stock', 'Scrap and rework'],
     spark: [82, 78, 72, 64, 52, 44, 36, 30],
     down: true,
     trend: 'Avoidable cost',
@@ -189,8 +189,8 @@ const outcomes: Array<{ icon: LucideIcon; t: string; b: string; see: string[]; s
   {
     icon: Clock,
     t: 'Faster, clearer decisions',
-    b: 'Facts, options and the approver sit in one place. Planners spend their time deciding instead of chasing data, and urgent calls no longer wait for the next meeting.',
-    see: ['Hours per decision', 'Time from alert to action'],
+    b: 'Facts, options and the approver in one place. Planners decide instead of chasing data.',
+    see: ['Hours per decision', 'Alert to action'],
     spark: [80, 72, 62, 54, 42, 34, 26, 20],
     down: true,
     trend: 'Time to decide',
@@ -198,8 +198,8 @@ const outcomes: Array<{ icon: LucideIcon; t: string; b: string; see: string[]; s
   {
     icon: ShieldCheck,
     t: 'Decisions on record, learning each time',
-    b: 'Every decision keeps its reasoning, owner and expected result. When the actual result arrives, the next comparable call starts from what the team learned.',
-    see: ['Expected against actual', 'Decisions reviewed and reused'],
+    b: 'Reasoning, owner and expected result are kept, so the next similar call starts from what was learned.',
+    see: ['Expected vs actual', 'Decisions reused'],
     spark: [20, 28, 38, 48, 60, 70, 82, 90],
     trend: 'Team learning',
   },
@@ -209,32 +209,29 @@ export function Outcomes() {
   return (
     <Section id="outcomes">
       <SectionHead eyebrow="What you get" title="Results you can see in your own numbers." body="Kimaru does not add another dashboard. It improves the recurring decisions behind your delivery, cost and cash, and measures the change against your own baseline." />
-      <div className="grid gap-5 md:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {outcomes.map((o, n) => (
-          <Reveal key={o.t} delay={(n % 2) * 90} className="h-full">
-            <div className="lift flex h-full flex-col rounded-2xl border border-border bg-card p-6 sm:p-7">
-              <div className="flex items-start justify-between gap-4">
-                <span className="grid size-12 place-items-center rounded-xl bg-brand-soft text-brand">
-                  <o.icon size={22} />
+          <Reveal key={o.t} delay={n * 70} className="h-full">
+            <div className="lift flex h-full flex-col rounded-2xl border border-border bg-card p-5">
+              <div className="flex items-center justify-between gap-3">
+                <span className="grid size-10 place-items-center rounded-xl bg-brand-soft text-brand">
+                  <o.icon size={18} />
                 </span>
                 <div className="text-right">
                   <Spark v={o.spark} down={o.down} />
-                  <p className="-mt-0.5 flex items-center justify-end gap-1 text-[11px] font-semibold text-active">
-                    <ArrowUpRight size={12} className={o.down ? 'rotate-90' : ''} /> {o.trend}
+                  <p className="-mt-1 flex items-center justify-end gap-1 text-[10px] font-semibold text-active">
+                    <ArrowUpRight size={11} className={o.down ? 'rotate-90' : ''} /> {o.trend}
                   </p>
                 </div>
               </div>
-              <h3 className="mt-4 text-xl font-extrabold leading-tight text-primary">{o.t}</h3>
-              <p className="mt-2 text-base leading-relaxed text-muted-foreground">{o.b}</p>
-              <div className="mt-auto pt-5">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.09em] text-muted-foreground">You will see it in</p>
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {o.see.map((x) => (
-                    <span key={x} className="rounded-full bg-teal-50 px-3 py-1 text-[13px] font-semibold text-active">
-                      {x}
-                    </span>
-                  ))}
-                </div>
+              <h3 className="mt-3 text-[17px] font-bold leading-snug text-primary">{o.t}</h3>
+              <p className="mt-1.5 text-[14px] leading-snug text-muted-foreground">{o.b}</p>
+              <div className="mt-auto flex flex-wrap gap-1.5 pt-4">
+                {o.see.map((x) => (
+                  <span key={x} className="rounded-full bg-teal-50 px-2.5 py-0.5 text-[12px] font-semibold text-active">
+                    {x}
+                  </span>
+                ))}
               </div>
             </div>
           </Reveal>
@@ -248,20 +245,20 @@ export function Outcomes() {
 /* ---------- Decisions we solve: the problems most industrial teams share ---------- */
 
 const cases: Array<{ icon: LucideIcon; t: string; pain: string; help: string }> = [
-  { icon: Handshake, t: 'Order commitment', pain: 'Orders are promised before material, capacity and due dates are checked together.', help: 'Commit to dates you can keep, with the trade-offs shown.' },
-  { icon: Layers3, t: 'Scheduling and sequencing', pain: 'The schedule breaks when priorities change mid-week.', help: 'Resequence builds fast, with the effect on every order in view.' },
-  { icon: PackageSearch, t: 'Material readiness and shortages', pain: 'A late or short material stops a build at the last minute.', help: 'Spot shortages early and choose the best response.' },
-  { icon: Gauge, t: 'Capacity and machine allocation', pain: 'Some machines sit idle while others are overloaded.', help: 'Load work onto the machines that can run it.' },
-  { icon: Scale, t: 'Lot sizing and changeovers', pain: 'Too many small lots and changeovers waste time and material.', help: 'Group work within your lot-mixing and compatibility rules.' },
-  { icon: Clock, t: 'Expedite and overtime', pain: 'Rush work and overtime are approved without knowing what they buy.', help: 'Expedite only where it pays back.' },
-  { icon: Boxes, t: 'Work-in-progress and buffers', pain: 'Stock builds up in one place while other orders wait.', help: 'Set build and buffer levels that match real demand.' },
-  { icon: Wrench, t: 'Maintenance windows', pain: 'Planned maintenance collides with urgent orders.', help: 'Fit maintenance around the orders that cannot slip.' },
+  { icon: Factory, t: 'Production planning', pain: 'Schedules break when material, capacity and priorities shift.', help: 'Plan builds you can actually deliver, with the trade-offs shown.' },
+  { icon: Handshake, t: 'Order commitment', pain: 'Delivery dates are promised before the full picture is checked.', help: 'Commit to dates you can keep.' },
+  { icon: Boxes, t: 'Inventory and material availability', pain: 'Stock piles up in one place while another runs short.', help: 'Place scarce stock where it earns the most.' },
+  { icon: PackageSearch, t: 'Supplier, BOM and cost', pain: 'Supplier delays and cost spikes arrive without warning.', help: 'Flag the exception early with the best response ready.' },
+  { icon: ShoppingCart, t: 'Procurement and expediting', pain: 'Rush buys and premium freight eat into margin.', help: 'Expedite only where it pays back.' },
+  { icon: Truck, t: 'Logistics and delivery', pain: 'Part-empty trucks and repeat trips raise cost and delay orders.', help: 'Combine loads and plan fewer, fuller trips.' },
+  { icon: Wrench, t: 'Maintenance and uptime', pain: 'An unplanned stop hits the line at the worst time.', help: 'Sequence work to protect the lines that matter.' },
+  { icon: ShieldCheck, t: 'Quality and release', pain: 'Holds and rework delay shipments.', help: 'Decide ship, hold or rework with the evidence at hand.' },
 ];
 
 export function UseCases() {
   return (
     <Section id="usecases" tone="alt">
-      <SectionHead eyebrow="Decisions we solve" title="The production-planning decisions that cost you most." body="These are the calls planners make every week. Each one is a recurring decision Kimaru can take on." />
+      <SectionHead eyebrow="Decisions we solve" title="The decisions that cost industrial teams most." body="These are the problems most manufacturing teams tell us about. Each one is a recurring decision Kimaru can take on." />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {cases.map((c, n) => (
           <Reveal key={c.t} delay={(n % 3) * 70} className="h-full">
@@ -285,8 +282,8 @@ export function UseCases() {
             <span className="grid size-10 place-items-center rounded-xl bg-active text-white">
               <MessageSquarePlus size={18} />
             </span>
-            <h3 className="mt-3 text-lg font-bold leading-snug text-primary">Another planning decision in mind?</h3>
-            <p className="mt-2 text-[15px] leading-snug text-muted-foreground">If a production-planning call repeats and a wrong answer is costly, we can likely take it on. Tell us what you want to solve.</p>
+            <h3 className="mt-3 text-lg font-bold leading-snug text-primary">Have a different decision in mind?</h3>
+            <p className="mt-2 text-[15px] leading-snug text-muted-foreground">If a decision repeats and a wrong call is costly, we can likely take it on. Tell us what you want to solve.</p>
             <span className="mt-auto inline-flex items-center gap-1.5 pt-3 text-[15px] font-semibold text-active">
               Tell us your use case <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
             </span>
