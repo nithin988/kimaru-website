@@ -76,7 +76,7 @@ export function CompanyMap({ bare }: { bare?: boolean }) {
         </dl>
       <div className="border-t border-border p-4">
         <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">Pilots</p>
-        <p className="m-0 mt-1 text-[15px] font-bold text-primary">Two manufacturing pilots: sports electronics and aircraft fabrics</p>
+        <p className="m-0 mt-1 text-[15px] font-bold text-primary">Pilots in sports electronics and aircraft fabrics manufacturing</p>
       </div>
     </div>
   );
