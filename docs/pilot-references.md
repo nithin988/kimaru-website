@@ -6,7 +6,7 @@ Read this before adding a customer, a number or a pilot mention to any page.
 
 | Customer | How we may describe it | What we may say |
 |---|---|---|
-| Sports electronics manufacturer | "a sports electronics manufacturer" (Evan, Nov 2026) | A Decision Model for truck planning: no overstock or stockout, fewer truck rolls than before. Described in words. |
+| Sports electronics manufacturer | "a sports electronics manufacturer" (Evan, Nov 2026) | A Decision Model for truck planning: no overstock or stockout, fewer repeat truck trips, and loads shared with a warehouse on the route to use the full truck volume. Described in words. A possible metric (truck trips 75% down to 43%) is unconfirmed: do not publish until Dr. Hareesh confirms exactly what it counts. |
 | Aircraft fabrics manufacturer | "an aircraft fabrics manufacturer" (Evan, Nov 2026) | A Decision Model was built for their production-planning use case. No numbers: there are no real results to claim. |
 
 Never name either company. Dr. Hareesh decided the aircraft fabrics work shows no metrics, including the ERP match rate that used to be on the Results page. Do not mention ERP data problems.

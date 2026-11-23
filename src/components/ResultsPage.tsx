@@ -38,7 +38,7 @@ export function ResultsHero() {
           </div>
         </div>
         <div className="rise rise-5 grid gap-4 sm:grid-cols-2">
-          <BuiltFor Icon={Truck} label="Sports electronics manufacturer" sub="A Decision Model for truck planning, with fewer truck rolls and no overstock or stockout." />
+          <BuiltFor Icon={Truck} label="Sports electronics manufacturer" sub="A Decision Model for truck planning: fewer repeat trips, fuller loads and no overstock or stockout." />
           <BuiltFor Icon={Factory} label="Aircraft fabrics manufacturer" sub="A Decision Model built for their production-planning use case." />
         </div>
       </Container>
@@ -60,9 +60,9 @@ export function Pilots() {
               <span className="text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground">Sports electronics manufacturer</span>
             </div>
             <h3 className="mt-4 text-2xl font-extrabold leading-tight text-primary">Truck planning without overstock or stockout.</h3>
-            <p className="mt-3 text-base leading-relaxed text-muted-foreground">Kimaru built a Decision Model for planning truck movements, so each load goes out when it is needed and stock is neither short nor piled up.</p>
+            <p className="mt-3 text-base leading-relaxed text-muted-foreground">Kimaru built a Decision Model for planning truck movements. Each load goes out when it is needed, stock is neither short nor piled up, and trucks are not sent again and again.</p>
             <ul className="m-0 mt-5 grid list-none gap-2.5 p-0">
-              {['No overstock and no stockout', 'Fewer truck rolls than before', 'Each plan tied to the team\'s own rules'].map((x) => (
+              {['No overstock and no stockout', 'Fewer repeat truck trips than before', 'One load shared with a warehouse on the route, using the full truck volume'].map((x) => (
                 <li key={x} className="flex items-start gap-2.5 text-[15px] text-foreground">
                   <Check size={18} className="mt-0.5 shrink-0 text-active" />
                   {x}
