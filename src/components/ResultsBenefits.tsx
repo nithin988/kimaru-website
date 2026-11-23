@@ -1,11 +1,11 @@
-import { ArrowRight, ArrowUpRight, Boxes, Check, ClipboardCheck, Clock, Factory, Gauge, Handshake, Layers3, LineChart, MessageSquarePlus, PackageSearch, PiggyBank, Scale, ShieldCheck, ShoppingCart, Target, Truck, UserCheck, Users, Wallet, Wrench } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Boxes, Check, ClipboardCheck, Clock, Factory, Gauge, Handshake, Layers3, LineChart, MessageSquarePlus, PackageSearch, PiggyBank, Scale, ShieldCheck, Target, Truck, UserCheck, Users, Wallet, Wrench } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { BOOK_URL, Button, Container, Eyebrow, Section, SectionHead } from './ui';
 import { Reveal } from './motion';
 
 /* ---------- Hero picture: one decision, end to end, any industry (drawn in code, illustrative) ---------- */
 
-const industries = ['Production', 'Inventory', 'Logistics', 'Procurement', 'Maintenance', 'Quality'];
+const industries = ['Commitment', 'Scheduling', 'Materials', 'Capacity', 'Lot sizing', 'Expedite'];
 
 const lift = (t: number) => t * t * (3 - 2 * t);
 const KX = Array.from({ length: 21 }, (_, i) => 190 + i * 15.5);
@@ -121,7 +121,7 @@ export function BenefitsHero() {
             Better decisions. <span className="grad-text">Results you can see.</span>
           </h1>
           <p className="rise rise-3 mt-5 max-w-[32em] text-lg leading-relaxed text-muted-foreground">
-            Kimaru helps your team make the recurring calls in manufacturing, supply chain and logistics with the full picture, then tracks the result against your own baseline.
+            Kimaru helps manufacturing teams make their production-planning calls with material, capacity and due dates in view, then tracks the result against your own baseline.
           </p>
           <div className="rise rise-4 mt-7 flex flex-wrap gap-3">
             <Button href={BOOK_URL} size="lg">
@@ -180,8 +180,8 @@ const outcomes: Array<{ icon: LucideIcon; t: string; b: string; see: string[]; s
   {
     icon: PiggyBank,
     t: 'Less waste and avoidable cost',
-    b: 'Each option shows its cost beside its outcome. You pay for an expedite, a buffer or an extra trip only where it earns its keep, and stop paying where it does not.',
-    see: ['Expedite and premium freight', 'Excess stock and stockouts', 'Scrap and rework'],
+    b: 'Each option shows its cost beside its outcome. You pay for an expedite, a buffer or overtime only where it earns its keep, and stop paying where it does not.',
+    see: ['Expedite and overtime spend', 'Excess stock and stockouts', 'Scrap and rework'],
     spark: [82, 78, 72, 64, 52, 44, 36, 30],
     down: true,
     trend: 'Avoidable cost',
@@ -248,20 +248,20 @@ export function Outcomes() {
 /* ---------- Decisions we solve: the problems most industrial teams share ---------- */
 
 const cases: Array<{ icon: LucideIcon; t: string; pain: string; help: string }> = [
-  { icon: Factory, t: 'Production commitment', pain: 'Orders slip when material, capacity and due dates collide.', help: 'Commit to the dates you can keep, with the trade-offs shown.' },
-  { icon: Boxes, t: 'Inventory and allocation', pain: 'Stock piles up in one place while another runs short.', help: 'Place scarce stock where it earns the most.' },
-  { icon: Truck, t: 'Logistics and truck planning', pain: 'Part-empty trucks are sent again and again.', help: 'Combine loads and optimize the number of truck plans.' },
-  { icon: PackageSearch, t: 'Supplier, BOM and cost', pain: 'Supplier delays and cost spikes arrive without warning.', help: 'Flag the exception early with the best response ready.' },
-  { icon: ShoppingCart, t: 'Procurement and expediting', pain: 'Rush buys and premium freight eat into margin.', help: 'Expedite only where it pays back.' },
-  { icon: Wrench, t: 'Maintenance and downtime', pain: 'An unplanned breakdown stops a line at the worst time.', help: 'Sequence work orders to protect the lines that matter.' },
-  { icon: ShieldCheck, t: 'Quality and release', pain: 'Holds and rework delay shipments.', help: 'Decide ship, hold or rework with the evidence at hand.' },
-  { icon: Users, t: 'Workforce and shift planning', pain: 'Shifts run short just as demand peaks.', help: 'Cover each line and shift with the people you have.' },
+  { icon: Handshake, t: 'Order commitment', pain: 'Orders are promised before material, capacity and due dates are checked together.', help: 'Commit to dates you can keep, with the trade-offs shown.' },
+  { icon: Layers3, t: 'Scheduling and sequencing', pain: 'The schedule breaks when priorities change mid-week.', help: 'Resequence builds fast, with the effect on every order in view.' },
+  { icon: PackageSearch, t: 'Material readiness and shortages', pain: 'A late or short material stops a build at the last minute.', help: 'Spot shortages early and choose the best response.' },
+  { icon: Gauge, t: 'Capacity and machine allocation', pain: 'Some machines sit idle while others are overloaded.', help: 'Load work onto the machines that can run it.' },
+  { icon: Scale, t: 'Lot sizing and changeovers', pain: 'Too many small lots and changeovers waste time and material.', help: 'Group work within your lot-mixing and compatibility rules.' },
+  { icon: Clock, t: 'Expedite and overtime', pain: 'Rush work and overtime are approved without knowing what they buy.', help: 'Expedite only where it pays back.' },
+  { icon: Boxes, t: 'Work-in-progress and buffers', pain: 'Stock builds up in one place while other orders wait.', help: 'Set build and buffer levels that match real demand.' },
+  { icon: Wrench, t: 'Maintenance windows', pain: 'Planned maintenance collides with urgent orders.', help: 'Fit maintenance around the orders that cannot slip.' },
 ];
 
 export function UseCases() {
   return (
     <Section id="usecases" tone="alt">
-      <SectionHead eyebrow="Decisions we solve" title="The decisions that cost industrial teams most." body="These are the problems most operations teams tell us about. Each one is a recurring decision Kimaru can take on." />
+      <SectionHead eyebrow="Decisions we solve" title="The production-planning decisions that cost you most." body="These are the calls planners make every week. Each one is a recurring decision Kimaru can take on." />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {cases.map((c, n) => (
           <Reveal key={c.t} delay={(n % 3) * 70} className="h-full">
@@ -285,8 +285,8 @@ export function UseCases() {
             <span className="grid size-10 place-items-center rounded-xl bg-active text-white">
               <MessageSquarePlus size={18} />
             </span>
-            <h3 className="mt-3 text-lg font-bold leading-snug text-primary">Have a different decision in mind?</h3>
-            <p className="mt-2 text-[15px] leading-snug text-muted-foreground">If a decision repeats and a wrong call is costly, we can likely take it on. Tell us what you want to solve.</p>
+            <h3 className="mt-3 text-lg font-bold leading-snug text-primary">Another planning decision in mind?</h3>
+            <p className="mt-2 text-[15px] leading-snug text-muted-foreground">If a production-planning call repeats and a wrong answer is costly, we can likely take it on. Tell us what you want to solve.</p>
             <span className="mt-auto inline-flex items-center gap-1.5 pt-3 text-[15px] font-semibold text-active">
               Tell us your use case <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
             </span>
