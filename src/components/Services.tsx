@@ -124,8 +124,8 @@ export function GrowPath() {
 }
 
 const areas: Array<{ icon: LucideIcon; t: string; q: string; href?: string; pilot?: string }> = [
-  { icon: Factory, t: 'Production commitment', q: 'Which builds run next when material, capacity and due dates conflict?', href: SOLUTION_URL, pilot: 'Piloted with a sports electronics and an aircraft fabrics manufacturer' },
-  { icon: Boxes, t: 'Inventory and allocation', q: 'Where should scarce stock go?' },
+  { icon: Factory, t: 'Production commitment', q: 'Which builds run next when material, capacity and due dates conflict?', href: SOLUTION_URL, pilot: 'Piloted with an aircraft fabrics manufacturer' },
+  { icon: Boxes, t: 'Inventory and allocation', q: 'Where should scarce stock go?', pilot: 'Piloted with a sports electronics manufacturer' },
   { icon: PackageSearch, t: 'Supplier, BOM and cost', q: 'Which exception needs action now?' },
 ];
 

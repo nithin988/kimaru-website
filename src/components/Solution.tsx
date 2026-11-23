@@ -28,7 +28,7 @@ export function SolutionHero() {
           <p className="rise rise-5 mt-6 flex items-center gap-2.5 text-sm text-muted-foreground">
             <span className="size-2.5 shrink-0 rotate-45 rounded-[3px] bg-logo-teal" />
             <span>
-              In a pilot with a sports electronics manufacturer, on-time production went from <b className="text-foreground">43% to 75%</b>. Measured, not universal.
+              Piloted with an aircraft fabrics manufacturer, built around their production-planning decision.
             </span>
           </p>
         </div>

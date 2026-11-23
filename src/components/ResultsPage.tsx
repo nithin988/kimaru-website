@@ -1,25 +1,13 @@
-import { ArrowRight, BadgeCheck, Check, Factory, Gauge, Layers3, Scale, Target, UserCheck } from 'lucide-react';
+import { ArrowRight, BadgeCheck, Check, Factory, Truck, Gauge, Layers3, Scale, Target, UserCheck } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import { BOOK_URL, Button, Container, Eyebrow, Section, SectionHead, cn, useInView } from './ui';
-import { CountUp, Reveal } from './motion';
+import { BOOK_URL, Button, Container, Eyebrow, Section, SectionHead, cn } from './ui';
+import { Reveal } from './motion';
 
-function Metric({ from, to, label, sub }: { from: number; to: number; label: string; sub: string }) {
-  return (
-    <div className="lift rounded-2xl border border-border bg-card p-6">
-      <p className="whitespace-nowrap text-[clamp(30px,3.4vw,44px)] font-extrabold leading-none tracking-tight text-primary tabular-nums">
-        <span className="text-slate-400"><CountUp to={from} suffix="%" /></span> <span className="text-active">→</span> <CountUp to={to} suffix="%" />
-      </p>
-      <p className="mt-3 text-base font-semibold text-primary">{label}</p>
-      <p className="mt-1 text-[13px] leading-snug text-muted-foreground">{sub}</p>
-    </div>
-  );
-}
-
-function BuiltFor({ label, sub }: { label: string; sub: string }) {
+function BuiltFor({ label, sub, Icon }: { label: string; sub: string; Icon: LucideIcon }) {
   return (
     <div className="lift flex flex-col rounded-2xl border border-border bg-card p-6">
       <span className="grid size-11 place-items-center rounded-xl bg-brand-soft text-brand">
-        <Factory size={20} />
+        <Icon size={20} />
       </span>
       <p className="mt-5 text-base font-semibold text-primary">{label}</p>
       <p className="mt-1 text-[13px] leading-snug text-muted-foreground">{sub}</p>
@@ -38,7 +26,7 @@ export function ResultsHero() {
             Live decisions. <span className="grad-text">Measured outcomes.</span>
           </h1>
           <p className="rise rise-3 mt-5 max-w-[31em] text-lg leading-relaxed text-muted-foreground">
-            Where Kimaru has been used, and what was measured. Every number carries a label, and customers are described by industry, not by name.
+            Where Kimaru has been used, and what it changed. Customers are described by industry, not by name, and a number appears only when it has been measured.
           </p>
           <div className="rise rise-4 mt-7 flex flex-wrap gap-3">
             <Button href={BOOK_URL} size="lg">
@@ -50,8 +38,8 @@ export function ResultsHero() {
           </div>
         </div>
         <div className="rise rise-5 grid gap-4 sm:grid-cols-2">
-          <Metric from={43} to={75} label="New-order on-time production" sub="Sports electronics manufacturer. Measured pilot." />
-          <BuiltFor label="Aircraft fabrics manufacturer" sub="A Decision Model built for their production-planning use case." />
+          <BuiltFor Icon={Truck} label="Sports electronics manufacturer" sub="A Decision Model for truck planning, with fewer truck rolls and no overstock or stockout." />
+          <BuiltFor Icon={Factory} label="Aircraft fabrics manufacturer" sub="A Decision Model built for their production-planning use case." />
         </div>
       </Container>
     </div>
@@ -59,38 +47,29 @@ export function ResultsHero() {
 }
 
 export function Pilots() {
-  const [ref, seen] = useInView<HTMLDivElement>(0.4);
   return (
     <Section id="case" tone="alt">
-      <SectionHead eyebrow="Where it has been used" title="Built for real manufacturing decisions." body="We describe each customer by industry, not by name. A number appears only when its result has been measured against a baseline." />
+      <SectionHead eyebrow="Where it has been used" title="Built for real manufacturing decisions." body="We describe each customer by industry, not by name. Each one was built around the customer's own decision, rules and data." />
       <div className="grid gap-5 md:grid-cols-2">
         <Reveal className="h-full">
           <div className="flex h-full flex-col rounded-2xl border border-border bg-card p-6 sm:p-7">
             <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-50 px-2.5 py-1 text-xs font-semibold text-active">
-                <BadgeCheck size={13} /> Measured
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-2.5 py-1 text-xs font-semibold text-brand">
+                <Truck size={13} /> Use case built
               </span>
               <span className="text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground">Sports electronics manufacturer</span>
             </div>
-            <h3 className="mt-4 text-2xl font-extrabold leading-tight text-primary">New orders produced on time rose from 43% to 75%.</h3>
-            <p className="mt-3 text-base leading-relaxed text-muted-foreground">Kimaru supported one recurring production-planning decision: which new orders to commit to, and when. The result was tracked against the team's own baseline.</p>
-            <div ref={ref} className="mt-5 grid h-40 grid-cols-2 items-end gap-5 px-2">
-              {[
-                { v: 43, label: 'Before', cls: 'bg-slate-300 text-primary' },
-                { v: 75, label: 'After Kimaru', cls: 'bg-active text-white' },
-              ].map((b, n) => (
-                <div key={b.label} className="flex h-full min-w-0 flex-col justify-end gap-2">
-                  <div
-                    className={cn('flex items-start justify-center overflow-hidden rounded-t-lg pt-2 text-2xl font-extrabold tabular-nums transition-[height] duration-[1400ms] ease-out', b.cls)}
-                    style={{ height: seen ? `${b.v}%` : '8%', transitionDelay: `${n * 250}ms` }}
-                  >
-                    <CountUp to={b.v} suffix="%" duration={1400} />
-                  </div>
-                  <span className="text-center text-[13px] text-muted-foreground">{b.label}</span>
-                </div>
+            <h3 className="mt-4 text-2xl font-extrabold leading-tight text-primary">Truck planning without overstock or stockout.</h3>
+            <p className="mt-3 text-base leading-relaxed text-muted-foreground">Kimaru built a Decision Model for planning truck movements, so each load goes out when it is needed and stock is neither short nor piled up.</p>
+            <ul className="m-0 mt-5 grid list-none gap-2.5 p-0">
+              {['No overstock and no stockout', 'Fewer truck rolls than before', 'Each plan tied to the team\'s own rules'].map((x) => (
+                <li key={x} className="flex items-start gap-2.5 text-[15px] text-foreground">
+                  <Check size={18} className="mt-0.5 shrink-0 text-active" />
+                  {x}
+                </li>
               ))}
-            </div>
-            <p className="mt-auto pt-5 text-[13px]"><span className="rounded-lg bg-amber-100 px-3 py-1.5">Measured in a pilot. Not a promise for every team.</span></p>
+            </ul>
+            <p className="mt-auto pt-5 text-sm leading-relaxed text-muted-foreground">Built around the customer's own decision, rules and data.</p>
           </div>
         </Reveal>
         <Reveal delay={110} className="h-full">
@@ -148,7 +127,7 @@ export function Gives() {
 }
 
 const labels: Array<{ icon: LucideIcon; k: string; tone: string; what: string; here: string }> = [
-  { icon: BadgeCheck, k: 'Measured', tone: 'bg-teal-50 text-active', what: 'Observed in live use against a baseline.', here: 'The sports electronics pilot result.' },
+  { icon: BadgeCheck, k: 'Measured', tone: 'bg-teal-50 text-active', what: 'Observed in live use against a baseline.', here: 'Shown only once a result is measured.' },
   { icon: Layers3, k: 'Demonstrated', tone: 'bg-brand-soft text-brand', what: 'Shown working on synthetic data.', here: 'The industry demos on this site.' },
   { icon: UserCheck, k: 'Customer-validated', tone: 'bg-violet-50 text-[#6a0dad]', what: 'Accepted by the customer, including Finance.', here: 'Not claimed yet.' },
   { icon: Scale, k: 'Modeled', tone: 'bg-amber-50 text-amber-700', what: 'A projection from a model.', here: 'Not shown on this site.' },

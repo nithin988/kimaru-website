@@ -164,7 +164,7 @@ export function Benefits() {
         <div className="overflow-hidden rounded-2xl border border-border bg-card">
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border bg-panel px-5 py-3.5">
             <p className="text-sm font-bold text-primary">Pilot scorecard: what we measure, against your own baseline</p>
-            <a href={RESULTS_URL} className="text-xs font-semibold text-active no-underline hover:underline">Only one result is proven so far. See it on the Results page</a>
+            <a href={RESULTS_URL} className="text-xs font-semibold text-active no-underline hover:underline">See where it has been used on the Results page</a>
           </div>
           <ul className="m-0 list-none divide-y divide-border p-0">
             {scorecard.map((r) => (
