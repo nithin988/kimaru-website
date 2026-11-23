@@ -6,7 +6,7 @@ export function Glance() {
   const cells = [
     { icon: Compass, k: 'What it is', v: 'Enterprise Decision Operating System', s: 'Decision intelligence for manufacturing and supply chains' },
     { icon: Factory, k: 'Who it is for', v: 'Industrial companies', s: 'Manufacturers and supply chain operators with recurring, costly decisions' },
-    { icon: TrendingUp, k: 'Proof so far', v: null, s: 'On-time production in one measured pilot, up from 43%' },
+    { icon: TrendingUp, k: 'Proof so far', v: null, s: 'On-time production in one measured pilot with a sports electronics manufacturer, up from 43%' },
     { icon: Building2, k: 'Company', v: 'Founded 2024, Austin TX', s: 'Backed by Alchemist Accelerator' },
   ];
   return (

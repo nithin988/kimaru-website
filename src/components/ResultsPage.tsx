@@ -1,4 +1,4 @@
-import { ArrowRight, BadgeCheck, Gauge, Layers3, Scale, Target, UserCheck } from 'lucide-react';
+import { ArrowRight, BadgeCheck, Clock, Gauge, Layers3, Scale, Target, UserCheck } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { BOOK_URL, Button, Container, Eyebrow, Section, SectionHead, cn, useInView } from './ui';
 import { CountUp, Reveal } from './motion';
@@ -15,6 +15,22 @@ function Metric({ from, to, label, sub }: { from: number; to: number; label: str
   );
 }
 
+function InProgress({ label, sub }: { label: string; sub: string }) {
+  return (
+    <div className="flex flex-col rounded-2xl border border-dashed border-ring bg-card p-6">
+      <p className="inline-flex w-fit items-center gap-1.5 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-700">
+        <Clock size={13} /> In progress
+      </p>
+      <div className="mt-4 grid gap-2.5" aria-hidden="true">
+        <div className="skel h-8 w-2/3 rounded-lg" />
+        <div className="skel h-2.5 w-full rounded-full" />
+      </div>
+      <p className="mt-4 text-base font-semibold text-primary">{label}</p>
+      <p className="mt-1 text-[13px] leading-snug text-muted-foreground">{sub}</p>
+    </div>
+  );
+}
+
 export function ResultsHero() {
   return (
     <div id="top" className="relative overflow-hidden">
@@ -26,7 +42,7 @@ export function ResultsHero() {
             Live decisions. <span className="grad-text">Measured outcomes.</span>
           </h1>
           <p className="rise rise-3 mt-5 max-w-[31em] text-lg leading-relaxed text-muted-foreground">
-            A live production-planning Decision Model at an aircraft-carpet manufacturer, measured against operating performance and ERP validation.
+            Two manufacturing pilots, one measured and one in progress. Every number carries a label, and customers are described by industry, not by name.
           </p>
           <div className="rise rise-4 mt-7 flex flex-wrap gap-3">
             <Button href={BOOK_URL} size="lg">
@@ -38,56 +54,105 @@ export function ResultsHero() {
           </div>
         </div>
         <div className="rise rise-5 grid gap-4 sm:grid-cols-2">
-          <Metric from={43} to={75} label="New-order on-time production" sub="Measured new-order on-time planning improvement" />
-          <Metric from={96} to={100} label="ERP-versus-plan pass rate" sub="Measured pilot checks, WK24 to WK26" />
+          <Metric from={43} to={75} label="New-order on-time production" sub="Sports electronics manufacturer. Measured pilot." />
+          <InProgress label="Aircraft fabrics manufacturer" sub="Production planning pilot. No result published yet." />
         </div>
       </Container>
     </div>
   );
 }
 
-export function Case() {
+export function Pilots() {
   const [ref, seen] = useInView<HTMLDivElement>(0.4);
   return (
     <Section id="case" tone="alt">
-      <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-        <Reveal>
-          <Eyebrow>Measured customer proof</Eyebrow>
-          <h2 className="mt-3 text-[clamp(28px,3.6vw,42px)] font-extrabold leading-[1.1] text-primary">One production-planning decision created measurable value.</h2>
-          <p className="mt-3 text-sm font-semibold uppercase tracking-[0.08em] text-active">Aircraft Carpet Manufacturer</p>
-          <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-            A carpet weaving manufacturer producing high-quality, heavyweight carpets used Kimaru for aircraft-carpet production planning, where ERP data had to be reconciled with material readiness, loom compatibility, lot-mixing rules, capacity and planner judgment.
-          </p>
-          <p className="mt-4 text-base leading-relaxed text-foreground">Kimaru did not replace the manufacturer's ERP or planners. It made one difficult recurring decision visible, reviewable, measurable and reusable.</p>
-          <p className="mt-5 rounded-lg bg-amber-100 px-4 py-2.5 text-[13px]">The 96% to 100% figure is a validation check against the ERP, not an on-time delivery rate. Results are from one pilot and are not universal.</p>
-        </Reveal>
-        <div ref={ref} className="rounded-2xl border border-border bg-card p-6">
-          <Eyebrow>New orders produced on time</Eyebrow>
-          <div className="mt-4 grid h-64 grid-cols-2 items-end gap-5 px-2">
-            {[
-              { v: 43, label: 'Before', cls: 'bg-slate-300 text-primary' },
-              { v: 75, label: 'After Kimaru', cls: 'bg-active text-white' },
-            ].map((b, n) => (
-              <div key={b.label} className="flex h-full min-w-0 flex-col justify-end gap-2">
-                <div
-                  className={cn('flex items-start justify-center overflow-hidden rounded-t-lg pt-2.5 text-3xl font-extrabold tabular-nums transition-[height] duration-[1400ms] ease-out', b.cls)}
-                  style={{ height: seen ? `${b.v}%` : '8%', transitionDelay: `${n * 250}ms` }}
-                >
-                  <CountUp to={b.v} suffix="%" duration={1400} />
+      <SectionHead eyebrow="Our pilots" title="Two manufacturing pilots, labelled by what they have proven." body="We describe each customer by industry, not by name. A pilot shows a number only when its result has been measured against a baseline." />
+      <div className="grid gap-5 md:grid-cols-2">
+        <Reveal className="h-full">
+          <div className="flex h-full flex-col rounded-2xl border border-border bg-card p-6 sm:p-7">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-50 px-2.5 py-1 text-xs font-semibold text-active">
+                <BadgeCheck size={13} /> Measured
+              </span>
+              <span className="text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground">Sports electronics manufacturer</span>
+            </div>
+            <h3 className="mt-4 text-2xl font-extrabold leading-tight text-primary">New orders produced on time rose from 43% to 75%.</h3>
+            <p className="mt-3 text-base leading-relaxed text-muted-foreground">Kimaru supported one recurring production-planning decision: which new orders to commit to, and when. The result was tracked against the team's own baseline.</p>
+            <div ref={ref} className="mt-5 grid h-40 grid-cols-2 items-end gap-5 px-2">
+              {[
+                { v: 43, label: 'Before', cls: 'bg-slate-300 text-primary' },
+                { v: 75, label: 'After Kimaru', cls: 'bg-active text-white' },
+              ].map((b, n) => (
+                <div key={b.label} className="flex h-full min-w-0 flex-col justify-end gap-2">
+                  <div
+                    className={cn('flex items-start justify-center overflow-hidden rounded-t-lg pt-2 text-2xl font-extrabold tabular-nums transition-[height] duration-[1400ms] ease-out', b.cls)}
+                    style={{ height: seen ? `${b.v}%` : '8%', transitionDelay: `${n * 250}ms` }}
+                  >
+                    <CountUp to={b.v} suffix="%" duration={1400} />
+                  </div>
+                  <span className="text-center text-[13px] text-muted-foreground">{b.label}</span>
                 </div>
-                <span className="text-center text-[13px] text-muted-foreground">{b.label}</span>
-              </div>
-            ))}
+              ))}
+            </div>
+            <p className="mt-auto pt-5 text-[13px]"><span className="rounded-lg bg-amber-100 px-3 py-1.5">One pilot. The result is not universal.</span></p>
           </div>
-          <p className="mt-3 text-xs text-muted-foreground">Anonymized manufacturer. Measured pilot.</p>
-        </div>
+        </Reveal>
+        <Reveal delay={110} className="h-full">
+          <div className="flex h-full flex-col rounded-2xl border border-border bg-card p-6 sm:p-7">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-700">
+                <Clock size={13} /> In progress
+              </span>
+              <span className="text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground">Aircraft fabrics manufacturer</span>
+            </div>
+            <h3 className="mt-4 text-2xl font-extrabold leading-tight text-primary">Production planning across material, machine and lot rules.</h3>
+            <p className="mt-3 text-base leading-relaxed text-muted-foreground">Kimaru is being applied to a production-planning decision where ERP data has to be reconciled with material readiness, machine compatibility, lot-mixing rules and capacity.</p>
+            <div className="mt-5 rounded-xl border border-dashed border-ring bg-panel p-5">
+              <div className="grid gap-2.5" aria-hidden="true">
+                <div className="skel h-9 w-1/2 rounded-lg" />
+                <div className="skel h-2.5 w-full rounded-full" />
+                <div className="skel h-2.5 w-4/5 rounded-full" />
+              </div>
+              <p className="mt-4 text-sm font-semibold text-muted-foreground">No result published yet</p>
+            </div>
+            <p className="mt-auto pt-5 text-sm leading-relaxed text-muted-foreground">We publish a result only when its baseline and checks are complete.</p>
+          </div>
+        </Reveal>
+      </div>
+    </Section>
+  );
+}
+
+const gives: Array<{ icon: LucideIcon; t: string; b: string }> = [
+  { icon: Layers3, t: 'The facts in one place', b: 'Evidence from the ERP, planning tools and spreadsheets, with its source.' },
+  { icon: Scale, t: 'Options with their outcome', b: 'Each practical option shown beside its predicted effect, before anyone commits.' },
+  { icon: UserCheck, t: 'An owner who approves', b: 'The right person commits within their limits, and the reasoning stays on record.' },
+  { icon: Gauge, t: 'A result you can measure', b: 'Expected against actual, so the next comparable decision starts from what was learned.' },
+];
+
+export function Gives() {
+  return (
+    <Section id="gives">
+      <SectionHead eyebrow="What Kimaru gives a team" title="The same four things, whatever the industry." body="Both pilots follow the same loop. This is what a team gets from it." />
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {gives.map(({ icon: I, t, b }, n) => (
+          <Reveal key={t} delay={n * 90} className="h-full">
+            <div className="lift h-full rounded-2xl border border-border bg-card p-6">
+              <span className="grid size-11 place-items-center rounded-xl bg-brand text-white">
+                <I size={20} />
+              </span>
+              <h3 className="mt-4 text-xl font-bold text-primary">{t}</h3>
+              <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{b}</p>
+            </div>
+          </Reveal>
+        ))}
       </div>
     </Section>
   );
 }
 
 const labels: Array<{ icon: LucideIcon; k: string; tone: string; what: string; here: string }> = [
-  { icon: BadgeCheck, k: 'Measured', tone: 'bg-teal-50 text-active', what: 'Observed in live use against a baseline.', here: 'The 43% to 75% pilot result.' },
+  { icon: BadgeCheck, k: 'Measured', tone: 'bg-teal-50 text-active', what: 'Observed in live use against a baseline.', here: 'The sports electronics pilot result.' },
   { icon: Layers3, k: 'Demonstrated', tone: 'bg-brand-soft text-brand', what: 'Shown working on synthetic data.', here: 'The industry demos on this site.' },
   { icon: UserCheck, k: 'Customer-validated', tone: 'bg-violet-50 text-[#6a0dad]', what: 'Accepted by the customer, including Finance.', here: 'Not claimed yet.' },
   { icon: Scale, k: 'Modeled', tone: 'bg-amber-50 text-amber-700', what: 'A projection from a model.', here: 'Not shown on this site.' },

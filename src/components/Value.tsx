@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { ArrowUpRight, Clock, Handshake, PiggyBank, Radar, Scale, Sparkles, TrendingUp, Zap } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import { BrowserFrame, Button, CONTACT_URL, Eyebrow, Photo, Section, SectionHead, cn } from './ui';
+import { BrowserFrame, Button, CONTACT_URL, Eyebrow, Photo, RESULTS_URL, Section, SectionHead, cn } from './ui';
 import { CountUp, Reveal } from './motion';
 
 /* ---------- Cost of delay: published survey figures, each with its source ---------- */
@@ -164,7 +164,7 @@ export function Benefits() {
         <div className="overflow-hidden rounded-2xl border border-border bg-card">
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border bg-panel px-5 py-3.5">
             <p className="text-sm font-bold text-primary">Pilot scorecard: what we measure, against your own baseline</p>
-            <span className="text-xs text-muted-foreground">Only one result is proven so far, and it is labelled</span>
+            <a href={RESULTS_URL} className="text-xs font-semibold text-active no-underline hover:underline">Only one result is proven so far. See it on the Results page</a>
           </div>
           <ul className="m-0 list-none divide-y divide-border p-0">
             {scorecard.map((r) => (
@@ -192,7 +192,7 @@ export function Benefits() {
 }
 
 const scorecard = [
-  { m: 'On-time delivery', how: 'Compare options before committing, with the predicted outcome in view.', proof: true },
+  { m: 'On-time delivery', how: 'Compare options before committing, with the predicted outcome in view.', proof: false },
   { m: 'Expedite and premium freight spend', how: 'Each option shows its cost beside its outcome.', proof: false },
   { m: 'Hours per decision', how: 'Facts, options and the approver sit in one place.', proof: false },
   { m: 'Stockouts and excess stock', how: 'Test options against a shock before it lands.', proof: false },

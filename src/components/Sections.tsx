@@ -83,60 +83,6 @@ export function Solutions() {
   );
 }
 
-export function Results() {
-  const [ref, seen] = useInView<HTMLDivElement>(0.4);
-  return (
-    <Section id="results">
-      <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
-        <Reveal>
-          <Eyebrow>Results</Eyebrow>
-          <h2 className="mt-3 text-[clamp(30px,4vw,44px)] font-extrabold leading-[1.08] text-primary">One pilot, measured.</h2>
-          <p className="mt-4 text-[17px] leading-relaxed text-muted-foreground">
-            A heavyweight carpet manufacturer used Kimaru to improve production planning. New orders produced on time rose from 43% to 75%, and the plan matched what the ERP could execute 100% of the time, up from 96%.
-          </p>
-          <p className="mt-4 rounded-lg bg-amber-100 px-4 py-2.5 text-[13px]">
-            The 96% to 100% figure is a validation check against the ERP, not an on-time delivery rate. Results are from one pilot and are not universal.
-          </p>
-        </Reveal>
-        <div ref={ref} className="beam rounded-xl border border-border bg-card p-6">
-          <Eyebrow>New orders produced on time</Eyebrow>
-          <div className="mt-4 grid h-64 grid-cols-2 items-end gap-5 px-2">
-            {[
-              { v: 43, label: 'Before', cls: 'bg-slate-300 text-primary' },
-              { v: 75, label: 'After Kimaru', cls: 'bg-active text-white' },
-            ].map((b, n) => (
-              <div key={b.label} className="flex h-full min-w-0 flex-col justify-end gap-2">
-                <div
-                  className={cn('flex items-start justify-center overflow-hidden rounded-t-lg pt-2.5 text-3xl font-extrabold tabular-nums transition-[height] duration-[1400ms] ease-out', b.cls)}
-                  style={{ height: seen ? `${b.v}%` : '8%', transitionDelay: `${n * 250}ms` }}
-                >
-                  <CountUp to={b.v} suffix="%" duration={1400} />
-                </div>
-                <span className="text-center text-[13px] text-muted-foreground">{b.label}</span>
-              </div>
-            ))}
-          </div>
-          <p className="mt-3 text-xs text-muted-foreground">Anonymized aircraft carpet manufacturer. Measured pilot.</p>
-          <div className="mt-4 flex justify-between gap-3 border-t border-border pt-3.5 text-[13px] text-muted-foreground">
-            <span>Plan matched ERP-executable schedule</span>
-            <span className="tabular-nums">
-              <b className="text-foreground">96%</b> to <b className="text-foreground">100%</b>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <Reveal className="mt-14">
-        <div className="mb-5 max-w-2xl">
-          <h3 className="text-2xl font-bold text-primary">Every decision is tracked against what was expected.</h3>
-          <p className="mt-2 text-base leading-relaxed text-muted-foreground">The Decision Tracker shows each outcome over time, so you can see which decisions paid off and which missed.</p>
-        </div>
-        <BrowserFrame src="screens/uc-learn.png" alt="Kimaru Decision Tracker showing on-time delivery rate by product line over six months" title="Decision Tracker" aspect="1440 / 662" />
-      </Reveal>
-    </Section>
-  );
-}
-
 const pilot = [
   { t: 'Pick one decision', b: 'One recurring call, its owner, a baseline and the data behind it. We map how it is made today.', icon: ClipboardCheck },
   { t: 'Replay or shadow mode', b: 'Kimaru replays past decisions or recommends alongside your team. Nothing is written to your systems and your people still decide.', icon: History },

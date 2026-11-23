@@ -216,7 +216,7 @@ function HeroStage() {
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">Result tracked. Decision Memory updated</p>
               <p className="text-sm font-bold text-primary">
-                On-time orders <span className="text-muted-foreground">43%</span> → <span className="text-active">75%</span> <span className="text-[10px] font-medium text-muted-foreground">in one pilot</span>
+                Expected against actual, recorded for the next call
               </p>
             </div>
           </motion.div>
@@ -262,7 +262,7 @@ export function Hero() {
           <p className="rise rise-5 mt-6 flex items-center gap-2.5 text-sm text-muted-foreground">
             <span className="size-2.5 shrink-0 rotate-45 rounded-[3px] bg-logo-teal" />
             <span>
-              In one pilot, on-time production went from <b className="text-foreground">43% to 75%</b>. Measured, not universal.
+              In a pilot with a sports electronics manufacturer, on-time production went from <b className="text-foreground">43% to 75%</b>. Measured, not universal.
             </span>
           </p>
         </div>

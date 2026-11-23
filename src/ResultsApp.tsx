@@ -1,6 +1,6 @@
 import { usePageEffects } from './hooks';
 import { Nav } from './components/NavHero';
-import { ResultsHero, Case, Labels, Fit, NextResult } from './components/ResultsPage';
+import { ResultsHero, Pilots, Gives, Labels, Fit, NextResult } from './components/ResultsPage';
 import { Faq, Footer } from './components/FaqFooter';
 
 export default function ResultsApp() {
@@ -10,7 +10,8 @@ export default function ResultsApp() {
       <Nav />
       <main>
         <ResultsHero />
-        <Case />
+        <Pilots />
+        <Gives />
         <Labels />
         <Fit />
         <NextResult />

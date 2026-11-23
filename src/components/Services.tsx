@@ -123,8 +123,8 @@ export function GrowPath() {
   );
 }
 
-const areas: Array<{ icon: LucideIcon; t: string; q: string; href?: string }> = [
-  { icon: Factory, t: 'Production commitment', q: 'Which builds run next when material, capacity and due dates conflict?', href: SOLUTION_URL },
+const areas: Array<{ icon: LucideIcon; t: string; q: string; href?: string; pilot?: string }> = [
+  { icon: Factory, t: 'Production commitment', q: 'Which builds run next when material, capacity and due dates conflict?', href: SOLUTION_URL, pilot: 'Piloted with a sports electronics and an aircraft fabrics manufacturer' },
   { icon: Boxes, t: 'Inventory and allocation', q: 'Where should scarce stock go?' },
   { icon: PackageSearch, t: 'Supplier, BOM and cost', q: 'Which exception needs action now?' },
 ];
@@ -134,7 +134,7 @@ export function Areas() {
     <Section id="areas">
       <SectionHead eyebrow="Decision areas" title="Where teams start." body="Each service applies to a recurring decision. These are the ones we work on most." />
       <div className="grid gap-4 md:grid-cols-3">
-        {areas.map(({ icon: I, t, q, href }, n) => (
+        {areas.map(({ icon: I, t, q, href, pilot }, n) => (
           <Reveal key={t} delay={n * 100} className="h-full">
             <div className="lift flex h-full flex-col rounded-2xl border border-border bg-card p-6">
               <span className="grid size-11 place-items-center rounded-xl bg-brand-soft text-brand">
@@ -142,6 +142,12 @@ export function Areas() {
               </span>
               <h3 className="mt-4 text-xl font-bold text-primary">{t}</h3>
               <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{q}</p>
+              {pilot && (
+                <p className="mt-3 flex items-start gap-2 text-xs font-semibold leading-snug text-active">
+                  <span className="mt-1 size-2 shrink-0 rotate-45 rounded-[2px] bg-logo-teal" />
+                  {pilot}
+                </p>
+              )}
               <div className="mt-auto pt-5">
                 {href ? (
                   <a href={href} className="inline-flex items-center gap-1.5 text-sm font-semibold text-active no-underline hover:underline">
