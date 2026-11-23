@@ -1,6 +1,6 @@
 import { usePageEffects } from './hooks';
 import { Nav } from './components/NavHero';
-import { BenefitsHero, Outcomes, Roles, Journey, Stories, BenefitsClose } from './components/ResultsBenefits';
+import { BenefitsHero, Outcomes, UseCases, Roles, Journey, Stories, BenefitsClose } from './components/ResultsBenefits';
 import { Faq, Footer } from './components/FaqFooter';
 
 export default function ResultsBenefitsApp() {
@@ -11,6 +11,7 @@ export default function ResultsBenefitsApp() {
       <main>
         <BenefitsHero />
         <Outcomes />
+        <UseCases />
         <Roles />
         <Journey />
         <Stories />

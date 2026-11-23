@@ -1,66 +1,63 @@
-import { ArrowRight, Boxes, Check, ClipboardCheck, Clock, Factory, Gauge, Handshake, Layers3, LineChart, PiggyBank, Scale, ShieldCheck, Target, Truck, UserCheck, Users, Wallet } from 'lucide-react';
+import { ArrowRight, Boxes, Check, ClipboardCheck, Clock, Factory, Gauge, Handshake, Layers3, LineChart, PackageSearch, PiggyBank, Scale, ShieldCheck, ShoppingCart, Target, Truck, UserCheck, Users, Wallet, Wrench } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { BOOK_URL, Button, Container, Eyebrow, Section, SectionHead } from './ui';
 import { Reveal } from './motion';
 
-/* ---------- Hero picture: what a team sees after Kimaru, drawn in code (illustrative) ---------- */
+/* ---------- Hero picture: one decision, end to end, any industry (drawn in code, illustrative) ---------- */
 
-function TruckBar({ parts, label }: { parts: Array<{ w: number; cls: string }>; label?: string }) {
-  return (
-    <div className="flex items-center gap-2">
-      <Truck size={16} className="shrink-0 text-slate-400" aria-hidden="true" />
-      <div className="flex h-5 flex-1 overflow-hidden rounded-md bg-slate-100">
-        {parts.map((p, i) => (
-          <span key={i} className={p.cls} style={{ width: `${p.w}%` }} />
-        ))}
-      </div>
-      {label && <span className="w-9 shrink-0 text-right text-[11px] font-semibold text-muted-foreground">{label}</span>}
-    </div>
-  );
-}
+const industries = ['Production', 'Inventory', 'Logistics', 'Procurement', 'Maintenance', 'Quality'];
 
 function HeroArt() {
+  const opts = [
+    { n: 'Option A', w: 46, rec: false },
+    { n: 'Option B', w: 82, rec: true },
+    { n: 'Option C', w: 58, rec: false },
+  ];
   return (
     <div className="relative mx-auto grid w-full max-w-[560px] gap-4" aria-hidden="true">
       <div className="lift rounded-2xl border border-border bg-card p-5 shadow-sm">
         <div className="flex items-center justify-between">
           <p className="flex items-center gap-2 text-sm font-bold text-primary">
             <span className="grid size-7 place-items-center rounded-lg bg-brand-soft text-brand">
-              <Truck size={15} />
+              <Scale size={15} />
             </span>
-            Truck plan
+            One recurring decision
           </p>
           <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">Illustrative</span>
         </div>
-        <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">Before: trucks sent again and again</p>
-        <div className="mt-2 grid gap-1.5">
-          <TruckBar parts={[{ w: 38, cls: 'bg-slate-300' }]} />
-          <TruckBar parts={[{ w: 31, cls: 'bg-slate-300' }]} />
-          <TruckBar parts={[{ w: 44, cls: 'bg-slate-300' }]} />
+        <div className="mt-3 flex flex-wrap gap-1.5">
+          {industries.map((x) => (
+            <span key={x} className="rounded-full bg-brand-soft px-2.5 py-0.5 text-[11px] font-semibold text-brand">
+              {x}
+            </span>
+          ))}
         </div>
-        <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.08em] text-active">With Kimaru: one full truck, two warehouses</p>
-        <div className="mt-2">
-          <TruckBar parts={[{ w: 52, cls: 'bg-active' }, { w: 44, cls: 'bg-brand' }]} />
-          <div className="mt-1.5 flex justify-between pl-6 text-[11px] text-muted-foreground">
-            <span>Warehouse A</span>
-            <span>Warehouse B, on the route</span>
-          </div>
+        <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">Options, each with its predicted outcome</p>
+        <div className="mt-2 grid gap-2">
+          {opts.map((o) => (
+            <div key={o.n} className="flex items-center gap-3">
+              <span className="w-14 shrink-0 text-xs font-semibold text-muted-foreground">{o.n}</span>
+              <div className="h-5 flex-1 overflow-hidden rounded-md bg-slate-100">
+                <span className={'block h-full rounded-md ' + (o.rec ? 'bg-active' : 'bg-slate-300')} style={{ width: `${o.w}%` }} />
+              </div>
+              <span className="w-24 shrink-0 text-right text-[11px] font-semibold text-active">{o.rec ? 'Recommended' : ''}</span>
+            </div>
+          ))}
         </div>
       </div>
       <div className="grid grid-cols-[1.15fr_1fr] gap-4">
         <div className="lift rounded-2xl border border-border bg-card p-4 shadow-sm">
           <p className="flex items-center gap-2 text-sm font-bold text-primary">
-            <Boxes size={15} className="text-brand" /> Stock vs need
+            <LineChart size={15} className="text-brand" /> Expected vs actual
           </p>
           <svg viewBox="0 0 220 96" className="mt-2 w-full" role="presentation">
-            <rect x="0" y="26" width="220" height="42" rx="6" fill="#e6f4f4" />
-            <line x1="0" y1="26" x2="220" y2="26" stroke="#008080" strokeOpacity=".35" strokeDasharray="4 4" />
-            <line x1="0" y1="68" x2="220" y2="68" stroke="#008080" strokeOpacity=".35" strokeDasharray="4 4" />
-            <polyline fill="none" stroke="#253B7F" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" points="4,60 30,52 56,58 82,40 108,48 134,34 160,44 186,38 214,46" />
-            <circle cx="214" cy="46" r="4" fill="#008080" />
+            <line x1="0" y1="86" x2="220" y2="86" stroke="#cbd5e1" />
+            <polyline fill="none" stroke="#94a3b8" strokeWidth="2" strokeDasharray="5 5" strokeLinecap="round" points="4,70 40,62 76,56 112,46 148,38 184,30 214,24" />
+            <polyline fill="none" stroke="#008080" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" points="4,72 40,60 76,54 112,40 148,32 184,22 214,14" />
+            <circle cx="214" cy="14" r="4" fill="#008080" />
           </svg>
           <p className="mt-1 flex items-center gap-1.5 text-xs font-semibold text-active">
-            <Check size={13} /> No stockout, no overstock
+            <Check size={13} /> Result tracked after the call
           </p>
         </div>
         <div className="lift rounded-2xl border border-border bg-card p-4 shadow-sm">
@@ -68,7 +65,7 @@ function HeroArt() {
             <ClipboardCheck size={15} className="text-brand" /> Decision record
           </p>
           <ul className="m-0 mt-3 grid list-none gap-2 p-0">
-            {['Owner approved', 'Reason on record', 'Expected vs actual'].map((t) => (
+            {['Owner approved', 'Reason on record', 'Learning kept'].map((t) => (
               <li key={t} className="flex items-center gap-2 text-xs text-foreground">
                 <span className="grid size-4 place-items-center rounded-full bg-teal-50 text-active">
                   <Check size={11} />
@@ -91,10 +88,10 @@ export function BenefitsHero() {
         <div>
           <Eyebrow className="rise rise-1">Results</Eyebrow>
           <h1 className="rise rise-2 mt-4 text-[clamp(34px,4.4vw,54px)] font-extrabold leading-[1.05] text-primary">
-            What your team gets <span className="grad-text">with Kimaru.</span>
+            What your operation gets <span className="grad-text">with Kimaru.</span>
           </h1>
           <p className="rise rise-3 mt-5 max-w-[31em] text-lg leading-relaxed text-muted-foreground">
-            Fuller trucks, steadier stock and decisions your team can stand behind. See how each recurring decision gets better, and how you will know.
+            Steadier delivery, less waste and decisions your team can stand behind. Kimaru improves the recurring decisions across manufacturing, supply chain and logistics, and shows the change.
           </p>
           <div className="rise rise-4 mt-7 flex flex-wrap gap-3">
             <Button href={BOOK_URL} size="lg">
@@ -117,21 +114,21 @@ export function BenefitsHero() {
 
 const outcomes: Array<{ icon: LucideIcon; t: string; b: string; see: string[] }> = [
   {
-    icon: Truck,
-    t: 'Fuller trucks, fewer repeat trips',
-    b: 'Loads are planned together, including a warehouse on the same route, so each truck carries what it can and goes out once.',
-    see: ['Truck trips per week', 'Load fill rate', 'Freight cost per unit'],
+    icon: Handshake,
+    t: 'Dates you can promise and keep',
+    b: 'Decisions are made with the full picture, so commitments hold and fewer deliveries slip.',
+    see: ['On-time and in-full rate', 'Late orders', 'Repeat orders and renewals'],
   },
   {
-    icon: Boxes,
-    t: 'Stock where it is needed',
-    b: 'Plans keep stock between short and surplus, so you avoid both a stockout and money tied up in overstock.',
-    see: ['Stockouts', 'Excess stock', 'Working capital in inventory'],
+    icon: PiggyBank,
+    t: 'Less waste and avoidable cost',
+    b: 'Every option shows its cost beside its outcome, so you pay for an expedite, a buffer or an extra trip only where it earns its keep.',
+    see: ['Expedite and premium freight spend', 'Excess stock and stockouts', 'Scrap and rework'],
   },
   {
     icon: Clock,
     t: 'Faster, clearer decisions',
-    b: 'Facts, options and the approver sit in one place. Planners decide instead of chasing data, and the decision no longer waits for a meeting.',
+    b: 'Facts, options and the approver sit in one place. Planners decide instead of chasing data, and decisions stop waiting for a meeting.',
     see: ['Hours per decision', 'Time from alert to action'],
   },
   {
@@ -145,7 +142,7 @@ const outcomes: Array<{ icon: LucideIcon; t: string; b: string; see: string[] }>
 export function Outcomes() {
   return (
     <Section id="outcomes">
-      <SectionHead eyebrow="What you get" title="Better calls, in the numbers you already track." body="Kimaru does not add another dashboard. It improves the recurring decisions behind your cost, service and cash, and shows the change." />
+      <SectionHead eyebrow="What you get" title="Better calls, in the numbers you already track." body="Kimaru does not add another dashboard. It improves the recurring decisions behind your cost, service and cash, and measures the change against your own baseline." />
       <div className="grid gap-5 md:grid-cols-2">
         {outcomes.map((o, n) => (
           <Reveal key={o.t} delay={(n % 2) * 90} className="h-full">
@@ -173,10 +170,44 @@ export function Outcomes() {
   );
 }
 
+/* ---------- Decisions we solve: general, real-time industrial use cases ---------- */
+
+const cases: Array<{ icon: LucideIcon; t: string; q: string }> = [
+  { icon: Factory, t: 'Production commitment', q: 'Which builds run next when material, capacity and due dates conflict?' },
+  { icon: Boxes, t: 'Inventory and allocation', q: 'Where should scarce stock go?' },
+  { icon: Truck, t: 'Logistics and fleet planning', q: 'Which loads move together, and when?' },
+  { icon: PackageSearch, t: 'Supplier, BOM and cost', q: 'Which exception needs action now?' },
+  { icon: ShoppingCart, t: 'Procurement and expediting', q: 'What to buy, from whom, and how fast?' },
+  { icon: Wrench, t: 'Maintenance and downtime', q: 'Which work order goes first when a line is at risk?' },
+  { icon: ShieldCheck, t: 'Quality and release', q: 'Which lots ship, hold or rework?' },
+  { icon: Users, t: 'Workforce and shift planning', q: 'Who covers which line, shift by shift?' },
+];
+
+export function UseCases() {
+  return (
+    <Section id="usecases" tone="alt">
+      <SectionHead eyebrow="Decisions we solve" title="Any recurring decision where delay or error costs you." body="Kimaru is built for the live, repeated calls in industrial operations. These are the ones teams start with." />
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {cases.map((c, n) => (
+          <Reveal key={c.t} delay={(n % 4) * 70} className="h-full">
+            <div className="lift h-full rounded-2xl border border-border bg-card p-5">
+              <span className="grid size-10 place-items-center rounded-xl bg-brand text-white">
+                <c.icon size={18} />
+              </span>
+              <h3 className="mt-3 text-lg font-bold leading-snug text-primary">{c.t}</h3>
+              <p className="mt-1.5 text-[15px] leading-snug text-muted-foreground">{c.q}</p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
 /* ---------- Who benefits ---------- */
 
 const roles: Array<{ icon: LucideIcon; who: string; b: string[] }> = [
-  { icon: Users, who: 'Planners', b: ['Evidence from the ERP, planning tools and spreadsheets in one view', 'Options with their predicted outcome, ready to compare'] },
+  { icon: Users, who: 'Planners', b: ['Evidence from your systems and spreadsheets in one view', 'Options with their predicted outcome, ready to compare'] },
   { icon: UserCheck, who: 'Approvers', b: ['One clear recommendation to approve, adjust or defer', 'Their judgment stays on record'] },
   { icon: Wallet, who: 'Finance', b: ['The cost of each option beside its outcome', 'A tracker of what each decision was worth'] },
   { icon: Gauge, who: 'Leadership', b: ['Steadier delivery and fewer fire drills', 'Results measured against the team\'s own baseline'] },
@@ -184,7 +215,7 @@ const roles: Array<{ icon: LucideIcon; who: string; b: string[] }> = [
 
 export function Roles() {
   return (
-    <Section id="roles" tone="alt">
+    <Section id="roles">
       <SectionHead eyebrow="Who benefits" title="Useful from the planner to the boardroom." body="Each role sees what it needs, and everyone works from the same facts." />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {roles.map((r, n) => (
@@ -214,14 +245,14 @@ export function Roles() {
 
 const steps: Array<{ icon: LucideIcon; t: string; b: string }> = [
   { icon: Target, t: 'Choose a decision', b: 'One recurring call with a clear cost when it goes wrong.' },
-  { icon: Layers3, t: 'Bring the evidence together', b: 'Your ERP, planning tools and rules, each with its source.' },
+  { icon: Layers3, t: 'Bring the evidence together', b: 'Your systems, data and rules, each with its source.' },
   { icon: Scale, t: 'Decide with options', b: 'The owner approves within their limits, with the reasoning on record.' },
   { icon: LineChart, t: 'Measure the change', b: 'Expected against actual, against your own baseline.' },
 ];
 
 export function Journey() {
   return (
-    <Section id="journey">
+    <Section id="journey" tone="alt">
       <SectionHead eyebrow="How you get there" title="From one decision to a measured result." body="Start with the decision that matters most. The pilot is built around it." />
       <ol className="m-0 grid list-none gap-4 p-0 sm:grid-cols-2 lg:grid-cols-4">
         {steps.map((s, n) => (
@@ -264,7 +295,7 @@ const stories: Array<{ icon: LucideIcon; who: string; t: string; b: string; pts:
 
 export function Stories() {
   return (
-    <Section id="stories" tone="alt">
+    <Section id="stories">
       <SectionHead eyebrow="Pilot stories" title="Built for real manufacturing decisions." body="Each pilot was built around the customer's own decision, rules and data. We describe customers by industry, not by name." />
       <div className="grid gap-5 md:grid-cols-2">
         {stories.map((s, n) => (
