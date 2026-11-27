@@ -35,7 +35,7 @@ export function HowItWorks() {
                 <p className="m-0 text-[11px] font-semibold uppercase tracking-[0.09em] text-active">{s.gps}</p>
                 <h3 className="m-0 mt-1 text-xl font-bold text-primary">{s.k}</h3>
                 <p className="m-0 mt-2 text-[15px] leading-snug text-muted-foreground lg:min-h-[69px]">{s.b}</p>
-                <p className="m-0 mt-3 rounded-lg border border-border bg-panel px-3 py-2.5 text-left text-[13px] leading-snug text-foreground lg:mt-auto lg:h-[120px]">
+                <p className="m-0 mt-5 rounded-lg border border-border bg-panel px-3 py-2.5 text-left text-[13px] leading-snug text-foreground lg:mt-auto lg:h-[120px]">
                   <span className="mb-0.5 block text-[10px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">In this example</span>
                   {s.ex}
                 </p>
