@@ -26,7 +26,7 @@ export function ServicesHero() {
           </div>
         </div>
         <div className="rise rise-5 min-w-0">
-          <BrowserFrame src="screens/uc-options.png" alt="Kimaru recommendations page showing two options for one component, each with its predicted outcome and confidence" title="Two options, compared" aspect="1440 / 1014" />
+          <BrowserFrame src="screens/uc-options.png" alt="Kimaru recommendations page showing two options for one component, each with its predicted outcome and confidence" title="Two options, compared" aspect="1440 / 900" />
         </div>
       </div>
     </div>

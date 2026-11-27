@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
+import type { LucideIcon } from 'lucide-react';
 import {
   AlertTriangle, ArrowRight, Check, ChevronDown, ChevronLeft, ChevronRight, ChevronsRight, CloudRain, Clock, Database, FileDown, FileText, Home, LineChart,
   Boxes, ClipboardList, Cpu, Lock, FileSpreadsheet, Layers, Mic, Network, Package, PackageSearch, ReceiptText, Server, ShieldCheck, ThumbsUp, Truck, Workflow, X,
@@ -475,8 +476,83 @@ export function StackArt() {
   );
 }
 
+/* ---------- Decision brief (1000 x 560): one decision, why it is at risk, what each option changes. Same figures as the demo screens. ---------- */
+
+const briefDrivers: Array<{ icon: LucideIcon; k: string; v: string; sub: string; tone: 'bad' | 'warn' }> = [
+  { icon: Package, k: 'Stock cover', v: '1 day', sub: '1,112 units at 1,163 a day', tone: 'bad' },
+  { icon: ClipboardList, k: 'Open backlog', v: '8,730 units', sub: '2,140 due within 6 days', tone: 'bad' },
+  { icon: CloudRain, k: 'Supplier lead time', v: '+8 days', sub: 'Port closure, 92% confidence', tone: 'warn' },
+  { icon: Clock, k: 'Line 2 capacity', v: '14 free hours', sub: 'This week. Line 1 is committed', tone: 'warn' },
+];
+const briefOptions = [
+  { k: 'A', t: 'Air-freight plan', d: 'Air-freight 3,200 units, build 5,530 on Line 2', risk: 36, net: '+$52K', conf: '94%', rec: true },
+  { k: 'B', t: 'Split air and sea', d: 'Air-freight 1,600, express sea 1,600, Lines 2 and 3', risk: 48, net: '+$21K', conf: '88%', rec: false },
+];
+
+export function BriefArt() {
+  return (
+    <div className="relative bg-[linear-gradient(160deg,#f8fafc,#f1f5ff_60%,#f0fdfa)] text-slate-900" style={{ width: 1000, height: 630, fontFamily: 'Inter, sans-serif' }}>
+      <p className="absolute left-[32px] top-[24px] m-0 text-[12px] font-semibold uppercase tracking-[0.09em] text-slate-500">Decision brief · Wire mesh grilles, Typhoon alert to Taipei</p>
+      <p className="absolute left-[32px] top-[46px] m-0 text-[22px] font-bold">Which orders can we still promise?</p>
+
+      <div className="absolute left-[32px] top-[96px] w-[412px]">
+        <p className="m-0 text-[12px] font-semibold uppercase tracking-[0.09em] text-slate-500">What puts the order at risk today</p>
+        <div className="mt-[12px] grid gap-[10px]">
+          {briefDrivers.map((d) => (
+            <div key={d.k} className="flex items-center gap-[14px] rounded-xl border border-slate-200 bg-white px-[16px] py-[14px] shadow-sm">
+              <span className={'grid size-[40px] shrink-0 place-items-center rounded-lg ' + (d.tone === 'bad' ? 'bg-red-50 text-red-600' : 'bg-amber-50 text-amber-600')}><d.icon size={20} /></span>
+              <div className="min-w-0 flex-1">
+                <p className="m-0 text-[14px] font-semibold">{d.k}</p>
+                <p className="m-0 mt-[2px] text-[12px] text-slate-500">{d.sub}</p>
+              </div>
+              <p className="m-0 text-[17px] font-bold">{d.v}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-[14px] flex items-center justify-between rounded-xl bg-slate-900 px-[18px] py-[14px] text-white">
+          <span className="text-[13px] font-semibold">Order fulfillment risk today</span>
+          <span className="text-[26px] font-extrabold">70%</span>
+        </div>
+      </div>
+
+      <div className="absolute left-[476px] top-[96px] w-[492px]">
+        <p className="m-0 text-[12px] font-semibold uppercase tracking-[0.09em] text-slate-500">What each option changes</p>
+        <div className="mt-[12px] grid gap-[12px]">
+          {briefOptions.map((o) => (
+            <div key={o.k} className={'rounded-xl border bg-white p-[16px] shadow-sm ' + (o.rec ? 'border-teal-400 ring-2 ring-teal-100' : 'border-slate-200')}>
+              <div className="flex items-start gap-[12px]">
+                <span className={'grid size-[34px] shrink-0 place-items-center rounded-lg text-[15px] font-bold ' + (o.rec ? 'bg-teal-700 text-white' : 'bg-slate-100 text-slate-700')}>{o.k}</span>
+                <div className="min-w-0 flex-1">
+                  <p className="m-0 text-[15px] font-semibold">{o.t}{o.rec && <span className="ml-[8px] rounded-full bg-teal-700 px-[8px] py-[1px] align-middle text-[11px] font-semibold text-white">Recommended</span>}</p>
+                  <p className="m-0 mt-[2px] text-[12px] text-slate-500">{o.d}</p>
+                </div>
+              </div>
+              <div className="mt-[14px] flex items-center gap-[10px]">
+                <span className="text-[13px] font-semibold text-slate-400 line-through">70%</span>
+                <span className="text-slate-400">→</span>
+                <span className={'text-[28px] font-extrabold leading-none ' + (o.rec ? 'text-teal-700' : 'text-amber-600')}>{o.risk}%</span>
+                <div className="ml-[8px] h-[8px] flex-1 overflow-hidden rounded-full bg-slate-100"><div className={'h-full rounded-full ' + (o.rec ? 'bg-teal-600' : 'bg-amber-500')} style={{ width: o.risk + '%' }} /></div>
+              </div>
+              <div className="mt-[12px] grid grid-cols-2 gap-[10px] border-t border-slate-100 pt-[10px]">
+                <div><p className="m-0 text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-500">Net effect</p><p className="m-0 mt-[2px] text-[17px] font-bold">{o.net}</p></div>
+                <div><p className="m-0 text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-500">Confidence</p><p className="m-0 mt-[2px] text-[17px] font-bold">{o.conf}</p></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="absolute left-[32px] top-[556px] flex w-[936px] items-center gap-[14px] rounded-xl border border-teal-200 bg-teal-50 px-[18px] py-[12px]">
+        <span className="grid size-[26px] shrink-0 place-items-center rounded-full bg-teal-700 text-white"><Check size={15} /></span>
+        <p className="m-0 text-[13px] leading-snug text-teal-900"><b>The call.</b> Plant manager approves A or B. The reason is kept, and the result is tracked against the expected 36%.</p>
+      </div>
+    </div>
+  );
+}
+
 /** Product views that replace real screenshots. Keys match the screenshot path they stand in for. */
 export const ART: Record<string, { w: number; h: number; node: ReactNode }> = {
+  'art:brief': { w: 1000, h: 630, node: <BriefArt /> },
   'art:models': { w: 1440, h: 760, node: <ModelsArt /> },
   'art:stack': { w: 1440, h: 760, node: <StackArt /> },
 };

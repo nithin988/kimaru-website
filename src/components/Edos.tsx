@@ -33,7 +33,7 @@ const layers: Layer[] = [
     id: 'decisions', tier: 'What Kimaru does', icon: Brain, title: 'Compare options', short: 'Likely consequences',
     body: 'See what each option would do before anyone commits, so the choice is made with the outcome in view.',
     replaces: 'Gut feel about what will happen',
-    img: { src: 'screens/uc-options.png', title: 'Two recommendations for one component', aspect: '1440 / 1014' },
+    img: { src: 'screens/uc-options.png', title: 'Two recommendations for one component', aspect: '1440 / 900' },
   },
   {
     id: 'cockpit', tier: 'What Kimaru does', icon: LayoutDashboard, title: 'Ask why', short: 'Where people work',
