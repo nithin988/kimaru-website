@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import type { ReactNode } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { ArrowRight, Database, LayoutDashboard, LineChart, ListChecks, Menu, MessageSquareText, PackageOpen, Scale, ShieldCheck, TrendingUp, X } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
@@ -115,12 +116,13 @@ export function Nav() {
   );
 }
 
-type Usecase = { id: string; label: string; q: string; evidence: string; options: string; owner: string };
+type Usecase = { id: string; label: string; short: string; q: string; evidence: string; options: string; owner: string };
+// The three decision areas Kimaru is known for, plus one the visitor can make their own.
 const USECASES: Usecase[] = [
-  { id: 'prod', label: 'Production commitment', q: 'Which orders can we still promise, and what do we do about the rest?', evidence: 'Orders, material and capacity', options: 'Hold, split or expedite', owner: 'Plant manager' },
-  { id: 'inv', label: 'Inventory allocation', q: 'Where should scarce stock go this week?', evidence: 'Stock, demand and lead times', options: 'Allocate, transfer or hold', owner: 'Supply planner' },
-  { id: 'truck', label: 'Truck planning', q: 'Which loads move together, and when?', evidence: 'Orders, lanes and truck volume', options: 'Combine, delay or split', owner: 'Logistics lead' },
-  { id: 'supp', label: 'Supplier exceptions', q: 'Which supplier problem needs action today?', evidence: 'Suppliers, BOM and cost', options: 'Switch, expedite or wait', owner: 'Procurement lead' },
+  { id: 'prod', label: 'Production commitment', short: 'Production commitment', q: 'Which orders can we still promise, and what do we do about the rest?', evidence: 'Orders, material and capacity', options: 'Hold, split or expedite', owner: 'Plant manager' },
+  { id: 'inv', label: 'Inventory and allocation', short: 'Inventory', q: 'Where should constrained stock go this week?', evidence: 'Stock, demand and lead times', options: 'Allocate, transfer or hold', owner: 'Supply planner' },
+  { id: 'supp', label: 'Supplier, BOM and cost', short: 'Supplier and cost', q: 'Should we buy, wait, expedite or substitute?', evidence: 'Suppliers, BOM and cost', options: 'Buy, substitute or escalate', owner: 'Procurement lead' },
+  { id: 'own', label: 'Your decision', short: '+ Your decision', q: '', evidence: 'Your systems and files', options: 'The practical choices', owner: 'Your decision owner' },
 ];
 
 // The other Kimaru screens, shown by name only. Their detail is covered in a walkthrough.
@@ -130,14 +132,25 @@ const SCREENS: Array<{ k: string; icon: LucideIcon }> = [
   { k: 'Agent', icon: MessageSquareText },
   { k: 'Decision Tracker', icon: TrendingUp },
 ];
-const STEP = { x: 30, y: -26 };
+const STEP = { x: 22, y: -22 };
+
+function Chrome({ title, right }: { title: string; right?: ReactNode }) {
+  return (
+    <div className="flex h-9 shrink-0 items-center gap-1.5 border-b border-border bg-panel px-3 text-xs">
+      <span className="size-2.5 rounded-full bg-border" /><span className="size-2.5 rounded-full bg-border" /><span className="size-2.5 rounded-full bg-border" />
+      <span className="ml-2 font-semibold text-foreground">{title}</span>
+      {right}
+    </div>
+  );
+}
 
 /**
- * Right side of the hero: Kimaru's screens as stacked tabs, shown by name only, with one explanatory
- * screen on top. It shows what Kimaru does for a decision and invites the visitor to try their own.
+ * Right side of the hero: Kimaru's screens as stacked laptop windows, shown by name only, with one
+ * explanatory window on top. It shows what Kimaru does for a decision and lets the visitor try their own.
  */
 function HeroPackage() {
   const [id, setId] = useState('prod');
+  const [mine, setMine] = useState('');
   const u = USECASES.find((x) => x.id === id)!;
   const flow = [
     { icon: Database, t: 'Evidence', d: u.evidence },
@@ -146,57 +159,58 @@ function HeroPackage() {
     { icon: LineChart, t: 'Result', d: 'Expected vs actual, kept' },
   ];
   return (
-    <div className="relative mx-auto w-full max-w-[680px]">
+    <div className="relative mx-auto w-full max-w-[700px]">
       <img src={asset('photos/route.webp')} alt="" aria-hidden="true" className="pointer-events-none absolute -inset-10 -z-10 h-[calc(100%+5rem)] w-[calc(100%+5rem)] object-cover opacity-70 [mask-image:radial-gradient(ellipse_at_center,#000_35%,transparent_72%)]" />
-      <div className="relative pr-[120px] pt-[104px] max-sm:pr-[48px] max-sm:pt-[60px]">
+      <div className="relative pr-[88px] pt-[88px] max-sm:pr-[44px] max-sm:pt-[44px]">
         <div className="relative">
           {SCREENS.map((s, i) => {
             const pos = i + 1; // Work Hub sits right behind the Decision Model, Decision Tracker is furthest back
             return (
-              <div key={s.k} className="absolute inset-0 origin-top-left" style={{ zIndex: 30 - pos, transform: `translate(${pos * STEP.x}px, ${pos * STEP.y}px) scale(${1 - pos * 0.03})` }}>
+              <div key={s.k} className="absolute inset-0 origin-top-left" style={{ zIndex: 30 - pos, transform: `translate(${pos * STEP.x}px, ${pos * STEP.y}px) scale(${1 - pos * 0.025})` }}>
                 <div className="group h-full overflow-hidden rounded-xl border border-border bg-card shadow-[0_18px_40px_-22px_rgb(37_59_127/0.4)] transition-transform duration-200 ease-out hover:-translate-y-2">
-                  <div className="flex h-9 items-center gap-2 border-b border-border bg-panel px-3 text-xs">
-                    <span className="grid size-5 place-items-center rounded-md bg-brand-soft text-brand"><s.icon size={12} /></span>
-                    <span className="font-semibold text-foreground">{s.k}</span>
-                    <span className="ml-auto text-[11px] text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100">Shown in a walkthrough</span>
-                  </div>
+                  <Chrome title={s.k} right={<span className="ml-auto text-[11px] text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100">Shown in a walkthrough</span>} />
                 </div>
               </div>
             );
           })}
 
-          {/* The explanatory screen */}
-          <div className="relative z-40 overflow-hidden rounded-xl border border-border bg-card shadow-[0_28px_70px_-26px_rgb(37_59_127/0.55)]">
-            <div className="h-1 bg-[linear-gradient(90deg,#0284c7_0%,#5eead4_24%,#6d28d9_62%,#4f46e5_100%)]" />
-            <div className="flex h-10 items-center gap-2.5 border-b border-border bg-panel px-4 text-xs">
-              <span className="grid size-6 place-items-center rounded-md bg-brand text-white"><PackageOpen size={13} /></span>
-              <span className="text-[13px] font-semibold text-foreground">Decision Model</span>
-              <span className="ml-auto rounded-full bg-secondary px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.06em] text-muted-foreground">Illustrative</span>
-            </div>
-            <div className="p-5 sm:p-6">
-              <p className="m-0 text-[11px] font-semibold uppercase tracking-[0.1em] text-muted-foreground">Recurring decision</p>
-              <div className="mt-2.5 inline-flex flex-wrap gap-1 rounded-lg bg-secondary p-1" role="tablist" aria-label="Decision">
+          {/* The explanatory window, at laptop proportions */}
+          <div className="relative z-40 flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-[0_28px_70px_-26px_rgb(37_59_127/0.55)] sm:aspect-[16/10]">
+            <div className="h-1 shrink-0 bg-[linear-gradient(90deg,#0284c7_0%,#5eead4_24%,#6d28d9_62%,#4f46e5_100%)]" />
+            <Chrome title="Decision Model" right={<span className="ml-auto rounded-full bg-secondary px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.06em] text-muted-foreground">Illustrative</span>} />
+            <div className="flex flex-1 flex-col gap-3.5 p-4 sm:p-5">
+              <div className="inline-flex w-fit flex-wrap gap-1 rounded-lg bg-secondary p-1" role="tablist" aria-label="Recurring decision">
                 {USECASES.map((x) => (
-                  <button key={x.id} role="tab" aria-selected={x.id === id} onClick={() => setId(x.id)} className={cn('cursor-pointer rounded-md border-0 px-3 py-1.5 text-xs font-semibold transition-colors', x.id === id ? 'bg-card text-primary shadow-sm' : 'bg-transparent text-muted-foreground hover:text-primary')}>
-                    {x.label}
+                  <button key={x.id} role="tab" aria-selected={x.id === id} onClick={() => setId(x.id)} aria-label={x.label} className={cn('cursor-pointer whitespace-nowrap rounded-md border-0 px-2.5 py-1.5 text-[11.5px] font-semibold transition-colors', x.id === id ? 'bg-card text-primary shadow-sm' : 'bg-transparent text-muted-foreground hover:text-primary')}>
+                    {x.short}
                   </button>
                 ))}
               </div>
-              <p key={u.id} className="fade-in m-0 mt-5 border-l-[3px] border-active pl-3.5 text-[19px] font-bold leading-snug text-primary">{u.q}</p>
-              <ol key={u.id + 'f'} className="fade-in m-0 mt-5 grid list-none gap-3 p-0 sm:grid-cols-4">
+              {u.id === 'own' ? (
+                <input
+                  value={mine}
+                  onChange={(e) => setMine(e.target.value)}
+                  placeholder="Type the decision your team keeps making the hard way"
+                  aria-label="Your decision"
+                  className="w-full rounded-md border border-ring border-l-[3px] border-l-active bg-card px-3.5 py-2 text-[16px] font-bold leading-snug text-primary outline-none placeholder:font-semibold placeholder:text-muted-foreground focus:border-active"
+                />
+              ) : (
+                <p key={u.id} className="fade-in m-0 border-l-[3px] border-active pl-3.5 text-[17px] font-bold leading-snug text-primary">{u.q}</p>
+              )}
+              <ol key={u.id + 'f'} className="fade-in m-0 grid list-none grid-cols-2 gap-2.5 p-0 sm:grid-cols-4">
                 {flow.map((f, n) => (
-                  <li key={f.t} className="relative rounded-lg border border-border bg-white p-3">
+                  <li key={f.t} className="rounded-lg border border-border bg-white p-2.5">
                     <div className="flex items-center justify-between">
-                      <span className="grid size-7 place-items-center rounded-md bg-brand-soft text-brand"><f.icon size={14} /></span>
-                      <span className="text-[11px] font-semibold tabular-nums text-muted-foreground">0{n + 1}</span>
+                      <span className="grid size-6 place-items-center rounded-md bg-brand-soft text-brand"><f.icon size={13} /></span>
+                      <span className="text-[10px] font-semibold tabular-nums text-muted-foreground">0{n + 1}</span>
                     </div>
-                    <p className="m-0 mt-2.5 text-[13px] font-bold text-primary">{f.t}</p>
-                    <p className="m-0 mt-0.5 text-[12px] leading-snug text-muted-foreground">{f.d}</p>
+                    <p className="m-0 mt-2 text-[12px] font-bold text-primary">{f.t}</p>
+                    <p className="m-0 mt-0.5 text-[11px] leading-snug text-muted-foreground">{f.d}</p>
                   </li>
                 ))}
               </ol>
-              <div className="mt-5 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-t border-border pt-4">
-                <p className="m-0 max-w-[25em] text-[13px] leading-snug text-muted-foreground"><b className="font-semibold text-primary">Start with one decision.</b> It runs from your files, and your team stays the owner of every call.</p>
+              <div className="mt-auto flex flex-wrap items-center justify-between gap-x-5 gap-y-2.5 border-t border-border pt-3">
+                <p className="m-0 max-w-[22em] text-[12px] leading-snug text-muted-foreground"><b className="font-semibold text-primary">Start with one decision.</b> It runs from your files, and your team owns every call.</p>
                 <Button href={BOOK_URL}>Try it on your decision <ArrowRight /></Button>
               </div>
             </div>
