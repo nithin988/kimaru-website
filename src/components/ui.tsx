@@ -86,8 +86,6 @@ export function Section({ id, tone = 'plain', children, className }: { id?: stri
 type Rect = [number, number, number, number];
 const rowsAt = (x: number, y: number, w: number, h: number, step: number, n: number): Rect[] => Array.from({ length: n }, (_, i) => [x, y + i * step, w, h] as Rect);
 export const MASKS: Record<string, { w: number; h: number; rects: Rect[] }> = {
-  'screens/uc-compare.png': { w: 2000, h: 1035, rects: [[1025, 471, 56, 28], [1025, 539, 56, 28], [1025, 607, 56, 28], [1025, 675, 56, 28], [1025, 743, 67, 28], [1025, 811, 56, 28], [1025, 879, 56, 28]] },
-  'screens/uc-options.png': { w: 2000, h: 1408, rects: [[1025, 471, 56, 28], [1025, 865, 56, 28], [1025, 933, 56, 28], [1025, 1001, 56, 28], [1025, 1069, 67, 28], [1025, 1138, 56, 28], [1025, 1206, 56, 28]] },
   'screens/uc-kitting.png': {
     w: 2000, h: 854,
     rects: [[660, 228, 340, 32], [1745, 228, 165, 30], [900, 335, 155, 22], [900, 368, 65, 24], [1115, 368, 240, 26], [1115, 407, 190, 26], [1115, 446, 170, 26],

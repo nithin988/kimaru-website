@@ -479,17 +479,17 @@ export function StackArt() {
 
 const scenarios: Array<[string, string]> = [['Base case', 'Delay as forecast'], ['Longer delay', 'Port closed 9 days'], ['Demand spike', 'Orders up 15%']];
 const optionRows: Array<{ k: string; t: string; d: string; vals: number[]; net: string; conf: string; rec?: boolean }> = [
-  { k: 'A', t: 'Air-freight plan', d: 'Hold dates, build on Line 2', vals: [85, 81, 78], net: '+$52K', conf: '94%', rec: true },
-  { k: 'B', t: 'Split air and sea', d: 'Lower cost, sea leg adds risk', vals: [79, 66, 71], net: '+$21K', conf: '88%' },
+  { k: 'A', t: 'Air-freight plan', d: 'Hold dates, build on Line 2', vals: [36, 41, 45], net: '+$52K', conf: '94%', rec: true },
+  { k: 'B', t: 'Split air and sea', d: 'Lower cost, sea leg adds risk', vals: [48, 62, 54], net: '+$21K', conf: '88%' },
 ];
-const tone = (v: number) => (v >= 75 ? '#0f766e' : v >= 68 ? '#d97706' : '#dc2626');
+const tone = (v: number) => (v <= 45 ? '#0f766e' : v <= 55 ? '#d97706' : '#dc2626');
 
 export function WhatIfArt() {
   const cols = '260px 1fr 1fr 1fr 110px 110px';
   return (
     <div className="relative bg-[linear-gradient(160deg,#f8fafc,#f1f5ff_60%,#f0fdfa)] text-slate-900" style={{ width: 1000, height: 558, fontFamily: 'Inter, sans-serif' }}>
       <p className="absolute left-[24px] top-[20px] m-0 text-[20px] font-semibold">Test the options before you commit</p>
-      <p className="absolute left-[24px] top-[48px] m-0 text-[13px] text-slate-500">Predicted on-time delivery for each option, under three scenarios</p>
+      <p className="absolute left-[24px] top-[48px] m-0 text-[13px] text-slate-500">Predicted order fulfillment risk after each option, from 70% today, under three scenarios</p>
       <div className="absolute left-[24px] top-[84px] w-[952px] overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
         <div className="grid items-center border-b border-slate-200 bg-slate-50 px-[16px] py-[10px] text-[12px] font-semibold uppercase tracking-[0.06em] text-slate-500" style={{ gridTemplateColumns: cols }}>
           <span>Option</span>
@@ -524,7 +524,7 @@ export function WhatIfArt() {
         <span className="mt-[2px] grid size-[28px] shrink-0 place-items-center rounded-full bg-teal-700 text-white"><Check size={16} /></span>
         <div>
           <p className="m-0 text-[15px] font-semibold text-teal-900">What it means for the call</p>
-          <p className="m-0 mt-[4px] text-[14px] leading-snug text-slate-700">Option A stays above 75% in every scenario. Option B costs less up front but falls to 66% if the closure runs 9 days. Choose B only if the sea leg is confirmed.</p>
+          <p className="m-0 mt-[4px] text-[14px] leading-snug text-slate-700">Option A holds the risk at 45% or lower in every scenario. Option B costs less up front but climbs to 62% if the closure runs 9 days. Choose B only if the sea leg is confirmed.</p>
         </div>
       </div>
       <p className="absolute left-[24px] top-[520px] m-0 text-[12px] text-slate-500">Illustrative, synthetic data. Confidence reflects how complete and consistent the data is.</p>
