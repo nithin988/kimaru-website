@@ -53,7 +53,7 @@ const mods: Mod[] = [
   {
     n: 'Causal AI Modeler', title: 'Causal AI Modeler', head: 'Map what drives the outcome.',
     body: 'Levers, outside factors and outcomes are connected, so you can see what a change moves before you make it.',
-    chips: ['Levers', 'Outside factors', 'Outcomes'], src: 'screens/uc-cdd-select.png', w: 1440, h: 900, icon: Brain,
+    chips: ['Levers', 'Outside factors', 'Outcomes'], src: 'art:cdd', w: 860, h: 480, icon: Brain,
   },
   {
     n: 'Recommendations', title: 'Recommendations', head: 'Compare options with their predicted outcome.',

@@ -31,10 +31,10 @@ const slides: Slide[] = [
   {
     step: 'Simulate', gps: 'The map', headline: 'See what drives the outcome.',
     body: 'Select a node to see the factors that connect to it and the outcomes it moves.',
-    screen: 'screens/uc-cdd-select.png', w: 1440, h: 900, title: 'Causal AI Modeler', page: 'Causal AI Modeler',
+    screen: 'art:cdd', w: 860, h: 480, title: 'Decision map', page: 'Decision map',
     hot: [
-      { x: 28, y: 13, w: 20.5, h: 8, label: 'Pick any node', side: 'above' },
-      { x: 50.5, y: 12.5, w: 20, h: 15, label: 'See what it moves', side: 'above' },
+      { x: 38, y: 37, w: 24, h: 18, label: 'The outcome you want', side: 'above' },
+      { x: 3, y: 14, w: 29, h: 68, label: 'Actions that move it', side: 'above' },
     ],
   },
   {

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import {
   AlertTriangle, ArrowRight, Check, ChevronDown, ChevronLeft, ChevronRight, ChevronsRight, CloudRain, Clock, Database, FileDown, FileText, Home, LineChart,
-  Boxes, ClipboardList, Cpu, FileSpreadsheet, Layers, Mic, Network, Package, PackageSearch, ReceiptText, Server, ShieldCheck, ThumbsUp, Truck, Workflow, X,
+  Boxes, ClipboardList, Cpu, Lock, FileSpreadsheet, Layers, Mic, Network, Package, PackageSearch, ReceiptText, Server, ShieldCheck, ThumbsUp, Truck, Workflow, X,
 } from 'lucide-react';
 
 /*
@@ -421,18 +421,28 @@ const sources = [
   { icon: Layers, t: 'Planner know-how' },
 ];
 
+const outputs = [
+  { icon: ClipboardList, t: 'Recommendation', d: 'With its predicted outcome' },
+  { icon: ThumbsUp, t: 'Approved decision', d: 'Sent to your ERP, a file or workflow tools' },
+  { icon: ReceiptText, t: 'Decision Receipt', d: 'What was known, and why it was chosen' },
+  { icon: LineChart, t: 'Measured result', d: 'Expected against actual, kept for next time' },
+];
+
 export function StackArt() {
   return (
     <>
       <div className="absolute inset-0 bg-[linear-gradient(160deg,#f8fafc,#eef2ff)]" />
       <p className="absolute left-[56px] top-[40px] text-[34px] font-semibold">Works with what you already run</p>
       <p className="absolute left-[56px] top-[88px] text-[20px] text-slate-600">Start from files or read-only access. Nothing is written back to begin.</p>
+      <p className="absolute left-[56px] top-[132px] text-[15px] font-semibold uppercase tracking-[0.1em] text-slate-500">Your systems and data</p>
+      <p className="absolute left-[1010px] top-[132px] text-[15px] font-semibold uppercase tracking-[0.1em] text-slate-500">What comes out</p>
       <svg className="absolute inset-0" width="1440" height="760" fill="none" aria-hidden="true">
         {sources.map((_, n) => (
-          <path key={n} d={'M430 ' + (199 + n * 104) + ' C 540 ' + (199 + n * 104) + ', 540 440, 600 440'} stroke="#6366f1" strokeOpacity=".45" strokeWidth="2.4" strokeDasharray="6 7" />
+          <path key={n} d={'M430 ' + (199 + n * 104) + ' C 500 ' + (199 + n * 104) + ', 500 407, 560 407'} stroke="#6366f1" strokeOpacity=".45" strokeWidth="2.4" strokeDasharray="6 7" />
         ))}
-        <path d="M840 440 C 920 440, 940 339, 1010 339" stroke="#0f766e" strokeOpacity=".6" strokeWidth="2.4" strokeDasharray="6 7" />
-        <path d="M840 440 C 920 440, 940 539, 1010 539" stroke="#0f766e" strokeOpacity=".6" strokeWidth="2.4" strokeDasharray="6 7" />
+        {outputs.map((_, n) => (
+          <path key={n} d={'M880 407 C 945 407, 945 ' + (251 + n * 104) + ', 1010 ' + (251 + n * 104)} stroke="#0f766e" strokeOpacity=".6" strokeWidth="2.4" strokeDasharray="6 7" />
+        ))}
       </svg>
       {sources.map(({ icon: I, t }, n) => (
         <div key={t} className="absolute flex items-center gap-[16px] rounded-[14px] border border-slate-200 bg-white px-[20px] shadow-sm" style={{ left: 56, top: 160 + n * 104, width: 374, height: 78 }}>
@@ -440,25 +450,101 @@ export function StackArt() {
           <span className="text-[22px] font-semibold">{t}</span>
         </div>
       ))}
-      <div className="absolute grid place-items-center rounded-[22px] border-2 border-violet-500 bg-white shadow-[0_26px_60px_-24px_rgb(91_33_182/0.55)]" style={{ left: 600, top: 330, width: 240, height: 220 }}>
-        <div className="text-center">
-          <img src={mark} alt="" className="mx-auto size-[56px]" />
-          <p className="mt-[12px] text-[26px] font-semibold">Kimaru</p>
-          <p className="text-[16px] text-slate-500">Read-only to start</p>
+      <div className="absolute rounded-[24px] border-2 border-violet-500 bg-white shadow-[0_26px_60px_-24px_rgb(91_33_182/0.55)]" style={{ left: 560, top: 267, width: 320, height: 280 }}>
+        <div className="flex h-full flex-col items-center justify-center text-center">
+          <img src={`${base}logo.svg`} alt="kimaru.ai" className="h-[52px] w-auto" />
+          <p className="mt-[16px] text-[20px] font-semibold text-slate-800">Decision Operating System</p>
+          <div className="mt-[18px] flex flex-wrap justify-center gap-[8px] px-[20px]">
+            {['Understand', 'Compare', 'Approve', 'Measure'].map((x) => (
+              <span key={x} className="rounded-full bg-violet-50 px-[12px] py-[5px] text-[15px] font-semibold text-violet-700">{x}</span>
+            ))}
+          </div>
+          <p className="mt-[16px] rounded-full bg-slate-100 px-[14px] py-[5px] text-[15px] font-semibold text-slate-600">Read-only to start</p>
         </div>
       </div>
-      {[{ icon: Cpu, t: 'AI assistants', y: 300 }, { icon: ShieldCheck, t: 'Approved action', y: 500 }].map(({ icon: I, t, y }) => (
-        <div key={t} className="absolute flex items-center gap-[16px] rounded-[14px] border border-teal-300 bg-white px-[20px] shadow-sm" style={{ left: 1010, top: y, width: 374, height: 78 }}>
-          <span className="grid size-[44px] place-items-center rounded-[12px] bg-teal-50 text-teal-700"><I size={24} /></span>
-          <span className="text-[22px] font-semibold">{t}</span>
+      {outputs.map(({ icon: I, t, d }, n) => (
+        <div key={t} className="absolute flex items-center gap-[16px] rounded-[14px] border border-teal-300 bg-white px-[20px] shadow-sm" style={{ left: 1010, top: 212 + n * 104, width: 374, height: 78 }}>
+          <span className="grid size-[44px] shrink-0 place-items-center rounded-[12px] bg-teal-50 text-teal-700"><I size={24} /></span>
+          <span>
+            <span className="block text-[22px] font-semibold leading-tight">{t}</span>
+            <span className="block text-[15px] leading-tight text-slate-500">{d}</span>
+          </span>
         </div>
       ))}
     </>
   );
 }
 
+/* ---------- Decision map: a generic mind map (860 x 480). Replaces the real modeler screens. ---------- */
+
+const MW = 860;
+const MH = 480;
+
+type Leaf = { t: string; x: number; y: number; w: 'strong' | 'medium' | 'light' };
+const actions: Leaf[] = [
+  { t: 'Supplier choice', x: 24, y: 80, w: 'strong' },
+  { t: 'Production sequence', x: 24, y: 192, w: 'strong' },
+  { t: 'Safety stock', x: 24, y: 304, w: 'medium' },
+];
+const outside: Leaf[] = [
+  { t: 'Customer demand', x: 646, y: 80, w: 'strong' },
+  { t: 'Supplier lead times', x: 646, y: 192, w: 'medium' },
+  { t: 'Disruptions', x: 646, y: 304, w: 'light' },
+];
+const between: Leaf[] = [
+  { t: 'Component availability', x: 250, y: 398, w: 'strong' },
+  { t: 'Line utilisation', x: 450, y: 398, w: 'medium' },
+];
+const LW = 190;
+const LH = 52;
+const sw = { strong: 4.5, medium: 2.8, light: 1.6 };
+const C = { x: 430, y: 220 };
+
+export function CddArt() {
+  const link = (from: [number, number], to: [number, number], w: Leaf['w'], color: string, dash?: boolean) => {
+    const mx = (from[0] + to[0]) / 2;
+    return <path key={`${from}-${to}`} d={`M${from[0]} ${from[1]} C ${mx} ${from[1]}, ${mx} ${to[1]}, ${to[0]} ${to[1]}`} stroke={color} strokeWidth={sw[w]} strokeLinecap="round" strokeDasharray={dash ? '2 7' : undefined} fill="none" opacity=".85" />;
+  };
+  const node = (l: Leaf, tone: string) => (
+    <div key={l.t} className={'absolute flex items-center rounded-xl border bg-white px-4 text-[14px] font-semibold text-primary shadow-sm ' + tone} style={{ left: l.x, top: l.y, width: LW, height: LH }}>
+      {l.t}
+    </div>
+  );
+  return (
+    <div className="relative bg-[linear-gradient(160deg,#f5f7ff,#eef6ff_55%,#ecfeff)] text-primary" style={{ width: MW, height: MH, fontFamily: 'Inter, sans-serif' }}>
+      <div className="hero-grid pointer-events-none absolute inset-0 opacity-70" />
+      <svg className="absolute inset-0" width={MW} height={MH} aria-hidden="true">
+        {actions.map((l) => link([l.x + LW, l.y + LH / 2], [C.x - 100, C.y], l.w, '#008080'))}
+        {outside.map((l) => link([l.x, l.y + LH / 2], [C.x + 100, C.y], l.w, '#253B7F'))}
+        {between.map((l) => link([l.x + LW / 2, l.y], [C.x + (l.x < 400 ? -30 : 30), C.y + 36], l.w, '#64748b', true))}
+      </svg>
+      <p className="absolute m-0 text-[12px] font-bold uppercase tracking-[0.08em] text-active" style={{ left: 24, top: 46 }}>Actions you control</p>
+      <p className="absolute m-0 text-right text-[12px] font-bold uppercase tracking-[0.08em] text-brand" style={{ left: 646, top: 46, width: LW }}>Outside factors</p>
+      <p className="absolute m-0 text-center text-[12px] font-bold uppercase tracking-[0.08em] text-muted-foreground" style={{ left: 250, top: 372, width: 390 }}>What sits in between</p>
+      {actions.map((l) => node(l, 'border-active/50'))}
+      {outside.map((l) => node(l, 'border-brand/40'))}
+      {between.map((l) => node(l, 'border-border'))}
+      <div className="absolute grid place-items-center rounded-full bg-brand text-center text-white shadow-[0_18px_40px_-14px_rgba(37,59,127,0.6)]" style={{ left: C.x - 100, top: C.y - 44, width: 200, height: 88 }}>
+        <div>
+          <p className="m-0 text-[11px] font-semibold uppercase tracking-[0.1em] text-white/70">Outcome</p>
+          <p className="m-0 text-[18px] font-extrabold leading-tight">On-time delivery</p>
+        </div>
+      </div>
+      <div className="absolute flex items-center gap-2 rounded-xl border border-dashed border-ring bg-white/80 px-3 text-[12px] font-semibold text-muted-foreground" style={{ left: 646, top: 398, width: LW, height: LH + 8 }}>
+        <Lock size={14} className="shrink-0" /> Rules, strengths and data sources: in a walkthrough
+      </div>
+      <div className="absolute flex items-center gap-4 text-[12px] font-semibold text-muted-foreground" style={{ left: 24, top: 446 }}>
+        <span className="flex items-center gap-1.5"><span className="h-[4px] w-8 rounded bg-slate-500" /> Stronger influence</span>
+        <span className="flex items-center gap-1.5"><span className="h-[2px] w-8 rounded bg-slate-500" /> Lighter influence</span>
+      </div>
+    </div>
+  );
+}
+
+
 /** Product views that replace real screenshots. Keys match the screenshot path they stand in for. */
 export const ART: Record<string, { w: number; h: number; node: ReactNode }> = {
+  'art:cdd': { w: 860, h: 480, node: <CddArt /> },
   'art:models': { w: 1440, h: 760, node: <ModelsArt /> },
   'art:stack': { w: 1440, h: 760, node: <StackArt /> },
 };

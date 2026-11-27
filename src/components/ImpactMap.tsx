@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ArrowRight, Check, Gauge, Target, Waypoints } from 'lucide-react';
 import { Button, Eyebrow, Section, asset, cn } from './ui';
 import { Reveal } from './motion';
+import { CddArt, ScaledArt } from './ProductArt';
 import { NetworkBackdrop } from './Flow';
 
 type Driver = { name: string; w: number; conf: number; dir: 'helps' | 'against' };
@@ -110,11 +111,11 @@ export function ImpactMap() {
               <span className="size-2.5 rounded-full bg-border" />
               <span className="size-2.5 rounded-full bg-border" />
               <span className="size-2.5 rounded-full bg-border" />
-              <span className="ml-2 font-semibold text-foreground">The same map inside Kimaru</span>
+              <span className="ml-2 font-semibold text-foreground">The decision map in Kimaru</span>
               <span className="ml-auto hidden text-[11px] sm:inline">Synthetic demo data</span>
             </div>
-            <div className="relative flex-1 bg-panel [aspect-ratio:1440/1000]">
-              <img src={asset('screens/uc-cdd-weights.png')} alt="The Kimaru decision map with a node selected, showing the strength of influence on each outcome it affects" loading="lazy" className="absolute inset-0 h-full w-full object-contain object-top" />
+            <div className="relative flex-1 bg-panel">
+              <ScaledArt w={860} h={480}><CddArt /></ScaledArt>
             </div>
             <p className="border-t border-border px-5 py-3 text-sm text-muted-foreground">Pick a factor and see which outcomes it moves, and how strongly.</p>
           </div>
