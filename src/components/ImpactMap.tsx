@@ -115,7 +115,7 @@ export function ImpactMap() {
               <span className="ml-auto hidden text-[11px] sm:inline">Synthetic demo data</span>
             </div>
             <div className="relative flex-1 bg-panel">
-              <ScaledArt w={860} h={480}><CddArt /></ScaledArt>
+              <ScaledArt w={1000} h={558}><CddArt /></ScaledArt>
             </div>
             <p className="border-t border-border px-5 py-3 text-sm text-muted-foreground">Pick a factor and see which outcomes it moves, and how strongly.</p>
           </div>

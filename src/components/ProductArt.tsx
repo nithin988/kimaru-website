@@ -475,76 +475,101 @@ export function StackArt() {
   );
 }
 
-/* ---------- Decision map: a generic mind map (860 x 480). Replaces the real modeler screens. ---------- */
+/* ---------- Decision map (1000 x 558): generic, in the look of the Kimaru modeler. Replaces the real modeler screens. ---------- */
 
-const MW = 860;
-const MH = 480;
-
-type Leaf = { t: string; x: number; y: number; w: 'strong' | 'medium' | 'light' };
-const actions: Leaf[] = [
-  { t: 'Supplier choice', x: 24, y: 80, w: 'strong' },
-  { t: 'Production sequence', x: 24, y: 192, w: 'strong' },
-  { t: 'Safety stock', x: 24, y: 304, w: 'medium' },
+type DNode = { t: string; x: number; y: number; state: 'related' | 'unfocused' | 'selected'; status: 'Healthy' | 'Warning' };
+const NW = 190;
+const NH = 52;
+const dNodes: DNode[] = [
+  { t: 'Supplier choice', x: 24, y: 52, state: 'related', status: 'Healthy' },
+  { t: 'Production sequence', x: 24, y: 116, state: 'related', status: 'Healthy' },
+  { t: 'Safety stock', x: 24, y: 180, state: 'unfocused', status: 'Healthy' },
+  { t: 'Customer demand', x: 24, y: 290, state: 'related', status: 'Healthy' },
+  { t: 'Supplier lead times', x: 24, y: 354, state: 'related', status: 'Warning' },
+  { t: 'Component availability', x: 262, y: 76, state: 'related', status: 'Healthy' },
+  { t: 'Line utilisation', x: 262, y: 232, state: 'related', status: 'Healthy' },
+  { t: 'Demand coverage', x: 262, y: 346, state: 'unfocused', status: 'Healthy' },
+  { t: 'On-time delivery', x: 500, y: 154, state: 'selected', status: 'Healthy' },
+  { t: 'Cost of delay', x: 500, y: 266, state: 'unfocused', status: 'Healthy' },
 ];
-const outside: Leaf[] = [
-  { t: 'Customer demand', x: 646, y: 80, w: 'strong' },
-  { t: 'Supplier lead times', x: 646, y: 192, w: 'medium' },
-  { t: 'Disruptions', x: 646, y: 304, w: 'light' },
+const edges: Array<[number, number, number, number, number]> = [
+  // [from x, from y, to x, to y, line width]
+  [214, 78, 260, 102, 3.4], [214, 142, 260, 102, 2.6], [214, 142, 260, 258, 3.4], [214, 316, 260, 258, 2.4], [214, 380, 260, 258, 1.6],
+  [452, 102, 498, 180, 3.4], [452, 258, 498, 180, 2.6],
 ];
-const between: Leaf[] = [
-  { t: 'Component availability', x: 250, y: 398, w: 'strong' },
-  { t: 'Line utilisation', x: 450, y: 398, w: 'medium' },
-];
-const LW = 190;
-const LH = 52;
-const sw = { strong: 4.5, medium: 2.8, light: 1.6 };
-const C = { x: 430, y: 220 };
+const drivers: Array<[string, string, number]> = [['Supplier choice', 'High', 92], ['Production sequence', 'High', 84], ['Customer demand', 'Medium', 56], ['Supplier lead times', 'Low', 30]];
 
 export function CddArt() {
-  const link = (from: [number, number], to: [number, number], w: Leaf['w'], color: string, dash?: boolean) => {
-    const mx = (from[0] + to[0]) / 2;
-    return <path key={`${from}-${to}`} d={`M${from[0]} ${from[1]} C ${mx} ${from[1]}, ${mx} ${to[1]}, ${to[0]} ${to[1]}`} stroke={color} strokeWidth={sw[w]} strokeLinecap="round" strokeDasharray={dash ? '2 7' : undefined} fill="none" opacity=".85" />;
-  };
-  const node = (l: Leaf, tone: string) => (
-    <div key={l.t} className={'absolute flex items-center rounded-xl border bg-white px-4 text-[14px] font-semibold text-primary shadow-sm ' + tone} style={{ left: l.x, top: l.y, width: LW, height: LH }}>
-      {l.t}
-    </div>
-  );
+  const heading = (t: string, x: number, y: number) => <p key={t} className="absolute m-0 text-[14px] font-semibold text-slate-900" style={{ left: x, top: y }}>{t}</p>;
   return (
-    <div className="relative bg-[linear-gradient(160deg,#f5f7ff,#eef6ff_55%,#ecfeff)] text-primary" style={{ width: MW, height: MH, fontFamily: 'Inter, sans-serif' }}>
-      <div className="hero-grid pointer-events-none absolute inset-0 opacity-70" />
-      <svg className="absolute inset-0" width={MW} height={MH} aria-hidden="true">
-        {actions.map((l) => link([l.x + LW, l.y + LH / 2], [C.x - 100, C.y], l.w, '#008080'))}
-        {outside.map((l) => link([l.x, l.y + LH / 2], [C.x + 100, C.y], l.w, '#253B7F'))}
-        {between.map((l) => link([l.x + LW / 2, l.y], [C.x + (l.x < 400 ? -30 : 30), C.y + 36], l.w, '#64748b', true))}
+    <div className="relative bg-white text-slate-900" style={{ width: 1000, height: 558, fontFamily: 'Inter, sans-serif' }}>
+      <div className="absolute inset-y-0 left-0 w-[700px] bg-[linear-gradient(160deg,#f8fafc,#f1f5ff_60%,#f0fdfa)]" />
+      <div className="absolute inset-y-0 left-[700px] w-px bg-slate-200" />
+      {heading('Actions', 24, 22)}
+      {heading('Outside factors', 24, 260)}
+      {heading('In between', 262, 22)}
+      {heading('Outcomes', 500, 22)}
+      <div className="absolute left-[24px] top-[246px] h-px w-[190px] bg-slate-200" />
+      <svg className="absolute left-0 top-0" width="700" height="558" fill="none" aria-hidden="true">
+        <defs>
+          <marker id="cdd-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+            <path d="M0 0 L8 4 L0 8 z" fill="#0f172a" />
+          </marker>
+        </defs>
+        {edges.map(([x1, y1, x2, y2, w], i) => {
+          const mx = (x1 + x2) / 2;
+          return <path key={i} d={`M${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`} stroke="#0f172a" strokeWidth={w} strokeLinecap="round" markerEnd="url(#cdd-arrow)" />;
+        })}
       </svg>
-      <p className="absolute m-0 text-[12px] font-bold uppercase tracking-[0.08em] text-active" style={{ left: 24, top: 46 }}>Actions you control</p>
-      <p className="absolute m-0 text-right text-[12px] font-bold uppercase tracking-[0.08em] text-brand" style={{ left: 646, top: 46, width: LW }}>Outside factors</p>
-      <p className="absolute m-0 text-center text-[12px] font-bold uppercase tracking-[0.08em] text-muted-foreground" style={{ left: 250, top: 372, width: 390 }}>What sits in between</p>
-      {actions.map((l) => node(l, 'border-active/50'))}
-      {outside.map((l) => node(l, 'border-brand/40'))}
-      {between.map((l) => node(l, 'border-border'))}
-      <div className="absolute grid place-items-center rounded-full bg-brand text-center text-white shadow-[0_18px_40px_-14px_rgba(37,59,127,0.6)]" style={{ left: C.x - 100, top: C.y - 44, width: 200, height: 88 }}>
-        <div>
-          <p className="m-0 text-[11px] font-semibold uppercase tracking-[0.1em] text-white/70">Outcome</p>
-          <p className="m-0 text-[18px] font-extrabold leading-tight">On-time delivery</p>
+      {dNodes.map((n) => {
+        const dot = n.status === 'Healthy' ? (n.state === 'unfocused' ? '#6ee7b7' : '#059669') : n.state === 'unfocused' ? '#fde047' : '#eab308';
+        const body = (
+          <div className={'flex h-full flex-col justify-center rounded-[4px] px-3 ' + (n.state === 'related' ? 'bg-slate-100' : 'bg-white')}>
+            <span className={'text-[14px] font-medium leading-tight ' + (n.state === 'unfocused' ? 'text-slate-400' : 'text-slate-900')}>{n.t}</span>
+            <span className={'mt-[3px] flex items-center gap-[6px] text-[12px] ' + (n.state === 'unfocused' ? 'text-slate-400' : 'text-slate-600')}>
+              <span className="size-[7px] rounded-full" style={{ background: dot }} />{n.status}
+            </span>
+          </div>
+        );
+        return n.state === 'selected' ? (
+          <div key={n.t} className="absolute rounded-md p-[2px]" style={{ left: n.x, top: n.y, width: NW, height: NH, background: 'linear-gradient(90deg,#0284c7 0%,#5eead4 24%,#6d28d9 62%,#4f46e5 100%)' }}>
+            {body}
+          </div>
+        ) : (
+          <div key={n.t} className={'absolute rounded-md border ' + (n.state === 'related' ? 'border-slate-300' : 'border-slate-200')} style={{ left: n.x, top: n.y, width: NW, height: NH }}>{body}</div>
+        );
+      })}
+      <div className="absolute left-[724px] top-[22px] w-[252px]">
+        <p className="m-0 text-[18px] font-semibold">On-time delivery</p>
+        <span className="mt-[6px] inline-block rounded-full bg-slate-900 px-[10px] py-[2px] text-[12px] font-semibold text-white">Outcome</span>
+        <p className="mt-[8px] text-[13px] leading-snug text-slate-600">Share of orders shipped by the promised date.</p>
+        <p className="mt-[16px] text-[12px] font-semibold uppercase tracking-[0.08em] text-slate-500">What moves it</p>
+        <div className="mt-[8px] grid gap-[12px]">
+          {drivers.map(([t, s, w]) => (
+            <div key={t}>
+              <div className="flex items-center justify-between text-[13px]"><span className="font-medium">{t}</span><span className="text-[12px] font-semibold text-slate-600">{s}</span></div>
+              <div className="mt-[5px] h-[5px] rounded-full bg-slate-100"><div className="h-full rounded-full bg-teal-700" style={{ width: w + '%' }} /></div>
+            </div>
+          ))}
+        </div>
+        <div className="mt-[18px] grid gap-[8px] border-t border-slate-200 pt-[14px]">
+          {['Data source', 'Strength detail', 'Rules'].map((t) => (
+            <div key={t} className="flex items-center justify-between rounded-lg border border-dashed border-slate-300 bg-slate-50 px-[12px] py-[8px] text-[12px] text-slate-500"><span className="font-semibold text-slate-800">{t}</span><span className="flex items-center gap-[4px]"><Lock size={12} /> In a walkthrough</span></div>
+          ))}
         </div>
       </div>
-      <div className="absolute flex items-center gap-2 rounded-xl border border-dashed border-ring bg-white/80 px-3 text-[12px] font-semibold text-muted-foreground" style={{ left: 646, top: 398, width: LW, height: LH + 8 }}>
-        <Lock size={14} className="shrink-0" /> Rules, strengths and data sources: in a walkthrough
-      </div>
-      <div className="absolute flex items-center gap-4 text-[12px] font-semibold text-muted-foreground" style={{ left: 24, top: 446 }}>
-        <span className="flex items-center gap-1.5"><span className="h-[4px] w-8 rounded bg-slate-500" /> Stronger influence</span>
-        <span className="flex items-center gap-1.5"><span className="h-[2px] w-8 rounded bg-slate-500" /> Lighter influence</span>
+      <div className="absolute left-[24px] top-[500px] flex items-center gap-[18px] text-[12px] font-medium text-slate-500">
+        <span className="flex items-center gap-[6px]"><span className="h-[4px] w-[26px] rounded bg-slate-900" /> Stronger influence</span>
+        <span className="flex items-center gap-[6px]"><span className="h-[2px] w-[26px] rounded bg-slate-900" /> Lighter influence</span>
+        <span className="flex items-center gap-[6px]"><span className="size-[10px] rounded-sm bg-slate-100 ring-1 ring-slate-300" /> Connected to the selection</span>
       </div>
     </div>
   );
 }
 
-
 /** Product views that replace real screenshots. Keys match the screenshot path they stand in for. */
 export const ART: Record<string, { w: number; h: number; node: ReactNode }> = {
-  'art:cdd': { w: 860, h: 480, node: <CddArt /> },
+  'art:cdd': { w: 1000, h: 558, node: <CddArt /> },
   'art:models': { w: 1440, h: 760, node: <ModelsArt /> },
   'art:stack': { w: 1440, h: 760, node: <StackArt /> },
 };

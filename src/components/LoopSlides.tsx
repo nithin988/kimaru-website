@@ -31,10 +31,10 @@ const slides: Slide[] = [
   {
     step: 'Simulate', gps: 'The map', headline: 'See what drives the outcome.',
     body: 'Select a node to see the factors that connect to it and the outcomes it moves.',
-    screen: 'art:cdd', w: 860, h: 480, title: 'Decision map', page: 'Decision map',
+    screen: 'art:cdd', w: 1000, h: 558, title: 'Decision map', page: 'Decision map',
     hot: [
-      { x: 38, y: 37, w: 24, h: 18, label: 'The outcome you want', side: 'above' },
-      { x: 3, y: 14, w: 29, h: 68, label: 'Actions that move it', side: 'above' },
+      { x: 49.5, y: 26.5, w: 20.5, h: 11, label: 'The outcome you want', side: 'below' },
+      { x: 2, y: 8, w: 21, h: 40, label: 'Actions that move it', side: 'above' },
     ],
   },
   {

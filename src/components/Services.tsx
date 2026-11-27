@@ -26,7 +26,7 @@ export function ServicesHero() {
           </div>
         </div>
         <div className="rise rise-5 min-w-0">
-          <BrowserFrame src="art:cdd" alt="The Kimaru decision map: actions and outside factors connected to the outcome they move" title="The decision map" aspect="860 / 480" />
+          <BrowserFrame src="art:cdd" alt="The Kimaru decision map: actions and outside factors connected to the outcome they move" title="The decision map" aspect="1000 / 558" />
         </div>
       </div>
     </div>

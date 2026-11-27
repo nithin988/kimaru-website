@@ -35,7 +35,7 @@ function MapFrame({ pins }: { pins: Pin[] }) {
         <span className="ml-auto hidden text-[11px] sm:inline">Illustrative</span>
       </div>
       <div className="relative">
-        <ScaledArt w={860} h={480}><CddArt /></ScaledArt>
+        <ScaledArt w={1000} h={558}><CddArt /></ScaledArt>
         <Pins pins={pins} />
       </div>
     </div>
@@ -59,7 +59,7 @@ const steps: Step[] = [
   },
   {
     k: 'See why', t: 'See what moves the outcome.', line: 'A simple map from your actions and outside factors to the outcome you care about.',
-    pins: [{ x: 50, y: 46, t: 'The outcome you want to change' }, { x: 27, y: 38, t: 'Thicker lines move it more' }, { x: 81, y: 88, t: 'The modeling detail stays in the walkthrough' }],
+    pins: [{ x: 69.5, y: 27, t: 'The outcome you want to change' }, { x: 24.3, y: 34, t: 'Thicker lines move it more' }, { x: 96, y: 61.5, t: 'The modeling detail stays in the walkthrough' }],
   },
   {
     k: 'Decide', t: 'The owner commits, with a record.', line: 'Each recommendation weighs stock, supply, capacity and margin together, and states the result it should deliver.',
