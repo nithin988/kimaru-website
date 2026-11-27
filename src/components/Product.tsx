@@ -1,4 +1,4 @@
-import { ArrowRight, Brain, Cable, FileSpreadsheet, ListChecks, MessageSquareText, ScrollText, ShieldCheck, Table2, TrendingUp, Users, Database, History, GitBranch, Layers } from 'lucide-react';
+import { ArrowRight, Cable, FileSpreadsheet, ListChecks, MessageSquareText, ScrollText, ShieldCheck, Table2, TrendingUp, Users, Database, History, GitBranch, Layers } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { BOOK_URL, BrowserFrame, Button, Container, Eyebrow, Section, SectionHead, cn } from './ui';
 import { Reveal } from './motion';
@@ -20,7 +20,7 @@ export function ProductHero() {
               Book a Decision Walkthrough <ArrowRight />
             </Button>
             <Button href="#modules" variant="outline" size="lg">
-              See the six views
+              See the five views
             </Button>
           </div>
         </div>
@@ -51,11 +51,6 @@ const mods: Mod[] = [
     chips: ['Source and confidence', 'Items affected', 'Owner'], src: 'screens/uc-hub.png', w: 1440, h: 651, icon: Table2,
   },
   {
-    n: 'Scenario test', title: 'Scenario test', head: 'Test options before you commit.',
-    body: 'Run each option through scenarios such as a longer delay or a demand spike, and see which one holds up.',
-    chips: ['Scenarios', 'Predicted outcome', 'Confidence'], src: 'art:whatif', w: 1000, h: 558, icon: Brain,
-  },
-  {
     n: 'Recommendations', title: 'Recommendations', head: 'Compare options with their predicted outcome.',
     body: 'Each recommendation shows what it will do. Expand a row to see the action, then accept it, ask the agent, or defer.',
     chips: ['Predicted outcome', 'Risk and confidence', 'Accept or defer'], src: 'screens/uc-choose.png', w: 1440, h: 946, icon: ListChecks,
@@ -80,7 +75,7 @@ const mods: Mod[] = [
 export function Modules() {
   return (
     <Section id="modules" tone="alt">
-      <SectionHead eyebrow="Six views" title="Everything the decision needs, one screen each." body="Each view is a real Kimaru page. Together they take a decision from alert to a measured result." />
+      <SectionHead eyebrow="Five views" title="Everything the decision needs, one screen each." body="Each view is a real Kimaru page. Together they take a decision from alert to a measured result." />
       <div className="grid gap-16 lg:gap-24">
         {mods.map((m, n) => (
           <div key={m.n} className={cn('grid items-center gap-8 lg:gap-12', n % 2 === 1 ? 'lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.65fr)]' : 'lg:grid-cols-[minmax(0,0.65fr)_minmax(0,1.35fr)]')}>

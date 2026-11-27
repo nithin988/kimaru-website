@@ -3,7 +3,6 @@ import type { ReactNode } from 'react';
 import { ArrowRight, Check, Lock } from 'lucide-react';
 import { BOOK_URL, BrowserFrame, Button, Container, Eyebrow, Section, SectionHead, cn } from './ui';
 import { Reveal } from './motion';
-import { ScaledArt, WhatIfArt } from './ProductArt';
 
 /* A guided tour of one decision. The screens are real pages of the master demo (synthetic data),
    with sensitive details shown as loading bars. The scenario test is drawn in code and shows results only. */
@@ -26,25 +25,9 @@ function Pins({ pins }: { pins: Pin[] }) {
   );
 }
 
-function MapFrame({ pins }: { pins: Pin[] }) {
-  return (
-    <div className="relative min-w-0 overflow-hidden rounded-xl border border-border bg-card shadow-[0_24px_60px_-24px_rgb(37_59_127/0.35)]">
-      <div className="flex items-center gap-2 border-b border-border bg-panel px-3.5 py-2.5 text-xs text-muted-foreground">
-        <span className="size-2.5 rounded-full bg-border" /><span className="size-2.5 rounded-full bg-border" /><span className="size-2.5 rounded-full bg-border" />
-        <span className="ml-2 whitespace-nowrap font-semibold text-foreground">Scenario test</span>
-        <span className="ml-auto hidden text-[11px] sm:inline">Illustrative</span>
-      </div>
-      <div className="relative">
-        <ScaledArt w={1000} h={558}><WhatIfArt /></ScaledArt>
-        <Pins pins={pins} />
-      </div>
-    </div>
-  );
-}
-
 /* ---------- The tour ---------- */
 
-type Step = { k: string; t: string; line: string; pins: Pin[]; screen?: { src: string; w: number; h: number; title: string; alt: string } };
+type Step = { k: string; t: string; line: string; pins: Pin[]; screen: { src: string; w: number; h: number; title: string; alt: string } };
 
 const steps: Step[] = [
   {
@@ -56,10 +39,6 @@ const steps: Step[] = [
     k: 'Compare', t: 'Two good options for one component, side by side.', line: 'When the data supports more than one sensible move, Kimaru shows both with their predicted outcome and confidence, and the owner chooses.',
     screen: { src: 'screens/uc-options.png', w: 1440, h: 1014, title: 'Recommendations', alt: 'Kimaru recommendations page with two options for one component' },
     pins: [{ x: 33, y: 40, t: 'Each option, in plain terms' }, { x: 61, y: 40, t: 'Predicted outcome and confidence for each' }, { x: 80, y: 40, t: 'Accept, ask the agent or defer, per option' }],
-  },
-  {
-    k: 'Test', t: 'Test each option against what could go wrong.', line: 'Run the options through scenarios such as a longer delay or a demand spike, and see which one holds up.',
-    pins: [{ x: 73.5, y: 14, t: 'The same decision, three scenarios' }, { x: 1.5, y: 31, t: 'Each option, with its outcome and confidence' }, { x: 1.5, y: 69, t: 'What it means for the call' }],
   },
   {
     k: 'Decide', t: 'The owner commits, with a record.', line: 'Each recommendation weighs stock, supply, capacity and margin together, and states the result it should deliver.',
@@ -93,7 +72,7 @@ export function TourHero() {
           One decision, <span className="grad-text">from alert to result.</span>
         </h1>
         <p className="rise rise-3 mt-5 max-w-[36em] text-lg leading-relaxed text-muted-foreground">
-          Follow a single production decision through Kimaru in seven screens. The demo uses synthetic data, and sensitive details are shown as loading bars.
+          Follow a single production decision through Kimaru in six screens. The demo uses synthetic data, and sensitive details are shown as loading bars.
         </p>
         <div className="rise rise-4 mt-7 flex flex-wrap gap-3">
           <Button href="#tour" size="lg">Start the tour <ArrowRight /></Button>
@@ -107,17 +86,12 @@ export function TourHero() {
 export function TourStage() {
   const [i, setI] = useState(0);
   const s = steps[i];
-  let shot: ReactNode;
-  if (s.screen) {
-    const sc = s.screen;
-    shot = (
+  const sc = s.screen;
+  const shot: ReactNode = (
       <BrowserFrame src={sc.src} alt={sc.alt} title={sc.title} aspect={`${sc.w} / ${sc.h}`}>
-        <Pins pins={s.pins} />
+      <Pins pins={s.pins} />
       </BrowserFrame>
-    );
-  } else {
-    shot = <MapFrame pins={s.pins} />;
-  }
+  );
   return (
     <Section id="tour">
       <div className="mb-8 flex flex-wrap items-center gap-3 rounded-xl border border-border bg-panel px-5 py-3.5 text-[15px]">

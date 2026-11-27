@@ -29,15 +29,6 @@ const slides: Slide[] = [
     ],
   },
   {
-    step: 'Simulate', gps: 'Test it', headline: 'Test each option against what could go wrong.',
-    body: 'Run the options through scenarios such as a longer delay or a demand spike, and see which one holds up before anyone commits.',
-    screen: 'art:whatif', w: 1000, h: 558, title: 'Scenario test', page: 'Scenario test',
-    hot: [
-      { x: 27.4, y: 14, w: 45, h: 9, label: 'Three scenarios', side: 'above' },
-      { x: 2.4, y: 69.5, w: 95.2, h: 14.5, label: 'What it means for the call', side: 'below' },
-    ],
-  },
-  {
     step: 'Compare', gps: 'The routes', headline: 'Compare every component at risk.',
     body: 'Each component shows stock, backlog, order fulfillment risk and confidence, so the team sees where to act first.',
     screen: 'screens/uc-compare.png', w: 1440, h: 745, title: 'Container recommendations', page: 'Recommendations',
@@ -284,7 +275,7 @@ export function LoopSlides() {
       <Section id="how">
         <SectionHead
           eyebrow="How it works"
-          title="Understand, simulate, compare, govern, act, learn."
+          title="Understand, compare, govern, act, learn."
           body="One loop for every recurring decision. Each step below is a real Kimaru page, shown with a typhoon alert that threatens component supply."
         />
         {pinned ? (

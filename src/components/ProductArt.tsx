@@ -475,66 +475,8 @@ export function StackArt() {
   );
 }
 
-/* ---------- Scenario test (1000 x 558): two options tested against three scenarios. Shows results, not the model. ---------- */
-
-const scenarios: Array<[string, string]> = [['Base case', 'Delay as forecast'], ['Longer delay', 'Port closed 9 days'], ['Demand spike', 'Orders up 15%']];
-const optionRows: Array<{ k: string; t: string; d: string; vals: number[]; net: string; conf: string; rec?: boolean }> = [
-  { k: 'A', t: 'Air-freight plan', d: 'Hold dates, build on Line 2', vals: [36, 41, 45], net: '+$52K', conf: '94%', rec: true },
-  { k: 'B', t: 'Split air and sea', d: 'Lower cost, sea leg adds risk', vals: [48, 62, 54], net: '+$21K', conf: '88%' },
-];
-const tone = (v: number) => (v <= 45 ? '#0f766e' : v <= 55 ? '#d97706' : '#dc2626');
-
-export function WhatIfArt() {
-  const cols = '260px 1fr 1fr 1fr 110px 110px';
-  return (
-    <div className="relative bg-[linear-gradient(160deg,#f8fafc,#f1f5ff_60%,#f0fdfa)] text-slate-900" style={{ width: 1000, height: 558, fontFamily: 'Inter, sans-serif' }}>
-      <p className="absolute left-[24px] top-[20px] m-0 text-[20px] font-semibold">Test the options before you commit</p>
-      <p className="absolute left-[24px] top-[48px] m-0 text-[13px] text-slate-500">Predicted order fulfillment risk after each option, from 70% today, under three scenarios</p>
-      <div className="absolute left-[24px] top-[84px] w-[952px] overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-        <div className="grid items-center border-b border-slate-200 bg-slate-50 px-[16px] py-[10px] text-[12px] font-semibold uppercase tracking-[0.06em] text-slate-500" style={{ gridTemplateColumns: cols }}>
-          <span>Option</span>
-          {scenarios.map(([a, b]) => (
-            <span key={a} className="normal-case tracking-normal"><span className="block text-[14px] font-semibold text-slate-900">{a}</span><span className="block text-[12px] font-normal text-slate-500">{b}</span></span>
-          ))}
-          <span>Net effect</span>
-          <span>Confidence</span>
-        </div>
-        {optionRows.map((o) => (
-          <div key={o.k} className={'grid items-center border-b border-slate-200 px-[16px] py-[20px] last:border-0 ' + (o.rec ? 'bg-teal-50/40' : '')} style={{ gridTemplateColumns: cols }}>
-            <div className="flex items-center gap-[12px]">
-              <span className={'grid size-[34px] place-items-center rounded-lg text-[15px] font-bold ' + (o.rec ? 'bg-teal-700 text-white' : 'bg-slate-200 text-slate-700')}>{o.k}</span>
-              <div>
-                <p className="m-0 text-[15px] font-semibold leading-tight">{o.t}</p>
-                <p className="m-0 mt-[2px] text-[12px] text-slate-500">{o.d}</p>
-                {o.rec && <span className="mt-[4px] inline-block rounded-full bg-teal-700 px-[8px] py-[1px] text-[11px] font-semibold text-white">Recommended</span>}
-              </div>
-            </div>
-            {o.vals.map((v, i) => (
-              <div key={i} className="pr-[22px]">
-                <p className="m-0 text-[20px] font-semibold tabular-nums" style={{ color: tone(v) }}>{v}%</p>
-                <div className="mt-[6px] h-[6px] rounded-full bg-slate-100"><div className="h-full rounded-full" style={{ width: v + '%', background: tone(v) }} /></div>
-              </div>
-            ))}
-            <p className="m-0 text-[18px] font-semibold text-slate-900">{o.net}</p>
-            <span className="w-fit rounded-full bg-slate-100 px-[10px] py-[3px] text-[13px] font-semibold text-slate-700">{o.conf}</span>
-          </div>
-        ))}
-      </div>
-      <div className="absolute left-[24px] top-[388px] flex w-[952px] items-start gap-[14px] rounded-xl border border-teal-200 bg-teal-50 px-[20px] py-[16px]">
-        <span className="mt-[2px] grid size-[28px] shrink-0 place-items-center rounded-full bg-teal-700 text-white"><Check size={16} /></span>
-        <div>
-          <p className="m-0 text-[15px] font-semibold text-teal-900">What it means for the call</p>
-          <p className="m-0 mt-[4px] text-[14px] leading-snug text-slate-700">Option A holds the risk at 45% or lower in every scenario. Option B costs less up front but climbs to 62% if the closure runs 9 days. Choose B only if the sea leg is confirmed.</p>
-        </div>
-      </div>
-      <p className="absolute left-[24px] top-[520px] m-0 text-[12px] text-slate-500">Illustrative, synthetic data. Confidence reflects how complete and consistent the data is.</p>
-    </div>
-  );
-}
-
 /** Product views that replace real screenshots. Keys match the screenshot path they stand in for. */
 export const ART: Record<string, { w: number; h: number; node: ReactNode }> = {
-  'art:whatif': { w: 1000, h: 558, node: <WhatIfArt /> },
   'art:models': { w: 1440, h: 760, node: <ModelsArt /> },
   'art:stack': { w: 1440, h: 760, node: <StackArt /> },
 };

@@ -117,10 +117,10 @@ export function Nav() {
 
 type Usecase = { id: string; label: string; q: string; evidence: string; options: string; owner: string };
 const USECASES: Usecase[] = [
-  { id: 'prod', label: 'Production commitment', q: 'Which orders can we still promise, and what do we do about the rest?', evidence: 'Orders, material, capacity', options: 'Hold, split or expedite', owner: 'Plant manager' },
-  { id: 'inv', label: 'Inventory allocation', q: 'Where should scarce stock go this week?', evidence: 'Stock, demand, lead times', options: 'Allocate, transfer or hold', owner: 'Supply planner' },
-  { id: 'truck', label: 'Truck planning', q: 'Which loads move together, and when?', evidence: 'Orders, lanes, truck volume', options: 'Combine, delay or split', owner: 'Logistics lead' },
-  { id: 'supp', label: 'Supplier exceptions', q: 'Which supplier problem needs action today?', evidence: 'Suppliers, BOM, cost', options: 'Switch, expedite or wait', owner: 'Procurement lead' },
+  { id: 'prod', label: 'Production commitment', q: 'Which orders can we still promise, and what do we do about the rest?', evidence: 'Orders, material and capacity', options: 'Hold, split or expedite', owner: 'Plant manager' },
+  { id: 'inv', label: 'Inventory allocation', q: 'Where should scarce stock go this week?', evidence: 'Stock, demand and lead times', options: 'Allocate, transfer or hold', owner: 'Supply planner' },
+  { id: 'truck', label: 'Truck planning', q: 'Which loads move together, and when?', evidence: 'Orders, lanes and truck volume', options: 'Combine, delay or split', owner: 'Logistics lead' },
+  { id: 'supp', label: 'Supplier exceptions', q: 'Which supplier problem needs action today?', evidence: 'Suppliers, BOM and cost', options: 'Switch, expedite or wait', owner: 'Procurement lead' },
 ];
 
 // The other Kimaru screens, shown by name only. Their detail is covered in a walkthrough.
@@ -151,18 +151,15 @@ function HeroPackage() {
       <div className="relative pr-[120px] pt-[104px] max-sm:pr-[48px] max-sm:pt-[60px]">
         <div className="relative">
           {SCREENS.map((s, i) => {
-            const pos = SCREENS.length - i; // first listed sits closest to the front
+            const pos = i + 1; // Work Hub sits right behind the Decision Model, Decision Tracker is furthest back
             return (
-              <div
-                key={s.k}
-                aria-hidden="true"
-                className="absolute inset-0 origin-top-left overflow-hidden rounded-xl border border-border bg-card shadow-[0_18px_40px_-22px_rgb(37_59_127/0.4)]"
-                style={{ zIndex: 10 + i, transform: `translate(${pos * STEP.x}px, ${pos * STEP.y}px) scale(${1 - pos * 0.03})` }}
-              >
-                <div className="flex h-9 items-center gap-2 border-b border-border bg-panel px-3 text-xs">
-                  <span className="grid size-5 place-items-center rounded-md bg-brand-soft text-brand"><s.icon size={12} /></span>
-                  <span className="font-semibold text-foreground">{s.k}</span>
-                  <span className="ml-auto text-[11px] text-muted-foreground">Kimaru</span>
+              <div key={s.k} className="absolute inset-0 origin-top-left" style={{ zIndex: 30 - pos, transform: `translate(${pos * STEP.x}px, ${pos * STEP.y}px) scale(${1 - pos * 0.03})` }}>
+                <div className="group h-full overflow-hidden rounded-xl border border-border bg-card shadow-[0_18px_40px_-22px_rgb(37_59_127/0.4)] transition-transform duration-200 ease-out hover:-translate-y-2">
+                  <div className="flex h-9 items-center gap-2 border-b border-border bg-panel px-3 text-xs">
+                    <span className="grid size-5 place-items-center rounded-md bg-brand-soft text-brand"><s.icon size={12} /></span>
+                    <span className="font-semibold text-foreground">{s.k}</span>
+                    <span className="ml-auto text-[11px] text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100">Shown in a walkthrough</span>
+                  </div>
                 </div>
               </div>
             );
@@ -170,32 +167,36 @@ function HeroPackage() {
 
           {/* The explanatory screen */}
           <div className="relative z-40 overflow-hidden rounded-xl border border-border bg-card shadow-[0_28px_70px_-26px_rgb(37_59_127/0.55)]">
-            <div className="flex h-9 items-center gap-2 border-b border-border bg-panel px-3 text-xs">
-              <span className="grid size-5 place-items-center rounded-md bg-brand text-white"><PackageOpen size={12} /></span>
-              <span className="font-semibold text-foreground">Decision Model</span>
-              <span className="ml-auto rounded-full bg-teal-50 px-2 py-0.5 text-[10px] font-semibold text-active">Illustrative</span>
+            <div className="h-1 bg-[linear-gradient(90deg,#0284c7_0%,#5eead4_24%,#6d28d9_62%,#4f46e5_100%)]" />
+            <div className="flex h-10 items-center gap-2.5 border-b border-border bg-panel px-4 text-xs">
+              <span className="grid size-6 place-items-center rounded-md bg-brand text-white"><PackageOpen size={13} /></span>
+              <span className="text-[13px] font-semibold text-foreground">Decision Model</span>
+              <span className="ml-auto rounded-full bg-secondary px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.06em] text-muted-foreground">Illustrative</span>
             </div>
-            <div className="p-4 sm:p-5">
-              <p className="m-0 text-[11px] font-semibold uppercase tracking-[0.09em] text-muted-foreground">Pick a recurring decision</p>
-              <div className="mt-2 flex flex-wrap gap-1.5" role="tablist" aria-label="Decision">
+            <div className="p-5 sm:p-6">
+              <p className="m-0 text-[11px] font-semibold uppercase tracking-[0.1em] text-muted-foreground">Recurring decision</p>
+              <div className="mt-2.5 inline-flex flex-wrap gap-1 rounded-lg bg-secondary p-1" role="tablist" aria-label="Decision">
                 {USECASES.map((x) => (
-                  <button key={x.id} role="tab" aria-selected={x.id === id} onClick={() => setId(x.id)} className={cn('cursor-pointer rounded-full border px-3 py-1 text-xs font-semibold transition-colors', x.id === id ? 'border-primary bg-primary text-primary-foreground' : 'border-border bg-card text-muted-foreground hover:border-ring')}>
+                  <button key={x.id} role="tab" aria-selected={x.id === id} onClick={() => setId(x.id)} className={cn('cursor-pointer rounded-md border-0 px-3 py-1.5 text-xs font-semibold transition-colors', x.id === id ? 'bg-card text-primary shadow-sm' : 'bg-transparent text-muted-foreground hover:text-primary')}>
                     {x.label}
                   </button>
                 ))}
               </div>
-              <p key={u.id} className="fade-in m-0 mt-4 text-[17px] font-bold leading-snug text-primary sm:text-lg">{u.q}</p>
-              <ol key={u.id + 'f'} className="fade-in m-0 mt-4 grid list-none gap-2 p-0 sm:grid-cols-4">
+              <p key={u.id} className="fade-in m-0 mt-5 border-l-[3px] border-active pl-3.5 text-[19px] font-bold leading-snug text-primary">{u.q}</p>
+              <ol key={u.id + 'f'} className="fade-in m-0 mt-5 grid list-none gap-3 p-0 sm:grid-cols-4">
                 {flow.map((f, n) => (
-                  <li key={f.t} className="relative rounded-lg border border-border bg-panel p-2.5">
-                    <span className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.07em] text-active"><f.icon size={13} /> {f.t}</span>
-                    <span className="mt-1 block text-[12px] leading-snug text-foreground">{f.d}</span>
-                    {n < flow.length - 1 && <ArrowRight size={12} className="absolute -right-[9px] top-1/2 z-10 hidden -translate-y-1/2 rounded-full bg-white text-muted-foreground sm:block" />}
+                  <li key={f.t} className="relative rounded-lg border border-border bg-white p-3">
+                    <div className="flex items-center justify-between">
+                      <span className="grid size-7 place-items-center rounded-md bg-brand-soft text-brand"><f.icon size={14} /></span>
+                      <span className="text-[11px] font-semibold tabular-nums text-muted-foreground">0{n + 1}</span>
+                    </div>
+                    <p className="m-0 mt-2.5 text-[13px] font-bold text-primary">{f.t}</p>
+                    <p className="m-0 mt-0.5 text-[12px] leading-snug text-muted-foreground">{f.d}</p>
                   </li>
                 ))}
               </ol>
-              <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-lg bg-brand-soft px-3.5 py-3">
-                <p className="m-0 max-w-[24em] text-[13px] leading-snug text-brand"><b>Start with one decision.</b> It runs from your files, and your team stays the owner of every call.</p>
+              <div className="mt-5 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-t border-border pt-4">
+                <p className="m-0 max-w-[25em] text-[13px] leading-snug text-muted-foreground"><b className="font-semibold text-primary">Start with one decision.</b> It runs from your files, and your team stays the owner of every call.</p>
                 <Button href={BOOK_URL}>Try it on your decision <ArrowRight /></Button>
               </div>
             </div>
