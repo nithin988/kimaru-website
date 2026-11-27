@@ -86,12 +86,6 @@ export function Section({ id, tone = 'plain', children, className }: { id?: stri
 type Rect = [number, number, number, number];
 const rowsAt = (x: number, y: number, w: number, h: number, step: number, n: number): Rect[] => Array.from({ length: n }, (_, i) => [x, y + i * step, w, h] as Rect);
 export const MASKS: Record<string, { w: number; h: number; rects: Rect[] }> = {
-  'screens/uc-kitting.png': {
-    w: 2000, h: 854,
-    rects: [[660, 228, 340, 32], [1745, 228, 165, 30], [900, 335, 155, 22], [900, 368, 65, 24], [1115, 368, 240, 26], [1115, 407, 190, 26], [1115, 446, 170, 26],
-      [660, 566, 340, 32], [1745, 566, 165, 30], [900, 674, 155, 22], [900, 707, 65, 24], [1115, 706, 190, 26], [1115, 745, 240, 26], [1115, 784, 170, 26]],
-  },
-  'screens/uc-fitness.png': { w: 2000, h: 543, rects: [[1108, 338, 320, 56], [1108, 404, 320, 56], [1108, 476, 330, 30]] },
 };
 
 function Masks({ src }: { src: string }) {

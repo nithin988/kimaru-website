@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { ArrowRight, Check, Menu, TrendingUp, X } from 'lucide-react';
-import { BOOK_URL, BrowserFrame, Button, Container, Eyebrow, PRODUCT_URL, SOLUTIONS_URL, COMPANY_URL, HOME_URL, onSubpage, RESULTS_URL, RESOURCES_URL, asset, cn, useInView } from './ui';
+import { ArrowRight, LayoutDashboard, Menu, MessageSquareText, PackageOpen, Scale, TrendingUp, Unlock, X } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+import { BOOK_URL, Button, Container, Eyebrow, PRODUCT_URL, SOLUTIONS_URL, COMPANY_URL, HOME_URL, onSubpage, RESULTS_URL, RESOURCES_URL, asset, cn, useInView } from './ui';
 import { Marquee } from './Marquee';
 import { ScrollProgress } from './motion';
 
@@ -116,121 +117,93 @@ export function Nav() {
 
 const reduced = () => typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-const STEPS = ['Alert', 'Compare', 'Approve', 'Result'] as const;
+type Layer = { k: string; icon: LucideIcon; cap: string; src: string; W: number; H: number; x: number; y: number; w: number };
+// Each layer shows a zoomed region of a real Kimaru screen, so the text stays readable. x, y and w are percentages of the screenshot.
+const LAYERS: Layer[] = [
+  { k: 'Understand', icon: LayoutDashboard, cap: 'Every alert, with what it hits.', src: 'screens/uc-hub.png', W: 1440, H: 651, x: 30, y: 22, w: 47 },
+  { k: 'Compare', icon: Scale, cap: 'Two good options, side by side.', src: 'screens/uc-options.png', W: 1440, H: 1014, x: 12, y: 36, w: 62 },
+  { k: 'Ask why', icon: MessageSquareText, cap: 'The reasoning, factor by factor.', src: 'screens/uc-agent.png', W: 1440, H: 900, x: 61, y: 58, w: 38 },
+  { k: 'Measure', icon: TrendingUp, cap: 'Expected against actual, kept.', src: 'screens/uc-learn.png', W: 1440, H: 662, x: 4.5, y: 5, w: 55 },
+];
+const RATIO = 1.6;
+const STEP = { x: 34, y: -30 };
+
+function Crop({ l }: { l: Layer }) {
+  const h = (l.w * l.W) / (RATIO * l.H);
+  return (
+    <div
+      role="img"
+      aria-label={`${l.k}: ${l.cap}`}
+      className="aspect-[16/10] w-full bg-white"
+      style={{ backgroundImage: `url(${asset(l.src)})`, backgroundRepeat: 'no-repeat', backgroundSize: `${10000 / l.w}% auto`, backgroundPosition: `${(l.x / (100 - l.w)) * 100}% ${(l.y / (100 - h)) * 100}%` }}
+    />
+  );
+}
 
 /**
- * Right side of the hero: the real Work Hub screen with a short loop laid on top.
- * Alert lands, options are compared, an owner approves, the result is tracked.
+ * Right side of the hero: Kimaru screens layered like open apps, with a Decision Model package on top.
+ * Real screens, zoomed so the text reads. The package is the product: one recurring decision, unlocked.
  */
-function HeroStage() {
+function HeroPackage() {
   const [ref, seen] = useInView<HTMLDivElement>(0.2);
-  const [step, setStep] = useState(reduced() ? 3 : 0);
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
   useEffect(() => {
-    if (!seen || reduced()) return;
-    const t = setInterval(() => setStep((s) => (s + 1) % STEPS.length), 2600);
+    if (!seen || paused || reduced()) return;
+    const t = setInterval(() => setActive((a) => (a + 1) % LAYERS.length), 3400);
     return () => clearInterval(t);
-  }, [seen]);
+  }, [seen, paused]);
+  const n = LAYERS.length;
 
   return (
-    <div ref={ref} className="relative">
-      {/* Decision route artwork behind the frame */}
-      <img src={asset('photos/route.webp')} alt="" aria-hidden="true" className="pointer-events-none absolute -inset-10 -z-10 h-[calc(100%+5rem)] w-[calc(100%+5rem)] object-cover [mask-image:radial-gradient(ellipse_at_center,#000_40%,transparent_75%)]" />
+    <div ref={ref} className="relative mx-auto w-full max-w-[660px]" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+      <img src={asset('photos/route.webp')} alt="" aria-hidden="true" className="pointer-events-none absolute -inset-10 -z-10 h-[calc(100%+5rem)] w-[calc(100%+5rem)] object-cover opacity-80 [mask-image:radial-gradient(ellipse_at_center,#000_35%,transparent_72%)]" />
+      <div className="relative pr-[102px] pt-[90px] max-sm:pr-[54px] max-sm:pt-[48px]">
+        <div className="relative">
+          {/* spacer that gives the stack its height */}
+          <div className="invisible" aria-hidden="true">
+            <div className="h-9" />
+            <div className="aspect-[16/10]" />
+          </div>
+          {LAYERS.map((l, i) => {
+            const pos = (i - active + n) % n;
+            return (
+              <motion.div
+                key={l.k}
+                className="absolute inset-0 origin-top-left overflow-hidden rounded-xl border border-border bg-card shadow-[0_24px_60px_-24px_rgb(37_59_127/0.45)]"
+                style={{ zIndex: 40 - pos * 10 }}
+                animate={{ x: pos * STEP.x, y: pos * STEP.y, scale: 1 - pos * 0.035, opacity: 1 }}
+                transition={{ type: 'spring', stiffness: 150, damping: 22 }}
+              >
+                <button type="button" onClick={() => setActive(i)} aria-label={`Show ${l.k}`} aria-pressed={pos === 0} className="flex h-9 w-full cursor-pointer items-center gap-2 border-0 border-b border-border bg-panel px-3 text-left text-xs">
+                  <span className="grid size-5 place-items-center rounded-md bg-brand text-white"><l.icon size={12} /></span>
+                  <span className="font-semibold text-foreground">{l.k}</span>
+                  <span className="ml-auto hidden text-[11px] text-muted-foreground sm:inline">Synthetic demo data</span>
+                </button>
+                <Crop l={l} />
+              </motion.div>
+            );
+          })}
 
-      <BrowserFrame src="screens/uc-hub.png" alt="Kimaru Work Hub showing a typhoon alert and the components it affects" title="Work Hub" aspect="1440 / 651">
-        {/* Step 1: the alert */}
-        <motion.div
-          className="pointer-events-none absolute rounded-lg border-2 border-active bg-active/[0.07]"
-          style={{ left: '54.5%', top: '31%', width: '21.5%', height: '31%' }}
-          animate={{ opacity: step >= 0 ? 1 : 0, scale: step === 0 ? [1, 1.03, 1] : 1 }}
-          transition={{ duration: 0.8 }}
-        >
-          <span className="absolute -top-3 left-1 -translate-y-full whitespace-nowrap rounded-full bg-active px-2.5 py-1 text-[11px] font-semibold text-white shadow-lg">3 components at risk</span>
-        </motion.div>
-
-        {/* Step 2: options compared */}
-        <AnimatePresence>
-          {step >= 1 && (
-            <motion.div
-              key="opts"
-              className="absolute right-[3%] top-[44%] w-[44%] rounded-xl border border-border bg-white p-2.5 shadow-2xl sm:p-3"
-              initial={{ opacity: 0, y: 16, scale: 0.96 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 8 }}
-              transition={{ type: 'spring', stiffness: 170, damping: 20 }}
-            >
-              <p className="text-[9px] font-semibold uppercase tracking-[0.08em] text-muted-foreground sm:text-[10px]">Options compared</p>
-              {[
-                { n: 'Expedite by air', v: 78, best: true },
-                { n: 'Resequence line', v: 71 },
-                { n: 'Wait for supplier', v: 52 },
-              ].map((o, k) => (
-                <div key={o.n} className="mt-1.5 flex items-center gap-2 text-[9px] sm:text-[11px]">
-                  <span className={cn('w-[34%] truncate font-medium', o.best ? 'text-primary' : 'text-muted-foreground')}>{o.n}</span>
-                  <span className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-secondary sm:h-2">
-                    <motion.span
-                      className={cn('absolute inset-y-0 left-0 rounded-full', o.best ? 'bg-active' : 'bg-slate-300')}
-                      initial={{ width: 0 }}
-                      animate={{ width: `${o.v}%` }}
-                      transition={{ duration: 0.9, delay: 0.15 + k * 0.12, ease: 'easeOut' }}
-                    />
-                  </span>
-                  <span className="w-7 text-right font-bold tabular-nums text-primary">{o.v}%</span>
-                </div>
-              ))}
-              <p className="mt-1.5 text-[8px] text-muted-foreground sm:text-[9px]">Predicted on-time orders. Illustrative.</p>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Step 3: approved */}
-        <AnimatePresence>
-          {step >= 2 && (
-            <motion.span
-              key="ok"
-              className="absolute right-[7%] top-[3%] flex items-center gap-1.5 rounded-md bg-active px-2.5 py-1.5 text-[10px] font-semibold text-white shadow-lg sm:text-xs"
-              initial={{ opacity: 0, scale: 0.7 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ type: 'spring', stiffness: 260, damping: 16 }}
-            >
-              <Check size={13} /> Approved by plant planning. Decision Receipt saved
-            </motion.span>
-          )}
-        </AnimatePresence>
-      </BrowserFrame>
-
-      {/* Step 4: tracked result, floating below the frame */}
-      <AnimatePresence>
-        {step >= 3 && (
-          <motion.div
-            key="res"
-            className="absolute -bottom-5 left-4 flex items-center gap-3 rounded-xl border border-border bg-white px-4 py-3 shadow-2xl"
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 6 }}
-            transition={{ type: 'spring', stiffness: 160, damping: 20 }}
-          >
-            <span className="grid size-9 place-items-center rounded-lg bg-teal-50 text-active">
-              <TrendingUp size={18} />
-            </span>
-            <div>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">Result tracked. Decision Memory updated</p>
-              <p className="text-sm font-bold text-primary">
-                Expected against actual, recorded for the next call
-              </p>
+          {/* The package: one recurring decision, unlocked */}
+          <div className="absolute -bottom-9 -right-24 z-50 w-[250px] rounded-2xl border border-border bg-white p-3.5 shadow-[0_24px_50px_-18px_rgb(37_59_127/0.55)] max-sm:-right-12 max-sm:w-[210px]">
+            <div className="flex items-center gap-3">
+              <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-[linear-gradient(135deg,#253B7F,#6A0DAD)] text-white shadow-md"><PackageOpen size={22} /></span>
+              <div className="min-w-0">
+                <p className="m-0 text-[10px] font-semibold uppercase tracking-[0.09em] text-muted-foreground">Decision Model</p>
+                <p className="m-0 text-[15px] font-bold leading-tight text-primary">Production commitment</p>
+              </div>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Progress dots for the loop */}
-      <div className="absolute -top-8 right-0 hidden items-center gap-2 text-[11px] font-semibold text-muted-foreground sm:flex" aria-hidden="true">
-        {STEPS.map((s, n) => (
-          <span key={s} className={cn('flex items-center gap-1.5 transition-colors', n === step ? 'text-active' : '')}>
-            <span className={cn('size-1.5 rounded-full', n <= step ? 'bg-active' : 'bg-border')} />
-            {s}
-          </span>
-        ))}
+            <div className="mt-3 grid grid-cols-2 gap-1.5">
+              {LAYERS.map((l, i) => (
+                <button key={l.k} type="button" onClick={() => setActive(i)} className={cn('flex cursor-pointer items-center gap-1.5 rounded-md border px-2 py-1.5 text-left text-[11px] font-semibold transition-colors', i === active ? 'border-active bg-teal-50 text-active' : 'border-border bg-card text-muted-foreground hover:border-ring')}>
+                  <Unlock size={12} className="shrink-0" /> {l.k}
+                </button>
+              ))}
+            </div>
+            <p className="m-0 mt-2.5 text-[11px] leading-snug text-muted-foreground">One recurring decision, unlocked: {LAYERS[active].cap.toLowerCase()}</p>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -267,7 +240,7 @@ export function Hero() {
           </p>
         </div>
         <div className="rise rise-6 px-1 pb-8 pt-10">
-          <HeroStage />
+          <HeroPackage />
         </div>
       </div>
       <Marquee />

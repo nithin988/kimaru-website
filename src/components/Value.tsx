@@ -209,13 +209,13 @@ const inds: Ind[] = [
     verbs: ['Expedite', 'Resequence', 'Substitute', 'Defer'],
   },
   {
-    id: 'dist', label: 'Distribution and logistics', photo: 'photos/warehouse.webp', pos: '50% 60%', screen: 'screens/uc-fitness.png', w: 1440, h: 391, title: 'Work Hub: truck plans',
+    id: 'dist', label: 'Distribution and logistics', photo: 'photos/warehouse.webp', pos: '50% 60%', screen: 'screens/uc-fitness.png', w: 1440, h: 651, title: 'Work Hub: truck plans',
     headline: 'Stock is running low and trucks are limited.',
     body: 'Truck plans show days of cover, the products to load and the recommendation to restore coverage.',
     verbs: ['Load', 'Hold', 'Transfer', 'Rebalance'],
   },
   {
-    id: 'kit', label: 'Kitting and assembly', photo: 'photos/factory.webp', pos: '20% 60%', screen: 'screens/uc-kitting.png', w: 1440, h: 615, title: 'Work Hub: kit shortages',
+    id: 'kit', label: 'Kitting and assembly', photo: 'photos/factory.webp', pos: '20% 60%', screen: 'screens/uc-kitting.png', w: 1440, h: 651, title: 'Work Hub: kit shortages',
     headline: 'A kit cannot ship until its components arrive.',
     body: 'Each kit shows its due date, risk level and short components, with recommendations to source them in time.',
     verbs: ['Source', 'Wait', 'Substitute', 'Reprice'],
