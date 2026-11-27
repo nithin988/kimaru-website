@@ -37,7 +37,7 @@ const steps: Step[] = [
   },
   {
     k: 'Compare', t: 'Two good options for one component, side by side.', line: 'When the data supports more than one sensible move, Kimaru shows both with their predicted outcome and confidence, and the owner chooses.',
-    screen: { src: 'screens/uc-options.png', w: 1440, h: 900, title: 'Recommendations', alt: 'Kimaru recommendations page with two options for one component' },
+    screen: { src: 'screens/uc-options.png', w: 1440, h: 745, title: 'Recommendations', alt: 'Kimaru recommendations page with two options for one component' },
     pins: [{ x: 33, y: 40, t: 'Each option, in plain terms' }, { x: 61, y: 40, t: 'Predicted outcome and confidence for each' }, { x: 80, y: 40, t: 'Accept, ask the agent or defer, per option' }],
   },
   {

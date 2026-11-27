@@ -132,7 +132,7 @@ const SCREENS: Array<{ k: string; icon: LucideIcon }> = [
   { k: 'Agent', icon: MessageSquareText },
   { k: 'Decision Tracker', icon: TrendingUp },
 ];
-const STEP = { x: 22, y: -22 };
+const STEP = { x: 10, y: -22 };
 
 function Chrome({ title, right }: { title: string; right?: ReactNode }) {
   return (
@@ -159,9 +159,9 @@ function HeroPackage() {
     { icon: LineChart, t: 'Result', d: 'Expected vs actual, kept' },
   ];
   return (
-    <div className="relative mx-auto w-full max-w-[700px]">
+    <div className="relative mx-auto w-full max-w-[760px]">
       <img src={asset('photos/route.webp')} alt="" aria-hidden="true" className="pointer-events-none absolute -inset-10 -z-10 h-[calc(100%+5rem)] w-[calc(100%+5rem)] object-cover opacity-70 [mask-image:radial-gradient(ellipse_at_center,#000_35%,transparent_72%)]" />
-      <div className="relative pr-[88px] pt-[88px] max-sm:pr-[44px] max-sm:pt-[44px]">
+      <div className="relative pr-[40px] pt-[88px] max-sm:pr-[20px] max-sm:pt-[44px]">
         <div className="relative">
           {SCREENS.map((s, i) => {
             const pos = i + 1; // Work Hub sits right behind the Decision Model, Decision Tracker is furthest back
@@ -175,10 +175,10 @@ function HeroPackage() {
           })}
 
           {/* The explanatory window, at laptop proportions */}
-          <div className="relative z-40 flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-[0_28px_70px_-26px_rgb(37_59_127/0.55)] sm:aspect-[16/10]">
+          <div className="relative z-40 flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-[0_28px_70px_-26px_rgb(37_59_127/0.55)] sm:aspect-[1.762]">
             <div className="h-1 shrink-0 bg-[linear-gradient(90deg,#0284c7_0%,#5eead4_24%,#6d28d9_62%,#4f46e5_100%)]" />
             <Chrome title="Decision Model" right={<span className="ml-auto rounded-full bg-secondary px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.06em] text-muted-foreground">Illustrative</span>} />
-            <div className="flex flex-1 flex-col gap-3.5 p-4 sm:p-5">
+            <div className="flex flex-1 flex-col justify-between gap-3.5 p-4 sm:p-5">
               <div className="inline-flex w-fit flex-wrap gap-1 rounded-lg bg-secondary p-1" role="tablist" aria-label="Recurring decision">
                 {USECASES.map((x) => (
                   <button key={x.id} role="tab" aria-selected={x.id === id} onClick={() => setId(x.id)} aria-label={x.label} className={cn('cursor-pointer whitespace-nowrap rounded-md border-0 px-2.5 py-1.5 text-[11.5px] font-semibold transition-colors', x.id === id ? 'bg-card text-primary shadow-sm' : 'bg-transparent text-muted-foreground hover:text-primary')}>
@@ -226,7 +226,7 @@ export function Hero() {
     <div id="top" className="relative overflow-hidden">
       <div className="hero-grid pointer-events-none absolute inset-0" aria-hidden="true" />
       <div className="pointer-events-none absolute -right-40 top-10 size-[620px] rounded-full bg-[radial-gradient(circle,rgb(81_141_224/.16),transparent_65%)]" aria-hidden="true" />
-      <div className="relative mx-auto grid w-full max-w-[1360px] items-center gap-12 px-4 pb-20 pt-12 sm:px-6 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-10 lg:px-8 lg:pb-24 lg:pt-20">
+      <div className="relative mx-auto grid w-full max-w-[1360px] items-center gap-12 px-4 pb-20 pt-12 sm:px-6 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-10 lg:px-8 lg:pb-24 lg:pt-20">
         <div>
           <Eyebrow className="rise rise-1">Enterprise Decision Operating System</Eyebrow>
           <h1 className="rise rise-2 mt-4 text-[clamp(36px,4.2vw,56px)] font-extrabold leading-[1.05] text-primary">

@@ -7,7 +7,7 @@ export function ServicesHero() {
   return (
     <div id="top" className="relative overflow-hidden">
       <div className="hero-grid pointer-events-none absolute inset-0" aria-hidden="true" />
-      <div className="relative mx-auto grid w-full max-w-[1360px] items-center gap-12 px-4 pb-20 pt-12 sm:px-6 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-10 lg:px-8 lg:pb-24 lg:pt-20">
+      <div className="relative mx-auto grid w-full max-w-[1360px] items-center gap-12 px-4 pb-20 pt-12 sm:px-6 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-10 lg:px-8 lg:pb-24 lg:pt-20">
         <div>
           <Eyebrow className="rise rise-1">Solutions</Eyebrow>
           <h1 className="rise rise-2 mt-4 text-[clamp(34px,4.4vw,54px)] font-extrabold leading-[1.05] text-primary">
@@ -26,7 +26,7 @@ export function ServicesHero() {
           </div>
         </div>
         <div className="rise rise-5 min-w-0">
-          <BrowserFrame src="screens/uc-options.png" alt="Kimaru recommendations page showing two options for one component, each with its predicted outcome and confidence" title="Two options, compared" aspect="1440 / 900" />
+          <BrowserFrame src="screens/uc-options.png" alt="Kimaru recommendations page showing two options for one component, each with its predicted outcome and confidence" title="Two options, compared" aspect="1440 / 745" />
         </div>
       </div>
     </div>
