@@ -76,7 +76,7 @@ function Cell({ item }: { item: Item }) {
         aria-label={item.name}
         viewBox={`0 0 ${l.w} ${l.h}`}
         style={{ height: h, width: (h * l.w) / l.h }}
-        className="shrink-0 opacity-70 grayscale transition-[filter,opacity] duration-300 group-hover:opacity-100 group-hover:grayscale-0"
+        className="shrink-0"
         dangerouslySetInnerHTML={{ __html: l.body }}
       />
       {item.showName && <span className="text-[13px] font-semibold text-slate-600 group-hover:text-foreground">{item.name}</span>}
