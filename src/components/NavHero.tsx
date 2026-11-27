@@ -132,7 +132,7 @@ const SCREENS: Array<{ k: string; icon: LucideIcon }> = [
   { k: 'Agent', icon: MessageSquareText },
   { k: 'Decision Tracker', icon: TrendingUp },
 ];
-const STEP = { x: 10, y: -22 };
+const STEP = { x: 12, y: -22 };
 
 function Chrome({ title, right }: { title: string; right?: ReactNode }) {
   return (
@@ -161,12 +161,12 @@ function HeroPackage() {
   return (
     <div className="relative mx-auto w-full max-w-[760px]">
       <img src={asset('photos/route.webp')} alt="" aria-hidden="true" className="pointer-events-none absolute -inset-10 -z-10 h-[calc(100%+5rem)] w-[calc(100%+5rem)] object-cover opacity-70 [mask-image:radial-gradient(ellipse_at_center,#000_35%,transparent_72%)]" />
-      <div className="relative pr-[40px] pt-[88px] max-sm:pr-[20px] max-sm:pt-[44px]">
+      <div className="relative pr-[48px] pt-[88px] max-sm:pr-[20px] max-sm:pt-[44px]">
         <div className="relative">
           {SCREENS.map((s, i) => {
             const pos = i + 1; // Work Hub sits right behind the Decision Model, Decision Tracker is furthest back
             return (
-              <div key={s.k} className="absolute inset-0 origin-top-left" style={{ zIndex: 30 - pos, transform: `translate(${pos * STEP.x}px, ${pos * STEP.y}px) scale(${1 - pos * 0.025})` }}>
+              <div key={s.k} className="absolute inset-0 origin-top-left" style={{ zIndex: 30 - pos, transform: `translate(${pos * STEP.x}px, ${pos * STEP.y}px)` }}>
                 <div className="group h-full overflow-hidden rounded-xl border border-border bg-card shadow-[0_18px_40px_-22px_rgb(37_59_127/0.4)] transition-transform duration-200 ease-out hover:-translate-y-2">
                   <Chrome title={s.k} right={<span className="ml-auto text-[11px] text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100">Shown in a walkthrough</span>} />
                 </div>

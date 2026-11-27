@@ -39,7 +39,7 @@ function DecisionExample() {
               </div>
               <p className={cn('m-0 mt-2.5 text-3xl font-extrabold leading-none tabular-nums', o.rec ? 'text-active' : 'text-amber-600')}>{o.risk}%</p>
               <p className="m-0 mt-1 text-xs text-muted-foreground">Fulfillment risk after this option</p>
-              <p className={cn('m-0 mt-2 text-xs', o.rec ? 'font-semibold text-active' : 'text-muted-foreground')}>{o.rec ? 'Recommended' : 'Lower cost, higher risk'}</p>
+              <p className={cn('m-0 mt-2 text-xs font-semibold', o.rec ? 'text-active' : 'invisible')}>Recommended</p>
             </div>
           ))}
         </div>
