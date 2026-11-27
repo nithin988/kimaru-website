@@ -3,7 +3,7 @@ import { Nav, Hero } from './components/NavHero';
 import { Team } from './components/Facts';
 import { CostOfDelay, Benefits, Industries } from './components/Value';
 import { Edos } from './components/Edos';
-import { LoopSlides } from './components/LoopSlides';
+import { HowItWorks } from './components/HowItWorks';
 import { Pilot, Trust } from './components/Sections';
 import { ServicesTeaser } from './components/Services';
 import { Faq, Closing, Footer } from './components/FaqFooter';
@@ -17,7 +17,7 @@ export default function App() {
         <Hero />
         <CostOfDelay />
         <Edos />
-        <LoopSlides />
+        <HowItWorks />
         <Benefits />
         <Industries />
         <ServicesTeaser />
