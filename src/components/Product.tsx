@@ -58,7 +58,7 @@ const mods: Mod[] = [
   {
     n: 'Recommendations', title: 'Recommendations', head: 'Compare options with their predicted outcome.',
     body: 'Each recommendation shows what it will do. Expand a row to see the action, then accept it, ask the agent, or defer.',
-    chips: ['Predicted outcome', 'Risk and confidence', 'Accept or defer'], src: 'screens/uc-choose.png', w: 1440, h: 872, icon: ListChecks,
+    chips: ['Predicted outcome', 'Risk and confidence', 'Accept or defer'], src: 'screens/uc-choose.png', w: 1440, h: 946, icon: ListChecks,
   },
   {
     n: 'Agent Interaction', title: 'Agent Interaction', head: 'Ask why, and what else.',

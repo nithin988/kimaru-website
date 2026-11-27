@@ -49,8 +49,8 @@ const slides: Slide[] = [
   {
     step: 'Govern', gps: 'You pick the route', headline: 'The right person commits, with a record.',
     body: 'Expand a row for the recommended action and its predicted outcome. The owner accepts, asks the agent or defers, and the reasoning is kept as a Decision Receipt.',
-    screen: 'screens/uc-choose.png', w: 1440, h: 872, title: 'Recommendation for one component', page: 'Recommendations, expanded',
-    hot: [{ x: 5.5, y: 44.5, w: 91, h: 11.5, label: 'Recommendation, predicted outcome, decision', side: 'below' }],
+    screen: 'screens/uc-choose.png', w: 1440, h: 946, title: 'Recommendation for one component', page: 'Recommendations, expanded',
+    hot: [{ x: 5.5, y: 42.5, w: 91, h: 13, label: 'Recommendation, predicted outcome, decision', side: 'below' }],
   },
   {
     step: 'Act', gps: 'Go', headline: 'Send what you accepted where work happens.',

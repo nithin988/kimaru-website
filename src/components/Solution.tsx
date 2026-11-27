@@ -103,7 +103,7 @@ export function Consequence() {
 const steps = [
   { n: '1', t: 'The alert lands', b: 'A typhoon threatens component supply. Each affected component and its delay is listed, with an owner.', src: 'screens/uc-hub.png', w: 1440, h: 651, title: 'Work Hub' },
   { n: '2', t: 'Every component, with its risk', b: 'Stock, backlog, order fulfillment risk and confidence side by side, so the team sees where to act first.', src: 'screens/uc-compare.png', w: 1440, h: 745, title: 'Recommendations' },
-  { n: '3', t: 'The owner commits', b: 'Open a row for the recommended action and its predicted outcome, then accept it, ask the agent or defer.', src: 'screens/uc-choose.png', w: 1440, h: 872, title: 'Recommendation for one component' },
+  { n: '3', t: 'The owner commits', b: 'Open a row for the recommended action and its predicted outcome, then accept it, ask the agent or defer.', src: 'screens/uc-choose.png', w: 1440, h: 946, title: 'Recommendation for one component' },
   { n: '4', t: 'The result is measured', b: 'On-time delivery against the baseline, by product line, kept for the next comparable decision.', src: 'screens/uc-learn.png', w: 1440, h: 662, title: 'Decision Tracker' },
 ];
 
