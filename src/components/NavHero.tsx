@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { ArrowRight, LayoutDashboard, Menu, MessageSquareText, PackageOpen, Scale, TrendingUp, Unlock, X } from 'lucide-react';
+import { ArrowRight, Database, LayoutDashboard, LineChart, ListChecks, Menu, MessageSquareText, PackageOpen, Scale, ShieldCheck, TrendingUp, X } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { BOOK_URL, Button, Container, Eyebrow, PRODUCT_URL, SOLUTIONS_URL, COMPANY_URL, HOME_URL, onSubpage, RESULTS_URL, RESOURCES_URL, asset, cn, useInView } from './ui';
 import { Marquee } from './Marquee';
@@ -115,93 +115,90 @@ export function Nav() {
   );
 }
 
-const reduced = () => typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-type Layer = { k: string; icon: LucideIcon; cap: string; src: string; W: number; H: number; x: number; y: number; w: number };
-// Each layer shows a zoomed region of a real Kimaru screen, so the text stays readable. x, y and w are percentages of the screenshot.
-const LAYERS: Layer[] = [
-  { k: 'Understand', icon: LayoutDashboard, cap: 'Every alert, with what it hits.', src: 'screens/uc-hub.png', W: 1440, H: 651, x: 30, y: 22, w: 47 },
-  { k: 'Compare', icon: Scale, cap: 'Two good options, side by side.', src: 'screens/uc-options.png', W: 1440, H: 1014, x: 12, y: 36, w: 62 },
-  { k: 'Ask why', icon: MessageSquareText, cap: 'The reasoning, factor by factor.', src: 'screens/uc-agent.png', W: 1440, H: 900, x: 61, y: 58, w: 38 },
-  { k: 'Measure', icon: TrendingUp, cap: 'Expected against actual, kept.', src: 'screens/uc-learn.png', W: 1440, H: 662, x: 4.5, y: 5, w: 55 },
+type Usecase = { id: string; label: string; q: string; evidence: string; options: string; owner: string };
+const USECASES: Usecase[] = [
+  { id: 'prod', label: 'Production commitment', q: 'Which orders can we still promise, and what do we do about the rest?', evidence: 'Orders, material, capacity', options: 'Hold, split or expedite', owner: 'Plant manager' },
+  { id: 'inv', label: 'Inventory allocation', q: 'Where should scarce stock go this week?', evidence: 'Stock, demand, lead times', options: 'Allocate, transfer or hold', owner: 'Supply planner' },
+  { id: 'truck', label: 'Truck planning', q: 'Which loads move together, and when?', evidence: 'Orders, lanes, truck volume', options: 'Combine, delay or split', owner: 'Logistics lead' },
+  { id: 'supp', label: 'Supplier exceptions', q: 'Which supplier problem needs action today?', evidence: 'Suppliers, BOM, cost', options: 'Switch, expedite or wait', owner: 'Procurement lead' },
 ];
-const RATIO = 1.6;
-const STEP = { x: 34, y: -30 };
 
-function Crop({ l }: { l: Layer }) {
-  const h = (l.w * l.W) / (RATIO * l.H);
-  return (
-    <div
-      role="img"
-      aria-label={`${l.k}: ${l.cap}`}
-      className="aspect-[16/10] w-full bg-white"
-      style={{ backgroundImage: `url(${asset(l.src)})`, backgroundRepeat: 'no-repeat', backgroundSize: `${10000 / l.w}% auto`, backgroundPosition: `${(l.x / (100 - l.w)) * 100}% ${(l.y / (100 - h)) * 100}%` }}
-    />
-  );
-}
+// The other Kimaru screens, shown by name only. Their detail is covered in a walkthrough.
+const SCREENS: Array<{ k: string; icon: LucideIcon }> = [
+  { k: 'Work Hub', icon: LayoutDashboard },
+  { k: 'Recommendations', icon: ListChecks },
+  { k: 'Agent', icon: MessageSquareText },
+  { k: 'Decision Tracker', icon: TrendingUp },
+];
+const STEP = { x: 30, y: -26 };
 
 /**
- * Right side of the hero: Kimaru screens layered like open apps, with a Decision Model package on top.
- * Real screens, zoomed so the text reads. The package is the product: one recurring decision, unlocked.
+ * Right side of the hero: Kimaru's screens as stacked tabs, shown by name only, with one explanatory
+ * screen on top. It shows what Kimaru does for a decision and invites the visitor to try their own.
  */
 function HeroPackage() {
-  const [ref, seen] = useInView<HTMLDivElement>(0.2);
-  const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
-  useEffect(() => {
-    if (!seen || paused || reduced()) return;
-    const t = setInterval(() => setActive((a) => (a + 1) % LAYERS.length), 3400);
-    return () => clearInterval(t);
-  }, [seen, paused]);
-  const n = LAYERS.length;
-
+  const [id, setId] = useState('prod');
+  const u = USECASES.find((x) => x.id === id)!;
+  const flow = [
+    { icon: Database, t: 'Evidence', d: u.evidence },
+    { icon: Scale, t: 'Options', d: u.options },
+    { icon: ShieldCheck, t: 'Approval', d: u.owner },
+    { icon: LineChart, t: 'Result', d: 'Expected vs actual, kept' },
+  ];
   return (
-    <div ref={ref} className="relative mx-auto w-full max-w-[660px]" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
-      <img src={asset('photos/route.webp')} alt="" aria-hidden="true" className="pointer-events-none absolute -inset-10 -z-10 h-[calc(100%+5rem)] w-[calc(100%+5rem)] object-cover opacity-80 [mask-image:radial-gradient(ellipse_at_center,#000_35%,transparent_72%)]" />
-      <div className="relative pr-[102px] pt-[90px] max-sm:pr-[54px] max-sm:pt-[48px]">
+    <div className="relative mx-auto w-full max-w-[680px]">
+      <img src={asset('photos/route.webp')} alt="" aria-hidden="true" className="pointer-events-none absolute -inset-10 -z-10 h-[calc(100%+5rem)] w-[calc(100%+5rem)] object-cover opacity-70 [mask-image:radial-gradient(ellipse_at_center,#000_35%,transparent_72%)]" />
+      <div className="relative pr-[120px] pt-[104px] max-sm:pr-[48px] max-sm:pt-[60px]">
         <div className="relative">
-          {/* spacer that gives the stack its height */}
-          <div className="invisible" aria-hidden="true">
-            <div className="h-9" />
-            <div className="aspect-[16/10]" />
-          </div>
-          {LAYERS.map((l, i) => {
-            const pos = (i - active + n) % n;
+          {SCREENS.map((s, i) => {
+            const pos = SCREENS.length - i; // first listed sits closest to the front
             return (
-              <motion.div
-                key={l.k}
-                className="absolute inset-0 origin-top-left overflow-hidden rounded-xl border border-border bg-card shadow-[0_24px_60px_-24px_rgb(37_59_127/0.45)]"
-                style={{ zIndex: 40 - pos * 10 }}
-                animate={{ x: pos * STEP.x, y: pos * STEP.y, scale: 1 - pos * 0.035, opacity: 1 }}
-                transition={{ type: 'spring', stiffness: 150, damping: 22 }}
+              <div
+                key={s.k}
+                aria-hidden="true"
+                className="absolute inset-0 origin-top-left overflow-hidden rounded-xl border border-border bg-card shadow-[0_18px_40px_-22px_rgb(37_59_127/0.4)]"
+                style={{ zIndex: 10 + i, transform: `translate(${pos * STEP.x}px, ${pos * STEP.y}px) scale(${1 - pos * 0.03})` }}
               >
-                <button type="button" onClick={() => setActive(i)} aria-label={`Show ${l.k}`} aria-pressed={pos === 0} className="flex h-9 w-full cursor-pointer items-center gap-2 border-0 border-b border-border bg-panel px-3 text-left text-xs">
-                  <span className="grid size-5 place-items-center rounded-md bg-brand text-white"><l.icon size={12} /></span>
-                  <span className="font-semibold text-foreground">{l.k}</span>
-                  <span className="ml-auto hidden text-[11px] text-muted-foreground sm:inline">Synthetic demo data</span>
-                </button>
-                <Crop l={l} />
-              </motion.div>
+                <div className="flex h-9 items-center gap-2 border-b border-border bg-panel px-3 text-xs">
+                  <span className="grid size-5 place-items-center rounded-md bg-brand-soft text-brand"><s.icon size={12} /></span>
+                  <span className="font-semibold text-foreground">{s.k}</span>
+                  <span className="ml-auto text-[11px] text-muted-foreground">Kimaru</span>
+                </div>
+              </div>
             );
           })}
 
-          {/* The package: one recurring decision, unlocked */}
-          <div className="absolute -bottom-9 -right-24 z-50 w-[250px] rounded-2xl border border-border bg-white p-3.5 shadow-[0_24px_50px_-18px_rgb(37_59_127/0.55)] max-sm:-right-12 max-sm:w-[210px]">
-            <div className="flex items-center gap-3">
-              <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-[linear-gradient(135deg,#253B7F,#6A0DAD)] text-white shadow-md"><PackageOpen size={22} /></span>
-              <div className="min-w-0">
-                <p className="m-0 text-[10px] font-semibold uppercase tracking-[0.09em] text-muted-foreground">Decision Model</p>
-                <p className="m-0 text-[15px] font-bold leading-tight text-primary">Production commitment</p>
+          {/* The explanatory screen */}
+          <div className="relative z-40 overflow-hidden rounded-xl border border-border bg-card shadow-[0_28px_70px_-26px_rgb(37_59_127/0.55)]">
+            <div className="flex h-9 items-center gap-2 border-b border-border bg-panel px-3 text-xs">
+              <span className="grid size-5 place-items-center rounded-md bg-brand text-white"><PackageOpen size={12} /></span>
+              <span className="font-semibold text-foreground">Decision Model</span>
+              <span className="ml-auto rounded-full bg-teal-50 px-2 py-0.5 text-[10px] font-semibold text-active">Illustrative</span>
+            </div>
+            <div className="p-4 sm:p-5">
+              <p className="m-0 text-[11px] font-semibold uppercase tracking-[0.09em] text-muted-foreground">Pick a recurring decision</p>
+              <div className="mt-2 flex flex-wrap gap-1.5" role="tablist" aria-label="Decision">
+                {USECASES.map((x) => (
+                  <button key={x.id} role="tab" aria-selected={x.id === id} onClick={() => setId(x.id)} className={cn('cursor-pointer rounded-full border px-3 py-1 text-xs font-semibold transition-colors', x.id === id ? 'border-primary bg-primary text-primary-foreground' : 'border-border bg-card text-muted-foreground hover:border-ring')}>
+                    {x.label}
+                  </button>
+                ))}
+              </div>
+              <p key={u.id} className="fade-in m-0 mt-4 text-[17px] font-bold leading-snug text-primary sm:text-lg">{u.q}</p>
+              <ol key={u.id + 'f'} className="fade-in m-0 mt-4 grid list-none gap-2 p-0 sm:grid-cols-4">
+                {flow.map((f, n) => (
+                  <li key={f.t} className="relative rounded-lg border border-border bg-panel p-2.5">
+                    <span className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.07em] text-active"><f.icon size={13} /> {f.t}</span>
+                    <span className="mt-1 block text-[12px] leading-snug text-foreground">{f.d}</span>
+                    {n < flow.length - 1 && <ArrowRight size={12} className="absolute -right-[9px] top-1/2 z-10 hidden -translate-y-1/2 rounded-full bg-white text-muted-foreground sm:block" />}
+                  </li>
+                ))}
+              </ol>
+              <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-lg bg-brand-soft px-3.5 py-3">
+                <p className="m-0 max-w-[24em] text-[13px] leading-snug text-brand"><b>Start with one decision.</b> It runs from your files, and your team stays the owner of every call.</p>
+                <Button href={BOOK_URL}>Try it on your decision <ArrowRight /></Button>
               </div>
             </div>
-            <div className="mt-3 grid grid-cols-2 gap-1.5">
-              {LAYERS.map((l, i) => (
-                <button key={l.k} type="button" onClick={() => setActive(i)} className={cn('flex cursor-pointer items-center gap-1.5 rounded-md border px-2 py-1.5 text-left text-[11px] font-semibold transition-colors', i === active ? 'border-active bg-teal-50 text-active' : 'border-border bg-card text-muted-foreground hover:border-ring')}>
-                  <Unlock size={12} className="shrink-0" /> {l.k}
-                </button>
-              ))}
-            </div>
-            <p className="m-0 mt-2.5 text-[11px] leading-snug text-muted-foreground">One recurring decision, unlocked: {LAYERS[active].cap.toLowerCase()}</p>
           </div>
         </div>
       </div>
