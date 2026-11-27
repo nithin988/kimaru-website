@@ -423,9 +423,9 @@ const sources = [
 
 const outputs = [
   { icon: ClipboardList, t: 'Recommendation', d: 'With its predicted outcome' },
-  { icon: ThumbsUp, t: 'Approved decision', d: 'Sent to your ERP, a file or workflow tools' },
-  { icon: ReceiptText, t: 'Decision Receipt', d: 'What was known, and why it was chosen' },
-  { icon: LineChart, t: 'Measured result', d: 'Expected against actual, kept for next time' },
+  { icon: ThumbsUp, t: 'Approved decision', d: 'Sent to your ERP or a file' },
+  { icon: ReceiptText, t: 'Decision Receipt', d: 'What was known, and why' },
+  { icon: LineChart, t: 'Measured result', d: 'Expected vs actual, kept' },
 ];
 
 export function StackArt() {
