@@ -3,10 +3,10 @@ import type { ReactNode } from 'react';
 import { ArrowRight, Check, Lock } from 'lucide-react';
 import { BOOK_URL, BrowserFrame, Button, Container, Eyebrow, Section, SectionHead, cn } from './ui';
 import { Reveal } from './motion';
-import { CddArt, ScaledArt } from './ProductArt';
+import { ScaledArt, WhatIfArt } from './ProductArt';
 
 /* A guided tour of one decision. The screens are real pages of the master demo (synthetic data),
-   with sensitive details shown as loading bars. The decision map is redrawn as a generic mind map. */
+   with sensitive details shown as loading bars. The scenario test is drawn in code and shows results only. */
 
 type Pin = { x: number; y: number; t: string };
 
@@ -31,11 +31,11 @@ function MapFrame({ pins }: { pins: Pin[] }) {
     <div className="relative min-w-0 overflow-hidden rounded-xl border border-border bg-card shadow-[0_24px_60px_-24px_rgb(37_59_127/0.35)]">
       <div className="flex items-center gap-2 border-b border-border bg-panel px-3.5 py-2.5 text-xs text-muted-foreground">
         <span className="size-2.5 rounded-full bg-border" /><span className="size-2.5 rounded-full bg-border" /><span className="size-2.5 rounded-full bg-border" />
-        <span className="ml-2 whitespace-nowrap font-semibold text-foreground">Decision map</span>
+        <span className="ml-2 whitespace-nowrap font-semibold text-foreground">Scenario test</span>
         <span className="ml-auto hidden text-[11px] sm:inline">Illustrative</span>
       </div>
       <div className="relative">
-        <ScaledArt w={1000} h={558}><CddArt /></ScaledArt>
+        <ScaledArt w={1000} h={558}><WhatIfArt /></ScaledArt>
         <Pins pins={pins} />
       </div>
     </div>
@@ -53,13 +53,13 @@ const steps: Step[] = [
     pins: [{ x: 5, y: 22, t: 'Your queue of alerts' }, { x: 53.4, y: 32, t: 'Items hit, with the delay' }, { x: 76.2, y: 32, t: 'The call to review' }],
   },
   {
-    k: 'Compare', t: 'Everything at risk, side by side.', line: 'Stock, backlog, risk and confidence in one table, so the team sees where to act first.',
-    screen: { src: 'screens/uc-compare.png', w: 1440, h: 745, title: 'Recommendations', alt: 'Kimaru recommendations table with stock, backlog, risk and confidence' },
-    pins: [{ x: 40, y: 32, t: 'Stock against backlog' }, { x: 61, y: 32, t: 'Risk per item' }, { x: 83, y: 32, t: 'Accept or defer' }],
+    k: 'Compare', t: 'Two good options for one component, side by side.', line: 'When the data supports more than one sensible move, Kimaru shows both with their predicted outcome and confidence, and the owner chooses.',
+    screen: { src: 'screens/uc-options.png', w: 1440, h: 1014, title: 'Recommendations', alt: 'Kimaru recommendations page with two options for one component' },
+    pins: [{ x: 33, y: 40, t: 'Each option, in plain terms' }, { x: 61, y: 40, t: 'Predicted outcome and confidence for each' }, { x: 80, y: 40, t: 'Accept, ask the agent or defer, per option' }],
   },
   {
-    k: 'See why', t: 'See what moves the outcome.', line: 'A simple map from your actions and outside factors to the outcome you care about.',
-    pins: [{ x: 69.5, y: 27, t: 'The outcome you want to change' }, { x: 24.3, y: 34, t: 'Thicker lines move it more' }, { x: 96, y: 61.5, t: 'The modeling detail stays in the walkthrough' }],
+    k: 'Test', t: 'Test each option against what could go wrong.', line: 'Run the options through scenarios such as a longer delay or a demand spike, and see which one holds up.',
+    pins: [{ x: 73.5, y: 14, t: 'The same decision, three scenarios' }, { x: 1.5, y: 31, t: 'Each option, with its outcome and confidence' }, { x: 1.5, y: 69, t: 'What it means for the call' }],
   },
   {
     k: 'Decide', t: 'The owner commits, with a record.', line: 'Each recommendation weighs stock, supply, capacity and margin together, and states the result it should deliver.',

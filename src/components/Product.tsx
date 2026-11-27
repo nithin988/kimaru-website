@@ -51,9 +51,9 @@ const mods: Mod[] = [
     chips: ['Source and confidence', 'Items affected', 'Owner'], src: 'screens/uc-hub.png', w: 1440, h: 651, icon: Table2,
   },
   {
-    n: 'Causal AI Modeler', title: 'Causal AI Modeler', head: 'Map what drives the outcome.',
-    body: 'Levers, outside factors and outcomes are connected, so you can see what a change moves before you make it.',
-    chips: ['Levers', 'Outside factors', 'Outcomes'], src: 'art:cdd', w: 1000, h: 558, icon: Brain,
+    n: 'Scenario test', title: 'Scenario test', head: 'Test options before you commit.',
+    body: 'Run each option through scenarios such as a longer delay or a demand spike, and see which one holds up.',
+    chips: ['Scenarios', 'Predicted outcome', 'Confidence'], src: 'art:whatif', w: 1000, h: 558, icon: Brain,
   },
   {
     n: 'Recommendations', title: 'Recommendations', head: 'Compare options with their predicted outcome.',

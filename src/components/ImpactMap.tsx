@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ArrowRight, Check, Gauge, Target, Waypoints } from 'lucide-react';
 import { Button, Eyebrow, Section, asset, cn } from './ui';
 import { Reveal } from './motion';
-import { CddArt, ScaledArt } from './ProductArt';
+import { WhatIfArt, ScaledArt } from './ProductArt';
 import { NetworkBackdrop } from './Flow';
 
 type Driver = { name: string; w: number; conf: number; dir: 'helps' | 'against' };
@@ -111,11 +111,11 @@ export function ImpactMap() {
               <span className="size-2.5 rounded-full bg-border" />
               <span className="size-2.5 rounded-full bg-border" />
               <span className="size-2.5 rounded-full bg-border" />
-              <span className="ml-2 font-semibold text-foreground">The decision map in Kimaru</span>
+              <span className="ml-2 font-semibold text-foreground">Testing an option in Kimaru</span>
               <span className="ml-auto hidden text-[11px] sm:inline">Synthetic demo data</span>
             </div>
             <div className="relative flex-1 bg-panel">
-              <ScaledArt w={1000} h={558}><CddArt /></ScaledArt>
+              <ScaledArt w={1000} h={558}><WhatIfArt /></ScaledArt>
             </div>
             <p className="border-t border-border px-5 py-3 text-sm text-muted-foreground">Pick a factor and see which outcomes it moves, and how strongly.</p>
           </div>

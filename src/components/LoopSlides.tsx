@@ -29,12 +29,12 @@ const slides: Slide[] = [
     ],
   },
   {
-    step: 'Simulate', gps: 'The map', headline: 'See what drives the outcome.',
-    body: 'Select a node to see the factors that connect to it and the outcomes it moves.',
-    screen: 'art:cdd', w: 1000, h: 558, title: 'Decision map', page: 'Decision map',
+    step: 'Simulate', gps: 'Test it', headline: 'Test each option against what could go wrong.',
+    body: 'Run the options through scenarios such as a longer delay or a demand spike, and see which one holds up before anyone commits.',
+    screen: 'art:whatif', w: 1000, h: 558, title: 'Scenario test', page: 'Scenario test',
     hot: [
-      { x: 49.5, y: 26.5, w: 20.5, h: 11, label: 'The outcome you want', side: 'below' },
-      { x: 2, y: 8, w: 21, h: 40, label: 'Actions that move it', side: 'above' },
+      { x: 27.4, y: 14, w: 45, h: 9, label: 'Three scenarios', side: 'above' },
+      { x: 2.4, y: 69.5, w: 95.2, h: 14.5, label: 'What it means for the call', side: 'below' },
     ],
   },
   {
